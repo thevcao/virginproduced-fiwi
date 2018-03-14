@@ -10,12 +10,12 @@ module.exports = {
     },
 
     entry: {
-        main: './wp-content/themes/classicvue/app/app.js',
+        main: './wp-content/themes/virginproduced/app/app.js',
         vendor: ['vue', 'vue-router'],
     },
 
     output: {
-        path: path.resolve('wp-content/themes/classicvue/dist/js'),
+        path: path.resolve('wp-content/themes/virginproduced/dist/js'),
         filename: '[name].min.js',
         chunkFilename: '[name].min.js',
         publicPath: './js/', // relative to dist
@@ -71,10 +71,10 @@ module.exports = {
     // Generate new index.html file with script tags
     // Note: Need to run webpack twice, without this the second time
     new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'wp-content/themes/classicvue/index.html'),
+            template: path.resolve(__dirname, 'wp-content/themes/virginproduced/index.html'),
             filename: path.resolve(
                 __dirname,
-                'wp-content/themes/classicvue/dist/index.html',
+                'wp-content/themes/virginproduced/dist/index.html',
             ),
         }),
 

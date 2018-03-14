@@ -46,7 +46,7 @@
   |-----------------------------------------------------------------------------
   */
 
-  const themePath = './wp-content/themes/classicvue';
+  const themePath = './wp-content/themes/virginproduced';
 
   const cssFrameworks = [
   'node_modules/bootstrap/',
