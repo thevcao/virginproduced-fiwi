@@ -22,8 +22,18 @@ export default {
 
   console.log('global from the app');
 
-  },
 
+
+
+  },
+  create: function(){
+
+  console.log('global from the footer');
+
+
+
+
+  }
 }
 
 </script>

@@ -10,6 +10,9 @@ import brands from '@fortawesome/fontawesome-free-brands'
 import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 import BootstrapVue from 'bootstrap-vue'
 import VueVideoPlayer from 'vue-video-player'
+import inViewportDirective from 'vue-in-viewport-directive'
+
+Vue.directive('in-viewport', inViewportDirective)
 
 fontawesome.library.add(brands, faSpinner)
 

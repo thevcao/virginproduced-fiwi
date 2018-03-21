@@ -11,12 +11,14 @@
     </div>
 
     <!-- Main -->
-    <div class="pt5 indent center mw-85">
-      <div class="Row">
-        <div class="ColumnQuarter">
+<div class="main">
+
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-4">
           <aside class="SidebarItem">
             <header class="SidebarItem__header">
-              <h3>Our Suits</h3>
+              <h1>Our Suits</h1>
             </header>
             <ul>
               <li v-for="post in limitedPosts" v-bind:key="post.slug">
@@ -26,9 +28,12 @@
               </li>
             </ul>
           </aside>
-        </div>
-      </div>
-    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
 
   </div>
 </template>
@@ -114,17 +119,8 @@ h3
 .SidebarItem
   margin-bottom: 1em
   &__header
-    background: #fff
-    padding: 1em
     text-transform: uppercase
-  ul
-    list-style: none
-    margin: 0
-    padding: 0
-    li
-      padding: 1em
-      background: #fefefe
-      border-top: 1px solid #eee
+
 
 
 .fade-enter-active

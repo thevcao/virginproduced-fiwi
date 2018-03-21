@@ -10,38 +10,65 @@
       </div>
     </div>
 
-    <!-- Main -->
-    <div class="pt5 indent center mw-85" v-if="item.content">
-      <div class="Row">
+    <figure class="team-headshot" v-if="item.better_featured_image">
+      <img :src="item.better_featured_image.source_url">
+      <div class="left"></div>
+      <div class="middle"></div>
+      <div class="right"></div>
+      <header class="float-title">
+      <h2 :title="item.title.rendered">{{ item.title.rendered }}<span>{{ item.acf.position }}</span></h2>
+      </header>
+    </figure>
 
-        <div class="ColumnQuarter">
-          <aside class="SidebarItem">
+
+    <div class="main" v-if="item.content">
+
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <aside class="SidebarItem">
             <header class="SidebarItem__header">
-              <h3>Our Suits</h3>
+              <h1>Our Suits</h1>
             </header>
+
+          </aside>
+
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-sm-8">
+            <aside class="SidebarItem">
             <ul>
               <li v-for="post in limitedPosts" v-bind:key="post.slug">
-                <router-link :to="{ name: 'suits', params: { slug: post.slug } }">
-                  {{ post.title.rendered }}
-                </router-link>
+                <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
               </li>
             </ul>
           </aside>
+
+          </div>
+          <div class="col-xl-4 col-lg-6 col-sm-8">
+
+          <article class="BlogPostSingle">
+
+
+            <aside class="BlogPostSingle__content">
+
+              <div v-html="item.content.rendered"></div>
+
+            </aside>
+
+            </article>
+
+          </div>
+
         </div>
 
-        <div class="ColumnSeventy">
-          <article class="BlogPostSingle">
-            <figure class="BlogPostSingle__images" v-if="item.better_featured_image">
-              <img :src="item.better_featured_image.source_url">
-            </figure>
-            <header class="BlogPostSingle__header">
-              <h1>{{ item.title.rendered }}</h1>
-            </header>
-            <aside class="BlogPostSingle__content">
-              <div v-html="item.content.rendered"></div>
-            </aside>
-          </article>
-        </div>
+
+
 
       </div>
     </div>
@@ -52,6 +79,7 @@
 <script>
 
 import SuitsService from '../services/SuitsService'
+//import Glitch from '../../src/js/_Glitch.js'
 
 export default {
 
@@ -77,8 +105,20 @@ export default {
       return this.posts.splice(0, 999)
     }
   },
+  updated: function(){
+//
+//    const autoGlitch = new Glitch(document.querySelector(".team-headshot img"), 3000, 100, 26);
+//    autoGlitch.activate;
+//    console.log('hello');
+
+  },
 
   methods: {
+
+    glitch() {
+
+
+    },
     fetchItem() {
       return SuitsService.get(this.$route.params.slug)
         .then(result => {
@@ -93,7 +133,8 @@ export default {
         .then(result => {
           this.posts = result.data
         })
-    }
+    },
+
   }
 
 }
@@ -130,17 +171,7 @@ h3
 .SidebarItem
   margin-bottom: 1em
   &__header
-    background: #fff
-    padding: 1em
     text-transform: uppercase
-  ul
-    list-style: none
-    margin: 0
-    padding: 0
-    li
-      padding: 1em
-      background: #fefefe
-      border-top: 1px solid #eee
 
 
 .fade-enter-active
@@ -154,6 +185,10 @@ h3
 
 .fade-leave
   @extend .fade-enter
+
+
+
+
 
 @media only screen and (max-width: 640px)
   .BlogPostSingle

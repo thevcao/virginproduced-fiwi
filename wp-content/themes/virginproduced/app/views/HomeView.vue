@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <div class="dn flex-ns flex-column-ns justify-center bg-top mt5-ns h1 h-75-ns indent center br3 mw-87 rellax" data-rellax-speed="7" :style="{ 'background-image': 'url(' + backgroundImage + ')' }">
       <span class="primary f1 ma7 center self-center fa fa-play-circle-o rellax" data-rellax-speed="-2"></span>
     </div>
@@ -55,7 +55,7 @@ export default {
   },
     updated: function(){
 
-         var rellax = new Rellax('.rellax')
+         var rellax = new Rellax('.rellax');
 
 
     },

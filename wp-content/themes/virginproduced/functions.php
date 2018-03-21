@@ -170,7 +170,6 @@ $OldFashioned = new OldFashioned(
  * Enqueue scripts and styles.
  */
 function vuewp_scripts() {
-    wp_enqueue_style( 'vuewp-style', get_template_directory_uri() . '/dist/css/custom.min.css' );
 
     wp_enqueue_script( 'vuewp-common', get_template_directory_uri() . '/dist/js/common.min.js', array(), '20151217', true );
     wp_enqueue_script( 'vuewp-main', get_template_directory_uri() . '/dist/js/main.min.js', array(), '20151217', true );
@@ -182,6 +181,12 @@ function vuewp_scripts() {
 
 }
 add_action( 'wp_enqueue_scripts', 'vuewp_scripts' );
+
+
+function prefix_add_footer_styles() {
+    wp_enqueue_style( 'vuewp-style', get_template_directory_uri() . '/dist/css/custom.min.css' );
+};
+add_action( 'get_footer', 'prefix_add_footer_styles' );
 
 /**
  * Implement the Custom Header feature.

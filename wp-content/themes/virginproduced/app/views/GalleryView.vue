@@ -87,7 +87,7 @@
 
 
 
-import PageService from '../services/PageService'
+import GalleryService from '../services/GalleryService'
 
 export default {
 
@@ -183,7 +183,7 @@ export default {
       const paramSlug = this.$route.fullPath.replace('/content-services/','') || '';
       const pageSlug = slug || paramSlug
 
-      return PageService.get(pageSlug)
+      return GalleryService.get(pageSlug)
         .then(result => {
           this.item = result.data[0]
             console.log(result.data[0])
@@ -226,9 +226,9 @@ export default {
 
 
 //        var element = this.item.afc.main_roll;
-
-
-        //        function create(htmlStr) {
+//
+//
+//                function create(htmlStr) {
 //          var frag = document.createDocumentFragment(),
 //            temp = document.createElement('div');
 //          temp.innerHTML = htmlStr;
@@ -294,7 +294,7 @@ h3
   width: 100vw;
   height: auto;
 
-canvas
+.video-input
 
     clip: polygon(20% 100%, 75% 0, 100% 0, 100% 100%);
     clip-path: polygon(20% 100%, 75% 0, 100% 0, 100% 100%);

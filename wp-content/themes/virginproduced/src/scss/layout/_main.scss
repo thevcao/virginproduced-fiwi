@@ -12,5 +12,52 @@
       background-size: cover;
     }
   }
+  .main {
+    padding: 5rem 0px 5rem 17rem;
+    // @media (max-width: 1439px)
+    @include media-breakpoint-up(xl) {
+      > .container {
+        margin-left: 50px;
+      }
+    }
+    &:before {
+      content: '';
+      position: fixed;
+      width: 200%;
+      height: 100%;
+      background: white;
+      transform: rotate(-45deg);
+      transform-origin: 40vw 100% 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+    &:after {
+      content: '';
+      position: fixed;
+      width: 15rem;
+      height: 100%;
+      background: white;
+      transform-origin: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+    .SidebarItem__header {
+      h1 {
+        color: $red;
+        font-size: 5rem;
+        line-height: 1;
+        margin: 0 0 1rem;
+      }
+    }
+  }
 }
-html {}
+.max-margin {
+  // @media (max-width: 1439px)
+  @include media-breakpoint-up(xl) {
+    margin-left: 50px;
+  }
+}

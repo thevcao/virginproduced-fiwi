@@ -46,7 +46,7 @@
   |-----------------------------------------------------------------------------
   */
 
-  const themePath = './wp-content/themes/classicvue';
+  const themePath = './wp-content/themes/virginproduced';
 
   const cssFrameworks = [
   'node_modules/bootstrap/',
@@ -87,7 +87,7 @@
   gulp.task("browser-sync", () => {
     browserSync.init({
       proxy: `${process.env.WP_HOME}`,
-      port: 8080,
+      port: 8000,
       open: true,
       browser: "chrome",
       notify: false
@@ -227,7 +227,7 @@ gulp.task('ext-scripts', () => {
           'node_modules/font-awesome/fonts/*',
     //      'node_modules/slick-carousel/slick/fonts/*',
         ])
-        .pipe(gulp.dest(`${themePath}/fonts/`))
+        .pipe(gulp.dest(`${themePath}/dist/fonts/`))
     })
   /*
   |-----------------------------------------------------------------------------
@@ -251,7 +251,7 @@ gulp.task('ext-scripts', () => {
 
     // Watch Styles
     gulp.watch(`${themePath}/src/scss/*.scss`, ['styles']);
-    gulp.watch(`${themePath}/src/scss/*/*.scss`, ['styles']);
+    gulp.watch(`${themePath}/src/scss/**/*.scss`, ['styles']);
     gulp.watch(`${themePath}/src/js/*.js`, ['ext-scripts']);
     gulp.watch(`${themePath}/admin/scss/*.scss`, ['admin-styles', browserSync.reload]);
 
