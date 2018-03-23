@@ -39,14 +39,14 @@
   const gutil = require("gulp-util");
   const sassGlob = require('gulp-sass-glob');
   const sourcemaps = require('gulp-sourcemaps');
-
+  const favicons = require("gulp-favicons");
   /*
   |-----------------------------------------------------------------------------
   | Global Config
   |-----------------------------------------------------------------------------
   */
 
-  const themePath = './wp-content/themes/virginproduced';
+  const themePath = './www/wp-content/themes/virginproduced';
 
   const cssFrameworks = [
   'node_modules/bootstrap/',
@@ -144,6 +144,16 @@
       .pipe(sassLint.failOnError());
   });
 
+
+// Favicons
+
+  gulp.task("favicons", function () {
+      return gulp.src(`${themePath}/src/img/favicons/favicon.png`).pipe(favicons({
+      }))
+      .on("error", util.log)
+      .pipe(gulp.dest(`${themePath}/dist/img/favicons/`));
+  });
+
   /** Compiling and bundeling Sass into single CSS-File */
   gulp.task('styles', () => {
     return (
@@ -203,11 +213,11 @@
   });
 
 // Scripts task
-gulp.task('ext-scripts', () => {
-  return gulp.src([
-      'node_modules/rellax/rellax.js',
-      `${themePath}/src/js/*.js`
-  ])
+  gulp.task('ext-scripts', () => {
+    return gulp.src([
+        'node_modules/rellax/rellax.js',
+        `${themePath}/src/js/*.js`
+    ])
     .pipe(plugins.plumber())
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel())
@@ -218,7 +228,7 @@ gulp.task('ext-scripts', () => {
     .pipe(gulp.dest(`${themePath}/dist/js`))
     .pipe(browserSync.stream())
     .pipe(plugins.size({ title: 'ext-scripts' }));
-})
+  })
 
         // Fonts
     gulp.task('fonts', () => {
@@ -237,9 +247,8 @@ gulp.task('ext-scripts', () => {
 
   /** Build Task */
 
-  gulp.task('default', ['styles', 'admin-styles', 'fonts', 'webpack:build']);
-
-  gulp.task('dev', ['styles', 'admin-styles', 'fonts', 'ext-scripts', 'webpack']);
+  gulp.task('default', ['styles', 'admin-styles', 'fonts', 'favicons', 'ext-scripts', 'webpack:build']);
+  gulp.task('dev', ['styles', 'admin-styles', 'fonts', 'favicons', 'ext-scripts', 'webpack']);
 
   /** Server Task */
   gulp.task('serve', ['dev', 'browser-sync'], () => {

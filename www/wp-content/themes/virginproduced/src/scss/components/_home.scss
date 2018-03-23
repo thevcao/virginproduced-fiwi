@@ -1,0 +1,147 @@
+$cropwidth: 0;
+$half: $cropwidth / 2.35;
+// @media (max-width: 1439px)
+@include media-breakpoint-down(xl) {
+  $cropwidth: 40vw;
+}
+// @media (max-width: 1439px)
+@include media-breakpoint-down(lg) {
+  $cropwidth: 40vw;
+}
+#app {
+  .home-vue {
+    //    position: fixed;
+    //    z-index: 2;
+    //    background: white;
+    //  background: black;
+    overflow: hidden;
+    .main {
+    width: calc(100vw - 2rem - 17rem);
+    height: calc(100vh - 4rem);
+    margin: 2rem 0 0;
+    overflow: hidden;
+    padding: 0;
+    margin-left: 17rem;
+      video {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+      .lines {
+        position: absolute;
+        padding: 2rem 5rem 5rem 2rem;
+        background: url(../../src/img/triangle.svg);
+        background-size: cover;
+        background-position: -50px -50px;
+        background-repeat: no-repeat;
+        .hero-text {
+          background: url(../../src/img/red-triangle.svg);
+          background-size: cover;
+          padding: 2rem 20rem 20rem 2rem;
+          background-position: 100% 100%;
+          h1 {
+            color: white;
+            line-height: 1;
+            font-weight: normal;
+            font-size: 4rem;
+            margin-bottom: 0;
+          }
+          p {
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1;
+          }
+        }
+      }
+      .home-menu {
+        position: absolute;
+        bottom: 0;
+        right: 2rem;
+        z-index: 2;
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          li {
+            display: inline-block;
+            line-height: 0;
+            &:after {
+              content: '/';
+              color: $purple;
+              font-size: 1.75rem;
+              font-family: 'Heroic Condensed';
+              margin-left: .5rem;
+              position: relative;
+              top: -.1rem;
+            }
+            &:last-child {
+              &:after {
+                content: none;
+              }
+            }
+            a {
+              font-size: 2rem;
+              font-family: 'Heroic Condensed';
+              text-transform: uppercase;
+              color: $red;
+              line-height: 1;
+              padding: 0;
+
+              @include textGlitch("homemenu", 17, $red, white, $purple, $green, 450, 18);
+
+            }
+          }
+        }
+      }
+    }
+    .crop-bg {
+      position: fixed;
+      width: 100%;
+      right: 0;
+      top: 0;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      > div {
+        position: relative;
+        width: $cropwidth;
+        right: -25vw;
+        top: 0;
+        width: 100%;
+        background: none;
+        z-index: 1;
+        height: 100%;
+        display: inline-block;
+        //    &:before {
+        //      content: '';
+        //      position: fixed;
+        //      width: 200%;
+        //      height: 100%;
+        //      background: white;
+        //      transform: rotate(-45deg);
+        //      transform-origin: 40vw 100% 0;
+        //      left: 0;
+        //      top: 0;
+        //      bottom: 0;
+        //      right: 0;
+        //    }
+        &:before {
+          content: '';
+          background: url(../../src/img/white-triangle-reversed.svg);
+          display: block;
+          margin-left: auto;
+          height: 100%;
+          width: 100vh;
+          position: relative;
+          //        left: $cropwidth;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: 100% 100%;
+          //        margin-left: -1px;
+          //        margin-top: -1px;
+        }
+      }
+    }
+  }
+}

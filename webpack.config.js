@@ -10,12 +10,12 @@ module.exports = {
   },
 
   entry: {
-    main: './wp-content/themes/virginproduced/app/app.js',
+    main: './www/wp-content/themes/virginproduced/app/app.js',
     vendor: ['vue', 'vue-router'],
   },
 
   output: {
-    path: path.resolve('wp-content/themes/virginproduced/dist/js'),
+    path: path.resolve('./www/wp-content/themes/virginproduced/dist/js'),
     filename: '[name].min.js',
     chunkFilename: '[name].min.js',
     publicPath: './js/', // relative to dist
@@ -27,6 +27,9 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        query: {
+        presets: ['es2015']
+        }
       },
       {
         test: /\.vue$/,
@@ -91,10 +94,10 @@ module.exports = {
     // Generate new index.html file with script tags
     // Note: Need to run webpack twice, without this the second time
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'wp-content/themes/virginproduced/index.html'),
+      template: path.resolve(__dirname, './www/wp-content/themes/virginproduced/index.html'),
       filename: path.resolve(
         __dirname,
-        'wp-content/themes/virginproduced/dist/index.html',
+        './www/wp-content/themes/virginproduced/dist/index.html',
       ),
     }),
 

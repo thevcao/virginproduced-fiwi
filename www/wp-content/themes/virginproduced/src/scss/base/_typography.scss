@@ -1,0 +1,47 @@
+@import 'node_modules/poly-fluid-sizing/poly-fluid-sizing.scss';
+html {
+  font-family: 'Gotham';
+  font-weight: 300;
+  font-style: normal;
+  @include poly-fluid-sizing('font-size', (320px: 14px, 768px: 11px, 1024px: 10px, 1440px: 14px));
+  letter-spacing: -.05rem;
+}
+p,
+li {
+  font-family: 'Gotham';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 2;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Heroic Condensed';
+  font-weight: normal;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  span {
+    color: $red;
+  }
+}
+h1 {
+  font-size: 4rem;
+}
+.glitching {
+  @include textGlitch("glitching", 17, black, white, $green, $purple, 450, 66);
+  &:before,
+  &:after {
+    opacity: 1;
+  }
+}
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}

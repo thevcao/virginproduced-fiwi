@@ -1,0 +1,185 @@
+footer {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  padding: 2rem 0 2rem 17rem;
+  //  &:before {
+  //    content: '';
+  //    position: absolute;
+  //    width: 200%;
+  //    height: 70vw;
+  //    background: $red;
+  //    transform: rotate(-45deg);
+  //    //    transform-origin: -10vw 100% 0;
+  //    left: -125vw;
+  //    top: 0;
+  //    bottom: 0;
+  //    right: 0;
+  //    z-index: 0;
+  //  }
+
+  &.disabled {
+
+//    bottom: 0;
+    opacity: 0;
+    width: 100%;
+//    opacity: 0;
+//    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .bg {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    > div {
+      position: relative;
+      width: 400px;
+      left: 0;
+      top: 0;
+      background: $red;
+      z-index: 1;
+      height: 100%;
+      display: inline-block;
+      //    &:before {
+      //      content: '';
+      //      position: fixed;
+      //      width: 200%;
+      //      height: 100%;
+      //      background: white;
+      //      transform: rotate(-45deg);
+      //      transform-origin: 40vw 100% 0;
+      //      left: 0;
+      //      top: 0;
+      //      bottom: 0;
+      //      right: 0;
+      //    }
+      &:after {
+        content: '';
+        background: url(../../src/img/red-triangle-fullopaque.svg);
+        display: inline-block;
+        height: 0;
+        width: 100%;
+        padding-bottom: 100%;
+        position: relative;
+        left: calc(100%);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 0% 100%;
+        margin-left: -1px;
+        margin-top: -1px;
+      }
+    }
+  }
+  .router-link-active {
+    svg {
+      height: 150px;
+      path {
+        fill: white !important;
+      }
+    }
+  }
+
+  p {
+
+    color: white;
+    letter-spacing: -.02rem;
+    margin: .5rem 0 0;
+  }
+  .address {
+    p {
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-size: 1rem;
+      &.name {
+        font-size: 1.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+      color: white;
+      line-height: 1;
+    }
+  }
+  .social {
+    list-style: none;
+    margin: 2rem 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      margin-right: .5rem;
+      a {
+        color: white;
+        font-size: 2rem;
+        display: block;
+        line-height: 1;
+        font-family: fontawesome;
+        @include textGlitch("sociallink", 17, white, $red, $green, $purple, 400, 24);
+        i.square {
+          //          display: block;
+          &:before {
+            color: $red;
+            font-size: 1.5rem;
+            background: #fff;
+            padding: 1.75px 4px 1.45px 3px;
+            border-radius: 5px;
+            text-align: center;
+            position: relative;
+            top: -2px;
+            left: .5px;
+          }
+        }
+      }
+    }
+  }
+  .footer-menu {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        //        margin-right: 2rem;
+        line-height: 1;
+        &:after {
+          content: '/';
+          //              color: $purple;
+          font-size: 1.75rem;
+          font-family: 'Heroic Condensed';
+          margin: 0 .5rem;
+          position: relative;
+          top: -.1rem;
+          color: $grey;
+        }
+        &:last-child {
+          &:after {
+            content: none;
+          }
+        }
+        a {
+          font-weight: normal;
+          font-family: 'Heroic Condensed';
+          font-size: 2rem;
+          line-height: 1;
+          letter-spacing: 0;
+          color: $grey;
+          text-decoration: none;
+          @include textGlitch("footerlink", 17, $grey, white, $green, $red, 400, 16);
+        }
+      }
+    }
+    p {
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0 0 .5rem;
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: $purple;
+    }
+  }
+}

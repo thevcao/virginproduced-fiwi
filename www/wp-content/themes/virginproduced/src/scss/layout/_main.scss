@@ -1,0 +1,40 @@
+#app {
+  //  opacity: 0;
+  //  transition: .5s ease;
+  &.loaded {
+    opacity: 1;
+  }
+  .video-js {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.5%;
+    .vjs-poster {
+      background-size: cover;
+    }
+  }
+  .main {
+    padding: 5rem 0px 5rem 17rem;
+    position: relative;
+    z-index: 1;
+    // @media (max-width: 1439px)
+    @include media-breakpoint-up(xl) {
+      > .container {
+        margin-left: 0;
+      }
+    }
+    .SidebarItem__header {
+      h1 {
+        color: $red;
+        font-size: 5rem;
+        line-height: 1;
+        margin: 0 0 1rem;
+      }
+    }
+  }
+}
+.max-margin {
+  // @media (max-width: 1439px)
+  @include media-breakpoint-up(xl) {
+    margin-left: 0;
+  }
+}
