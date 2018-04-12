@@ -316,7 +316,7 @@ export default {
       document.querySelector('#footer').style.display='none'
   //    document.querySelector('.toggle').classList.remove('footer-in-view');
 
-      if(this.is993 === true) {
+      if(this.is993 === true || this.mobile === true) {
 
       document.querySelector('body').style.position='fixed'
       document.querySelector('body').style.width='100%'
@@ -358,7 +358,7 @@ export default {
 
       } else {
 
-      document.querySelector('.main').style.height=''
+//      document.querySelector('.main').style.height=''
 
 
       }

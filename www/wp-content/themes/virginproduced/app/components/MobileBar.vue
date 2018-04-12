@@ -60,7 +60,7 @@
                @click="toggleContextmenu"
                @click.prevent
 
-               v-else="main === 'our-suits' || main === 'suits'"
+               v-if="main === 'our-suits' || main === 'suits'"
                class="context-toggle primary">Our Suits
             </a>
             <a href="#"
@@ -182,6 +182,7 @@ export default {
 
   },
   updated: function () {
+        if(this.is993 === true && this.contextual_menu_links){
 
         setTimeout(function(){
 
@@ -208,14 +209,14 @@ export default {
 
         }, 2000);
 
-
+        }
 
   },
   mounted: function () {
 
 
 
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        if(this.mobile === true){
 
         function hasClass(element, className) {
             return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
@@ -259,6 +260,9 @@ export default {
 
       this.$nextTick(function () {
 
+        if(this.is993 === true && this.contextual_menu_links){
+
+
 
         setTimeout(function(){
 
@@ -284,6 +288,10 @@ export default {
 
 
         }, 2000);
+
+
+        }
+
 
 
 

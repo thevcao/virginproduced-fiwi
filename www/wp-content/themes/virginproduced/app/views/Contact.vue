@@ -1,8 +1,9 @@
 <template>
-  <div class="contact-vue">
+
+  <div class="contact-vue" :is993="is993" :mobile="mobile" :ie="ie">
 
     <div v-if="item">
-        <figure class="team-headshot" v-if="item && item.better_featured_image">
+        <figure class="team-headshot" v-if="item && item.better_featured_image && is993 === false">
           <img :src="item.better_featured_image.media_details.sizes.medium.source_url" v-if="item.better_featured_image.media_details.sizes.medium">
           <img :src="item.better_featured_image.source_url" v-else>
           <header class="float-title">
@@ -18,7 +19,7 @@
 
           <div class="container ml-xl-0">
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-xl-7">
                 <aside class="SidebarItem">
                 <header class="SidebarItem__header">
                   <h1>Contact Us</h1>
@@ -102,6 +103,13 @@ export default {
       error: false
     }
   },
+  props: {
+
+    ie: {},
+    mobile: {},
+    is993: {}
+
+  },
 
   created() {
     this.fetchItem()
@@ -121,16 +129,32 @@ export default {
     }
 
   },
-  updated: function(){
+  updated(){
 
+    if(this.is993 === true){
+    var body = document.querySelector('body');
 
+      body.classList.add('no-header-bg')
+    }
 
   },
   mounted() {
+    if(this.is993 === true){
+    var body = document.querySelector('body');
+
+      body.classList.add('no-header-bg')
+    }
+
+  },
+  beforeDestroy() {
+    if(this.is993 === true){
+    var body = document.querySelector('body');
+
+      body.classList.remove('no-header-bg')
+    }
 
 
   },
-
   methods: {
 
 

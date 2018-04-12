@@ -1,7 +1,15 @@
 <template v-if="item && item.acf.bg_video">
-  <div>
+  <div :is993="is993" :mobile="mobile" :ie="ie">
     <div class="child-vue"  v-if="item && item.acf">
+          <transition
+          v-on:before-enter="reelEnter"
+          v-on:enter="reelEntered"
+          v-on:leave="reelLeave"
+          v-bind:css="false"
+          >
+          <reelPlayer :src="item.acf.main_roll" v-if="reel && is993 === true" @closeReel="closeReel"></reelPlayer>
 
+          </transition>
         <div
              class="video-hover ie transition-1"
               v-if="ie"
@@ -13,7 +21,7 @@
 
           </div>
 
-        <div class="video-hover transition-1" v-else>
+        <div class="video-hover transition-1" v-if="is993 === false">
             <video
                 :id="item.id"
                 class=""
@@ -68,6 +76,7 @@
                  >
 
               <figure class="gallery-title transition-3"
+                      v-if="is993 === false"
 
                       >
                 <header class="float-title"
@@ -96,6 +105,7 @@
 
             <div
                 class="crop-bg"
+                 v-if="is993 === false"
                  >
                   <div>
                   </div>
@@ -105,10 +115,10 @@
            <div class="anchor"
                 data-bottom="transform:translate3d(0%,0%,0)"
                 data-top="transform:translate3d(0%,-25%,0)"
-                v-in-viewport v-if="item.acf.images"></div>
+                v-in-viewport v-if="item.acf.images && is993 === false"></div>
            <div class="anchor"
                 style="opacity:0"
-                v-else
+                v-if="is993 === false"
                 data-bottom="transform:translate3d(0%,0%,0)"
                 data-top="transform:translate3d(0%,-25%,0)"
                 ></div>
@@ -121,16 +131,25 @@
             />
 
               <div class="row">
-                <div class="col-xl-8 col-lg-9 col-sm-6">
+                <div class="col-xl-8 col-lg-9 col-md-10">
 
 
                   <h1 class="rellax headline" data-rellax-speed="2" v-html="item.acf.headline" v-if="item.acf.text_or_image === 'text'"></h1>
-                  <img class="title-logo" :src="item.acf.image.url" v-else>
+                  <img class="title-logo" :src="item.acf.image.url" v-if="item.acf.image && is993 === false">
+                  <img class="title-logo mobile" :src="item.acf.image_mobile.url" v-if="item.acf.image_mobile && is993 === true">
+                  <a
+                     href="#"
+                     class="play-toggle mobile"
+                     v-if="item.acf.main_roll && is993 === true"
+                     v-on:click="playReel()"
+                     >
+                    <Play></Play>
+                  </a>
 
                 </div>
               </div>
-              <div class="row">
-                <div class="col-xl-5 pr-xl-auto col-lg-5 pr-lg-5 col-md-4 pr-sm-auto">
+              <div class="row" v-if="is993 === false">
+                <div class="col-xl-5 pr-xl-auto col-lg-5 pr-lg-5 col-md-10 pr-sm-auto">
 
 
                 <div v-html="item.acf.content" data-start="opacity: 1" data-end="opacity: 0">
@@ -151,38 +170,78 @@
           <div class="main post-content below-fold">
 
               <div class="container">
-                    <div class="row align-items-center">
-                      <div class="col-sm-7">
-                        <div class="masonry" v-if="item.acf.images">
 
-                          <div
-                               class="image"
-                               v-for="image in masonryImages"
-                                data-bottom-top="transform: translateY(15%); opacity: 0;"
-                                data-center="transform: translateY(0%); opacity: 1"
+              <div class="row" v-if="is993 === true">
+                <div class="col-12 mx-auto">
 
 
-                               >
-                            <img :src="image.sizes.large">
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="col-sm-4 offset-sm-1">
+                <div v-html="item.acf.content">
 
 
-                        <div
-                             v-html="item.acf.gallery_content"
-                              data-bottom-top="transform: translateY(25%);"
-                              data-center="transform: translateY(-5%);"
+                </div>
 
-                             ></div>
+                </div>
+
+              </div>
+                <div class="row align-items-center" v-if="is993 === false">
+                  <div class="col-sm-7">
+                    <div class="masonry" v-if="item.acf.images">
+
+                      <div
+                           class="image"
+                           v-for="image in masonryImages"
+                            data-bottom-top="transform: translateY(15%); opacity: 0;"
+                            data-center="transform: translateY(0%); opacity: 1"
+
+
+                           >
+                        <img :src="image.sizes.large">
                       </div>
                     </div>
 
+                  </div>
+                  <div class="col-sm-4 offset-sm-1">
 
+
+                    <div
+                         v-html="item.acf.gallery_content"
+                          data-bottom-top="transform: translateY(25%);"
+                          data-center="transform: translateY(-5%);"
+
+                         ></div>
+                  </div>
+                </div>
               </div>
 
+                <div class="row mt-5" v-if="is993 === true && item.acf.images">
+                  <div class="col-12">
+                    <div class="masonry" v-if="item.acf.images">
+                      <div
+                           class="image"
+                           v-for="image in masonryImages"
+                            data-bottom-top="transform: translateY(15%); opacity: 0;"
+                            data-center="transform: translateY(0%); opacity: 1"
+
+
+                           >
+                        <img :src="image.sizes.large">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            <div class="container mt-5" v-if="is993 === true && item.acf.gallery_content">
+
+                  <div class="col-12 mx-auto">
+
+
+                    <div
+                         v-html="item.acf.gallery_content"
+                         ></div>
+                  </div>
+
+
+            </div>
           </div>
 
         </div>
@@ -203,12 +262,13 @@ let videojs = require('video.js');
 import inViewportDirective from 'vue-in-viewport-directive'
 import inViewport from 'vue-in-viewport-mixin'
 import PlayIcon from '../components/Play.vue'
+import Play from '../components/PlayIcon.vue'
 
 
 
 export default {
 
-  components: {galleryPlayer, PlayIcon, reelPlayer},
+  components: {galleryPlayer, PlayIcon, reelPlayer, Play},
 
   data() {
     return {
@@ -224,7 +284,9 @@ export default {
   },
   props: {
 
-    ie: {}
+    ie: {},
+    mobile: {},
+    is993: {}
   },
     created() {
       const slug = this.$route.params.slug;
@@ -247,41 +309,54 @@ export default {
 
            this.initView()
 
+
       })
 
     },
     updated: function() {
 
-//        let footer = document.querySelector('footer')
-//
-//        document.querySelector('header .router-link-active').classList.remove('white');
-//        footer.classList.add('white');
-//
-//        setTimeout(function(){
-//
-//          skrollr.init({
-//  //            forceHeight: false
-//
-//
-//          });
-//        }, 1000);
 
-//      this.$nextTick(function () {
-//        // Code that will run only after the
-//        // entire view has been rendered
-//      this.updateValue()
-//
-//      setTimeout(function(){
-//        skrollr.init();
-//
-//
-//      }, 1500);
-//
-//      })
+        var vm = this;
+
+        vm.$el.classList.remove('loading');
+
+
+        setTimeout(function(){
+
+        if (window.navigator.standalone == true) {
+
+        var heroHeight = window.innerHeight - 80 + 'px'
+
+        } else {
+
+        var heroHeight = window.innerHeight - 65 + 'px'
+
+        }
+
+        vm.$el.querySelector('.above-fold').style.height=heroHeight
+
+        if(vm.acf.bg_video){
+
+        vm.$el.querySelector('#main-roll').style.height=heroHeight
+
+
+        }
+        if(vm.acf.main_image){
+
+        vm.$el.querySelector('.crop-image').style.height=heroHeight
+
+
+        }
+
+
+         }, 500);
+
     },
     mixins: [ inViewport ],
     watch: {
      'inViewport.now': function(visible, above) {
+
+       if(this.is993 === false){
 
        if(visible){
 
@@ -298,7 +373,11 @@ export default {
 
 
        }
-     },
+
+
+       }
+
+},
       $route (to, from){
         this.show = false;
         location.reload()
@@ -335,7 +414,6 @@ export default {
 
       footer.classList.remove('white');
       skrollr.init().destroy();
-
     },
 
 
@@ -349,10 +427,9 @@ export default {
             vm.$el.classList.add('loading')
 
             let footer = document.querySelector('footer')
+            if(this.is993 === false){
 
             document.querySelector('header .router-link-active').classList.remove('white');
-//            footer.classList.add('white');
-
             document.querySelector('body').style.overflow="hidden";
             if(vm.$el){
 
@@ -370,6 +447,8 @@ export default {
             setTimeout(function(){
             vm.$el.classList.remove('loading');
             vm.$el.classList.remove('loaded');
+
+
             skrollr.init({
 
               forceHeight: false
@@ -381,6 +460,43 @@ export default {
             }, 9000);
 
             }
+            } else {
+
+            vm.$el.classList.remove('loading');
+
+
+            setTimeout(function(){
+
+            if (window.navigator.standalone == true) {
+
+            var heroHeight = window.innerHeight - 80 + 'px'
+
+            } else {
+
+            var heroHeight = window.innerHeight - 65 + 'px'
+
+            }
+
+            vm.$el.querySelector('.above-fold').style.height=heroHeight
+
+            if(vm.acf.bg_video){
+
+            vm.$el.querySelector('#main-roll').style.height=heroHeight
+
+
+            }
+            if(vm.acf.main_image){
+
+            vm.$el.querySelector('.crop-image').style.height=heroHeight
+
+
+            }
+
+
+             }, 500);
+            }
+
+
 
           },
 
@@ -402,7 +518,10 @@ export default {
                   console.log(this.acf.bg_video);
 
                   }
-
+                this.title = this.item.title.rendered
+                this.$parent.$emit('title', {
+                title : this.item.title.rendered
+                })
 
 
                 })
@@ -464,6 +583,10 @@ export default {
 
           },
           reelEntered: function (el, done) {
+
+            if(this.is993 === false) {
+
+
             skrollr.init().destroy();
 
             var container = document.querySelector('.video-hover');
@@ -490,6 +613,10 @@ export default {
               },
             })
 
+            }
+
+
+
             Velocity(el, {
               opacity: 1
             },{
@@ -500,23 +627,11 @@ export default {
 
           },
           reelLeave: function (el, done) {
+            if(this.is993 === false) {
 
             var container = document.querySelector('.video-hover');
 
 
-            Velocity(el, {
-              opacity: 0
-            }, {
-              duration: 500,
-              delay: 0,
-            });
-
-            Velocity(el, {
-              display: 'none'
-            }, {
-              complete: done,
-              delay: 1000
-            });
 
             Velocity(container, "reverse", {
 
@@ -540,6 +655,22 @@ export default {
               },
 
             })
+
+            }
+            Velocity(el, {
+              opacity: 0
+            }, {
+              duration: 500,
+              delay: 0,
+            });
+
+            Velocity(el, {
+              display: 'none'
+            }, {
+              complete: done,
+              delay: 1000
+            });
+
 
           },
           closeReel() {

@@ -232,13 +232,13 @@
                         data-center="transform: translate3d(0, 0%, 0); opacity: 1;"
 
                         >
-                      <a
-                       :href="image.link.url"
+                      <router-link
+                       :to="image.link"
                        >
                       <img
                            :src="image.image.url"
                            >
-                        </a>
+                        </router-link>
                     </li>
 
                   </ul>
@@ -361,7 +361,11 @@ export default {
 
 //    footer.classList.remove('white');
     skrollr.init().destroy();
+    if(this.is993 === true){
 
+      var body = document.querySelector('body');
+      body.classList.add('no-header-bg')
+    }
   },
   methods: {
 //    fetchNestedAcf(slug) {
@@ -390,6 +394,8 @@ export default {
 //      document.querySelector('header .router-link-active').classList.remove('white');
 //      footer.classList.remove('white');
 
+      if(this.is993 === false){
+
       document.querySelector('body').style.overflow="hidden";
 
       if(vm){
@@ -404,8 +410,6 @@ export default {
 
 
       }, 3000);
-
-
 
       setTimeout(function(){
 
@@ -422,6 +426,15 @@ export default {
       }, 10000);
 
       }
+
+
+      } else {
+
+      vm.$el.classList.remove('loading')
+
+
+      }
+
 
     },
     fetchItem(slug) {

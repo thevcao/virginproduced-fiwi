@@ -131,7 +131,7 @@ export default {
   updated: function(){
     var body = document.querySelector('body');
 
-    if(window.innerWidth < 993){
+    if(this.is993 === true){
 
       document.querySelector('body').style.position='fixed'
       body.classList.add('no-header-bg')
@@ -143,17 +143,17 @@ export default {
 
     var body = document.querySelector('body');
 
-    if(window.innerWidth < 993){
+    if(this.is993 === true){
 
       document.querySelector('body').style.position='fixed'
       body.classList.add('no-header-bg')
     }
   },
   beforeDestroy: function(){
+
+
+    if(this.is993 === true){
     var body = document.querySelector('body');
-
-
-    if(window.innerWidth < 993){
 
       document.querySelector('body').style.position=''
       body.classList.remove('no-header-bg')

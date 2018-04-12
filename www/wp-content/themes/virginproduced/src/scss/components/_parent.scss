@@ -95,11 +95,13 @@ $half: $cropwidth / 2;
     min-height: 100vh;
     // (768px)
     @include media-breakpoint-down(sm) {
-      min-height: calc(100vh - 65px - 9rem);
+      min-height: calc(100vh - 9rem);
 
       padding-top: 9rem;
-      margin-bottom: 2rem;
+//      margin-bottom: 2rem;
       .intro-in {
+
+//        margin-top: 9rem;
         .glitching.large {
           transform: rotate(-90deg) translate3d(-37%, -110%, 0);
           font-size: 7rem;
@@ -155,7 +157,12 @@ $half: $cropwidth / 2;
         //        color: black;
         text-transform: uppercase;
         font-weight: normal;
+
+        // (768px)
+        @include media-breakpoint-up(md) {
         @include textGlitch("childlink", 17, $grey, white, $purple, $green, 600, 48);
+
+
         &:hover {
           &:before,
           &:after {
@@ -163,6 +170,8 @@ $half: $cropwidth / 2;
             font-family: 'Heroic Condensed', fontawesome;
           }
         }
+        }
+
         i {
           color: $purple;
         }
@@ -338,7 +347,7 @@ $half: $cropwidth / 2;
       @include media-breakpoint-down(sm) {
         background: url(#{$theme}/img/white-triangle.svg);
         background-position: 0% 0%;
-        background-size: cover;
+        background-size: 150%;
         background-repeat: no-repeat;
         z-index: 1;
         bottom: 0;

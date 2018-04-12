@@ -447,6 +447,14 @@ $half: $cropwidth / 2;
     }
   }
   .below-fold {
+
+
+    // (768px)
+    @include media-breakpoint-down(sm) {
+
+      padding: 0 !important;
+    }
+
     .content {
       //      position: fixed;
       //      top: 50%;

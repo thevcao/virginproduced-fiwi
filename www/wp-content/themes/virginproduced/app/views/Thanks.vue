@@ -11,7 +11,7 @@
 
           <div class="container ml-xl-0">
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-xl-7">
                 <aside class="">
                 <header class="">
                   <h1 class="large glitching" title="Thanks">Thanks</h1>
@@ -106,10 +106,27 @@ export default {
   },
   updated: function(){
 
+    if(this.is993 === true){
+    var body = document.querySelector('body');
 
+      body.classList.add('no-header-bg')
+    }
 
   },
   mounted() {
+    if(this.is993 === true){
+    var body = document.querySelector('body');
+
+      body.classList.add('no-header-bg')
+    }
+
+  },
+  beforeDestroy() {
+    if(this.is993 === true){
+    var body = document.querySelector('body');
+
+      body.classList.remove('no-header-bg')
+    }
 
 
   },

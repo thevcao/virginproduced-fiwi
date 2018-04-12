@@ -49,7 +49,7 @@
                 <SocialLinks></SocialLinks>
 
               </div>
-              <div class="col-12 text-center address" v-else>
+              <div class="col-12 text-sm-left text-center address" v-else>
 
                 <SocialLinks></SocialLinks>
                 <p class="name">Virgin Produced</p>
