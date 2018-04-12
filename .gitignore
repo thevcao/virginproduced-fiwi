@@ -1,0 +1,7 @@
+node_modules
+vendor
+db
+wp-content/plugins
+dist
+.env
+!.env.example
