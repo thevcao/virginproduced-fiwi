@@ -1,8 +1,7 @@
 <template>
 
 
-  <div
-       class="">
+  <div class="">
 
     <header-bar v-on:update="onElementChange()" :src="elementChange()" :is993="is993" :mobile="mobile"></header-bar>
     <section class="MainSection">
@@ -11,8 +10,9 @@
 
 
       <vue-progress-bar></vue-progress-bar>
+      <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === true"></footer-bar>
     </section>
-    <footer-bar :ie="ie" :is993="is993" :mobile="mobile"></footer-bar>
+    <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === false"></footer-bar>
     <mobileBar v-if="is993 === true" v-on:update="onElementChange()" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
 
 
