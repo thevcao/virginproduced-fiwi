@@ -1,41 +1,136 @@
 <template>
-  <div class="flex flex-column">
-    <header-bar></header-bar>
+
+
+  <div
+       class="">
+
+    <header-bar v-on:update="onElementChange()" :src="elementChange()" :is993="is993" :mobile="mobile"></header-bar>
     <section class="MainSection">
-      <transition name="fade">
-        <router-view class="view"></router-view>
-      </transition>
+
+        <router-view class="view" :items="items" :offerings="offerings" :ie="ie" :is993="is993" :mobile="mobile"></router-view>
+
+
       <vue-progress-bar></vue-progress-bar>
     </section>
-    <footer-bar></footer-bar>
+    <footer-bar :ie="ie" :is993="is993" :mobile="mobile"></footer-bar>
+    <mobileBar v-if="is993 === true" v-on:update="onElementChange()" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
+
+
   </div>
+
+
 </template>
 
 <script>
 import { orderBy } from 'lodash'
 
 import HeaderBar from '../components/Header.vue'
+import mobileBar from '../components/MobileBar.vue'
 import FooterBar from '../components/Footer.vue'
 import VueProgressBar from 'vue-progressbar'
-//import OfferingsMenuService from '../services/OfferingsMenuService'
-
+import OfferingsMenuService from '../services/OfferingsMenuService'
+//import SocialLinks from './SocialLinks.vue'
+import MenuService from '../services/MenuService'
+import videojs from 'video.js'
 
 export default {
- ready() {
-    this.addOfferings()
-  },
-  components: { HeaderBar, FooterBar },
-  updated: function(){
 
-  console.log('global from the app');
+  data() {
+
+    return {
+            items: [],
+            offerings: [],
+            src: "/wp-content/themes/virginproduced/src/img/virgin-glitched.mp4",
+            ie: null,
+            is993: false,
+            contextual_menu: '',
+            contextual_menu_links: '',
+            mobile: false,
+            title: ''
+
+    }
 
   },
+  props: {
+
+
+//    first: true
+  },
+  components: { HeaderBar, FooterBar, mobileBar },
+
+//    updated: function () {
+////        var vm = this;
+//        this.$on('update', () => {
+//
+//          console.log('hi');
+//
+//        })
+//    },
   mounted () {
     //  [App.vue specific] When App.vue is finish loading finish the progress bar
-    this.$Progress.finish()
+
+
+//    setTimeout(function(){
+
+      this.$Progress.finish()
+      this.isIE()
+      this.islower993()
+      this.getcontextualMenuUpdate()
+      this.getcontextualLinks()
+    this.getTitle()
+//      this.firstTime()
+
+      if (window.navigator.standalone == true) {
+        document.querySelector('html').classList.add('app-mode')
+      }
+
+    this.$on('reelPlay', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+//      this.src = payload.src
+
+          setTimeout(function(){
+          const getID = document.querySelector('#reel-player .video-js').id;
+
+          var player = videojs(getID);
+
+          player.play();
+          player.requestFullscreen();
+
+          }, 1000);
+
+
+
+    });
+//    }, 1000);
+
+  },
+  watch: {
+
+
+//      $route (to, from){
+//
+//        if(this.mobile === true){
+//
+//        this.show = false;
+//        location.reload()
+//
+//        }
+//
+//    }
+
+  },
+  computed: {
+
+//    orderedPages() {
+//      return orderBy(this.items.items, 'order')
+//    }
   },
   created () {
     //  [App.vue specific] When App.vue is first loaded start the progress bar
+    this.getLinks()
+    this.getOfferings()
     this.$Progress.start()
     //  hook the progress bar to start before we move router-view
     this.$router.beforeEach((to, from, next) => {
@@ -55,164 +150,166 @@ export default {
       //  finish the progress bar
       this.$Progress.finish()
     })
+
+//    this.$on('broll', (payload) => {
+////        alert(payload.src)
+//
+//    });
+
+
   },
   methods: {
 
-    beforeEnter: function (el) {
-      el.style.opacity = 0
+    getcontextualMenuUpdate() {
+
+    this.$on('contextual_menu', (payload) => {
+//      console.log(payload.src);
+//
+      this.contextual_menu = payload.contextual_menu
+
+
+    });
+      // payload is what you want here
     },
-    enter: function (el, done) {
+    getcontextualLinks() {
 
-      Velocity(el, { opacity: 1 }, { duration: 500 });
+    this.$on('contextual_menu_links', (payload) => {
+//      console.log(payload.src);
+//
+      this.contextual_menu_links = payload.contextual_menu_links
+
+
+    });
+      // payload is what you want here
+    },
+    getTitle() {
+
+    this.$on('title', (payload) => {
+//      console.log(payload.src);
+//
+      this.title = payload.title
+
+
+    });
+      // payload is what you want here
+    },
+
+    isIE() {
+
+    if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+
+    this.ie = true
+
+    }
+    },
+    isIE() {
+
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    this.mobile = true
+
+    }
 
 
     },
-    leave: function (el, done) {
-      Velocity(el, { opacity: 0 }, { duration: 500 });
+    islower993(){
+    var width = window.outerWidth;
+    var vm = this;
 
-      Velocity(el, {
-        display: 'none'
-      }, { complete: done })
+    if (width < 993) {
+
+
+      vm.is993 = true
+
+      } else {
+
+      vm.is993 = false
+
+      }
+
+
+      window.addEventListener('resize', function(){
+
+      console.log('resize event')
+        // do stuff here
+
+      var width = window.outerWidth;
+
+      if (width < 993) {
+
+
+      vm.is993 = true
+
+      } else {
+
+      vm.is993 = false
+
+
+      }
+    })
+
+
+
+
+    },
+    elementChange() {
+
+    this.$on('broll', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+      this.src = payload.src
+    });
+      // payload is what you want here
+    },
+    updateFirst() {
+
+    this.$on('first', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+      this.first = payload.first
+    });
+      // payload is what you want here
     },
 
+    getLinks() {
+      return MenuService.getAll()
+        .then(result => {
+          this.items = result.data
+        })
+    },
+    getOfferings() {
+      return OfferingsMenuService.getAll()
+        .then(result => {
+          this.offerings = result.data
+        })
+    },
 
   }
 }
 
 </script>
 
-<style lang="stylus">
-
-$primary = #5C5F61
-
-.primary
-  color: $primary
-
-.bg-primary
-  background-color: $primary
-
-.b--primary
-  border-color: $primary
-
-.mw-85
-  max-width: 85vw
-
-.mw-87
-  max-width: 87vw
-
-*
-  box-sizing: border-box
-  margin: 0
-  padding: 0
-
-body
-  background: #fff
-  font-family: 'Montserrat', Helvetica, sans-serif
-  font-weight: 300
-  font-size: 0.9em
-  height: 100%
-  overflow-x: hidden
-
-a
-  text-decoration: none
-
-p
-  color: #444
-  font-family: 'Open Sans', sans-serif, Arial
-
-ul
-  padding: 1em
-
-ol
-  @extend ul
-
-h1, h2, h3, h4, h5, h6
-  color: #343434
-  transition: all 0.5s ease-in-out
-
-img
-  display: block
-  width: 100%
-
-button
-  background: transparent
-
-.Container
-  margin: 0 auto
-  max-width: 80vw
-
-.Row
-  display: flex
-  flex-flow: row wrap
-  margin: 0 -0.8em
-  margin-bottom: 0.8em
-  &:last-child
-    margin-bottom: 0
-
-.ColumnFull
-  padding: 1em
-  width: 100%
-
-.Btn
-  border-radius: 2em
-  padding: 0.5em 1.5em
-  font-size: 0.9em
-  transition: all 0.5s ease-in-out
-
-.Btn--primary
-  border: 1px solid $primary
-  color: $primary
-  &:hover
-    background: $primary
-    color: #fff
-
-.MainSection
-  min-height: 100vh
-
-.fade-enter-active, .fade-leave-active {
-  transition-property: opacity;
-  transition-duration: .3s;
-}
-
-.fade-enter-active {
-  transition-delay: .3s;
-}
-
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
+<style lang="scss">
 
 
-.spinner
-  background: #fff
-  height: 2px
-  box-shadow: 0px 1px 3px #ccc
+  .MainSection {
 
-@media only screen and (max-width: 640px)
+    min-height: 100vh;
 
-  .ColumnHalf
-    width: 100%
+  }
 
-@media all and (min-width: 600px)
 
-  .global-column-padding
-    padding: 1em
 
-  .ColumnSeventy
-    width: 75%
-    @extend .global-column-padding
+  @media(min-width:993px){
 
-  .ColumnHalf
-    width: 50%
-    @extend .global-column-padding
+  #app {
 
-  .ColumnThird
-    width: 33.33%
-    @extend .global-column-padding
+    height: 100%;
+    position: relative;
+  }
 
-  .ColumnQuarter
-    width: 25%
-    @extend .global-column-padding
+  }
 
 
 </style>

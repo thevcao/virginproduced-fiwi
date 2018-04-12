@@ -1,8 +1,9 @@
 <template>
-  <div class="suits-vue">
+  <div class="suits-vue" :ie="ie" :is993="is993" :mobile="mobile" contextual_menu="Our Suits">
       <vue-headful
-          title="Our Suits"
-          description="Virgin Produced"
+                  title="Our Suits"
+                  description="Virgin Produced"
+                  v-if="item"
       />
           <!-- 404 -->
     <div class="container main" v-if="error">
@@ -15,21 +16,45 @@
 
           <!-- Main -->
           <div class="main">
-            <div class="container">
+        <div class="container ml-xl-0">
+              <div class="row" v-if="is993 === false">
+              <div class="col-sm-4">
+                <header class="SidebarItem__header">
+                  <h1>Our Suits</h1>
+                </header>
+              </div>
+              </div>
               <div class="row">
-                <div class="col-sm-4">
+                <div class="col-xl-3 col-lg-3 col-sm-8" v-if="is993 === false">
                       <aside class="SidebarItem">
-                        <header class="SidebarItem__header">
-                          <h1>Our Suits</h1>
-                        </header>
+
                         <ul>
-                          <li v-for="post in limitedPosts" v-bind:key="post.slug">
-                            <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">
-                              {{ post.title.rendered }}
-                            </router-link>
+                          <li v-for="post in limitedPosts" v-bind:key="post.slug" v-if="post.better_featured_image">
+                            <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
+                          </li>
+                          <li v-else>
+                            <a href="" class="title-only" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span></a>
                           </li>
                         </ul>
                       </aside>
+                  </div>
+
+
+                  <div class="col-xl-4 col-lg-6 col-sm-8">
+
+                  <article class="BlogPostSingle">
+
+
+                    <aside class="BlogPostSingle__content">
+
+
+                      <h2 v-if="is993 === false">Select a Bio to Read More</h2>
+                      <h2 v-else class="large glitching">Select a Bio to Read More</h2>
+
+                    </aside>
+
+                    </article>
+
                   </div>
               </div>
             </div>
@@ -50,13 +75,30 @@ export default {
     return {
       item: [],
       posts: [],
-      error: false
+      error: false,
+      contextual_menu: 'Our Suits'
     }
+  },
+  props: {
+
+
+    ie: {},
+    mobile: {},
+    is993: {},
+
+
   },
 
   created() {
 //    this.fetchItem()
     this.fetchPosts()
+
+
+  },
+
+  mounted: function(){
+
+
   },
 
   watch: {
@@ -84,50 +126,16 @@ export default {
         .then(result => {
           this.posts = result.data
         })
-    }
+    },
+
   }
 
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 
-/**
- * 404
- */
-.Jumbotron
-  padding: 1em 0
-  margin-bottom: 1.5em
-  background: #fff
-  border-bottom: 1px solid #ccc
-
-h3
-  padding: 1em 0
-  margin: 0 auto
-
-/**
- * Main
- */
-.BlogPostSingle
-  &__header
-    h1
-      font-size: 4em
-      padding: 0.3em 0
-  &__content
-    color: #444
-    h1, h2, h3, h4, h5, h6
-      padding: 0.3em 0
-
-.SidebarItem
-  margin-bottom: 1em
-  &__header
-    text-transform: uppercase
-
-@media only screen and (max-width: 640px)
-  .BlogPostSingle
-    margin: 1em 0
-    &__header
-      h1
-        font-size: 2.5em
+@import '../../src/scss/main.scss';
+@import '../../src/scss/components/_suits.scss';
 
 </style>

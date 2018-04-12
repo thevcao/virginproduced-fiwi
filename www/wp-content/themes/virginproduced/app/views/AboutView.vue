@@ -1,11 +1,6 @@
-<template>
-<transition
-  appear
-  appear-class="custom-appear-class"
-  appear-to-class="custom-appear-to-class" (2.1.8+)
-  appear-active-class="custom-appear-active-class"
->
-  <div class="main">
+<template v-if="item">
+
+  <div class="about-vue" :is993="is993" :mobile="mobile" :ie="ie">
 
           <!-- 404 -->
     <div class="container main" v-if="error">
@@ -16,32 +11,124 @@
       </div>
     </div>
     <!-- Main -->
-    <div class="container" v-if="item.content">
+    <div class="main" v-if="item.content">
+
+      <figure class="BlogPostSingle__images rellax" data-rellax-speed="2" v-if="item.better_featured_image">
+        <div class="bg-video" v-if="is993 === false">
+          <video :src="item.acf.background_video" autoplay loop muted></video>
+
+        </div>
+        <div class="img">
+          <img :src="item.better_featured_image.media_details.sizes.large.source_url">
+          <div class="mask"></div>
+        </div>
+
+        <header class="BlogPostSingle__header">
+          <div class="hero-text">
+            <h1 class="rellax" data-rellax-speed="2">{{ item.title.rendered }}</h1>
+            <ul v-if="is993 === false">
+              <li><router-link to="/our-suits" title="Our Suits">Our Suits</router-link></li>
+              <li><a href="#" title="Virgin News" @click.prevent="scroll()">Virgin News</a></li>
+            </ul>
+
+
+          </div>
+
+        </header>
+
+
+      </figure>
 
       <vue-headful
         title="About Us"
         description="Virgin Produced"
     />
 
-      <div class="Row">
-        <div class="ColumnSeventy">
-          <article class="PageSingle">
-            <figure class="BlogPostSingle__images rellax" data-rellax-speed="2" v-if="item.better_featured_image">
-              <img :src="item.better_featured_image.source_url">
-            </figure>
-            <header class="BlogPostSingle__header">
-              <h1 class="rellax" data-rellax-speed="2">{{ item.title.rendered }}</h1>
+      <div class="start">
+        <div class="">
 
-            </header>
-            <aside class="BlogPostSingle__content">
-              <div v-html="item.content.rendered"></div>
-            </aside>
+          <article class="">
+            <div class="container-fluid">
+            <div class="row">
+
+              <div class="col-sm-5 mr-auto">
+
+                <div id="content" class="content" v-html="item.content.rendered">
+                </div>
+              </div>
+              <div
+                   id="news"
+                   class="col-sm-4 ml-auto pr-0 news-sidebar"
+                   data-bottom-top="transform: translateY(5%); opacity: 0"
+                   data-top="transform: translateY(-0%); opacity: 1">
+
+                <h2>Virgin News</h2>
+                <div v-for="post in limitedPosts" class="news-item">
+                  <img v-if="post.better_featured_image" :src="post.better_featured_image.media_details.sizes.medium.source_url">
+                  <div class="title">
+                      <h3>{{ post.title.rendered }}</h3>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            </div>
+
           </article>
+          <section class="suits-cta">
+
+
+
+            <router-link v-if="mobile === false" to="/our-suits">
+
+            <div class="title-holder" data-start="transform: translateY(-25%); opacity: 0" data-end="transform: translateY(-0%); opacity: 1">
+
+              <h2>Meet<br>Our Suits</h2>
+              <div class="over">
+                <div class="tag">
+                  <h3>We are against type casting<br>Our suits are creative</h3>
+                </div>
+                <h2>Meet</h2>
+                <h2 class="glitching" title="Our Suits">Our Suits</h2>
+            </div>
+          </div>
+
+          </router-link>
+
+          <a v-else href="/our-suits">
+            <div class="title-holder" data-start="transform: translateY(-25%); opacity: 0" data-end="transform: translateY(-0%); opacity: 1">
+
+              <h2>Meet<br>Our Suits</h2>
+              <div class="over">
+                <h2>Meet</h2>
+                <h2 class="glitching" title="Our Suits">Our Suits</h2>
+                <div class="tag">
+                  <h3>We are against type casting<br>Our suits are creative</h3>
+                </div>
+            </div>
+          </div>
+
+          </a>
+
+        </section>
         </div>
       </div>
+
+
+            <div class="suits-bg"
+                 data-anchor-target=".suits-cta"
+                 data-bottom-top="transform: translateY(10%); opacity: 0"
+                 data-center-top="transform: translateY(0%); opacity: 1"
+                 v-if="is993 === false"
+                 ></div>
+
     </div>
+
+
   </div>
-  </transition>
+
 </template>
 
 <script>
@@ -55,13 +142,18 @@ import PostService from '../services/PostService'
 
 export default {
 
+  props: {
+
+    ie: {},
+    is993: {},
+    mobile: {}
+  },
+
   data() {
     return {
-      item: {},
+      item: [],
       posts: [],
       error: false,
-//      samples: [this.acfwork]
-//      nestedAcf: [],
     }
   },
     created() {
@@ -72,91 +164,115 @@ export default {
     },
 
     mounted: function(){
-    },
 
-  computed: {
-    slug() { return this.$route.params.slug },
-    pageContent() { return this.$store.state.pages[this.slug] },
-//    acf() { return this.pageContent.acf || { test: 'poop' } },
-//    acfWorks() {
-////      return GoodsService.getAll();
-//      return this.acf.work_samples.splice(0, 5) || {
-//          test: 'poo'
-//      }
-//    },
-    limitedPosts() {
-      return this.posts.splice(0, 5)
-    },
+      this.$nextTick(function () {
+      if(this.is993 === false) {
 
-  },
-  watch: {
-    '$route'(to, from) {
-      this.fetchItem();
-    }
-  },
+      this.initView()
 
-//    updated: function(){
-//
-//         var rellax = new Rellax('.rellax')
-//
-//
-//    },
-
-  methods: {
-//    fetchNestedAcf(slug) {
-//      const paramSlug = this.$route.params.slug || ''
-//      const pageSlug = slug || paramSlug
-//
-////      if (paramSlug === 'content-services') {
-//        const work = this.acfWorks.map(workPage => {
-//          return PageService
-//            .getAcf(workPage.post_name)
-//            .then(result => {
-//              this.nestedAcf.push(result.data[0].acf)
-//          })
-//        })
-//
-//        return Promise.all(work);
-////      }
-//    },
-
-    fetchItem() {
-      return AboutService.get(this.$route.params.slug)
-        .then(result => {
-          this.item = result.data[0]
-        })
-        .catch(err => {
-          this.error = true
-        })
-    },
-    fetchPosts() {
-      return PostService.getAll()
-        .then(result => {
-          this.posts = result.data
-        })
-    },
-      // listen event
-      onPlayerPlay(player) {
-        // console.log('player play!', player)
-      },
-      onPlayerPause(player) {
-        // console.log('player pause!', player)
-      },
-      // ...player event
-
-      // or listen state event
-      playerStateChanged(playerCurrentState) {
-        // console.log('player current update state', playerCurrentState)
-      },
-
-      // player is ready
-      playerReadied(player) {
-        console.log('the player is readied', player)
-        // you can use it to do something...
-        // player.[methods]
       }
 
-  }
+      });
+
+    },
+    updated: function(){
+      if(this.is993 === true) {
+
+
+      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('#app .about-vue .main figure .img img').style.height=window.innerHeight - 65 + 'px'
+
+      if( this.mobile === false && this.is993 === true ) {
+
+
+      window.addEventListener('resize', function(){
+      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('#app .about-vue .main figure .img img').style.height=window.innerHeight - 65 + 'px'
+
+
+      })
+
+      }
+
+
+      }
+    },
+    computed: {
+      slug() { return this.$route.params.slug },
+      pageContent() { return this.$store.state.pages[this.slug] },
+      limitedPosts() {
+        return this.posts.splice(0, 5)
+      },
+
+    },
+    watch: {
+      '$route'(to, from) {
+        this.fetchItem();
+      }
+    },
+    beforeDestroy: function(){
+
+      skrollr.init().destroy();
+
+    },
+    methods: {
+
+      initView: function(){
+        console.log('mounting...')
+        document.querySelector('body').style.pointerevents="hidden";
+
+        setTimeout(function(){
+
+          skrollr.init({});
+          document.querySelector('body').style.overflow="";
+
+
+        }, 3000);
+
+      },
+      fetchItem() {
+        return AboutService.get(this.$route.params.slug)
+          .then(result => {
+            this.item = result.data[0]
+          }).then(result => {
+
+            this.$parent.$emit('contextual_menu', {
+
+
+            contextual_menu : this.item.acf.contextual_menu.menu_label
+            })
+            console.log(this.item.acf.contextual_menu.menu_label);
+
+          }).then(result => {
+
+            this.$parent.$emit('contextual_menu_links', {
+
+
+            contextual_menu_links : this.item.acf.contextual_menu.links
+            })
+            console.log(this.item.acf.contextual_menu.links);
+
+          })
+          .catch(err => {
+            this.error = true
+          })
+      },
+      fetchPosts() {
+        return PostService.getAll()
+          .then(result => {
+            this.posts = result.data
+          })
+      },
+
+      scroll() {
+
+      var el = document.querySelector('.news-sidebar').scrollIntoView({
+        behavior: 'smooth'
+      });
+
+    }
+
+    }
 
 }
 
@@ -165,42 +281,9 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss">
 
-/**
- * 404
- */
-.Jumbotron
-  padding: 1em 0
-  margin-bottom: 1.5em
-  background: #fff
-  border-bottom: 1px solid #ccc
-
-h3
-  padding: 1em 0
-  margin: 0 auto
-
-/**
- * Main
- */
-.fade-enter-active
-  transition: opacity 0.5s
-
-.fade-leave-active
-  @extend .fade-enter-active
-
-.fade-enter
-  opacity: 0
-
-.fade-leave
-  @extend .fade-enter
-
-.Row
-
-  padding: 5rem 0 0;
-
-@media only screen and (max-width: 640px)
-  .PageSingle
-    margin: 1em 0
+@import '../../src/scss/main.scss';
+@import '../../src/scss/components/_about.scss';
 
 </style>

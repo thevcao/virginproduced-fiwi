@@ -79,15 +79,15 @@ class OldFashioned
         // jQuery is loaded using the same method from HTML5 Boilerplate:
         // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
         // It's kept in the header instead of footer to avoid conflicts with plugins
-        if (!\is_admin()) {
-            \wp_deregister_script('jquery');
-            \wp_register_script('jquery', self::get_asset('jquery'), array(), null, true);
-//            \add_filter('script_loader_src', array($this, 'jquery_local_fallback'), 10, 2);
-        }
+//        if (!\is_admin()) {
+//            \wp_deregister_script('jquery');
+//            \wp_register_script('jquery', self::get_asset('jquery'), array(), null, true);
+////            \add_filter('script_loader_src', array($this, 'jquery_local_fallback'), 10, 2);
+//        }
 
-        \wp_enqueue_script('modernizr', \get_template_directory_uri() . self::get_asset('modernizr'), array(), null, false);
+//        \wp_enqueue_script('modernizr', \get_template_directory_uri() . self::get_asset('modernizr'), array(), null, false);
 //        \wp_enqueue_script('jquery');
-        \wp_enqueue_script('old_fashioned_js', \get_template_directory_uri() . self::get_asset('js'), array('jquery'), null, true);
+//        \wp_enqueue_script('old_fashioned_js', \get_template_directory_uri() . self::get_asset('js'), array('jquery'), null, true);
     }
 
     /**

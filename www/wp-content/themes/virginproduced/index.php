@@ -11,9 +11,8 @@
  *
  * @package VueWP
  */
+?>
+<?php get_header(); ?>
 
-get_template_part('header'); ?>
 
-
-<?php
-get_footer();
+<?php get_footer(); ?>

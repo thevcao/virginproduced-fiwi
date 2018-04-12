@@ -39,20 +39,43 @@ function my_mce_before_init_insert_formats( $init_array ) {
 //            'selector' => 'p',
 //            'classes' => 'caption'
 //        ),
-//        array(
-//            'title' => 'Disclaimer',
-//            'selector' => 'p',
-//            'classes' => 'disclaimer'
-//        ),
         array(
-          'title'     => 'Button List',
-          'selector'  => 'ul',
-          'classes'   => 'two-column-list'
+            'title' => 'Large',
+            'selector'  => 'h1, h2, h3, h4, h5',
+            'classes' => 'large'
         ),
         array(
-            'title' => 'Button',
+            'title' => 'Large Glitched',
+            'selector'  => 'h1, h2, h3, h4, h5',
+            'classes' => 'glitching'
+        ),
+        array(
+            'title' => 'Large Glitched - Inline',
+            'selector'  => 'h1, h2, h3, h4, h5',
+            'classes' => 'glitching',
+            'inline' => 'span',
+
+        ),
+        array(
+            'title' => 'Headline',
+            'selector'  => 'h1, h2, h3, h4, h5',
+            'classes' => 'headline'
+        ),
+        array(
+          'title'     => 'Red Title',
+          'selector'  => 'h1, h2, h3, h4, h5',
+          'inline' => 'span',
+          'classes' => 'vipr-red'
+        ),
+        array(
+            'title' => 'Button w Arrow',
             'selector' => 'a',
-            'classes' => 'btn'
+            'classes' => 'btn btn-arrow-right'
+        ),
+        array(
+            'title' => 'Image Block Right',
+            'selector' => 'img',
+            'classes' => 'block right'
         ),
     );
     // Insert the array, JSON ENCODED, into 'style_formats'

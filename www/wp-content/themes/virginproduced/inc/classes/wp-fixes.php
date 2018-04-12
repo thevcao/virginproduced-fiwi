@@ -13,7 +13,7 @@ return [ 'ext' => $filetype['ext'], 'type' => $filetype['type'], 'proper_filenam
 
 function cc_mime_types( $mimes ){ $mimes['svg'] = 'image/svg+xml'; return $mimes; } add_filter( 'upload_mimes', 'cc_mime_types' );
 
-function fix_svg() { echo '<style> .attachment-266×266, .thumbnail img { width: 100% !important; height: auto !important; } </style>'; } add_action( 'admin_head', 'fix_svg' );
+function fix_svg() { echo '<style> .attachment-266×266, .thumbnail img {} </style>'; } add_action( 'admin_head', 'fix_svg' );
 }
 //add_filter('get_user_option_admin_color', 'change_admin_color');
 //function change_admin_color($result) {

@@ -18,15 +18,40 @@ Vue.component('vue-headful', vueHeadful);
 Vue.directive('in-viewport', inViewportDirective)
 
 fontawesome.library.add(brands, faSpinner)
+var VueCookie = require('vue-cookie');
+// Tell Vue to use the plugin
+Vue.use(VueCookie);
+// Register a global custom directive called `v-focus`
+Vue.directive('if-not-edge', {
+  inserted: function (el, binding, vnode) {
+    if (binding.value) {
+      let isIE = false
+      if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+        el.parentNode.removeChild(el)
+      }
+    }
+  }
+})
+Vue.directive('is-edge', {
+  inserted: function (el, binding, vnode) {
+    if (binding.value) {
+      let isIE = false
+      if (!document.documentMode || !/Edge/.test(navigator.userAgent)) {
+        el.parentNode.removeChild(el)
+
+      }
+    }
+  }
+})
 
 const options = {
   color: '#e01931',
   failedColor: '#874b4b',
   thickness: '5px',
   transition: {
-    speed: '0.2s',
-    opacity: '0.6s',
-    termination: 300
+    speed: '0.5s',
+    opacity: '1s',
+    termination: 500
   },
   autoRevert: true,
   location: 'left',
@@ -53,5 +78,3 @@ Vue.http.interceptors.push((request, next) => {
     NProgress.done();
   });
 });
-
-

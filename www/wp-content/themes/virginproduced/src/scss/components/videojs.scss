@@ -1,0 +1,296 @@
+
+/*
+  Player Skin Designer for Video.js
+  http://videojs.com
+
+  To customize the player skin edit
+  the CSS below. Click "details"
+  below to add comments or questions.
+  This file uses some SCSS. Learn more
+  at http://sass-lang.com/guide)
+
+  This designer can be linked to at:
+  https://codepen.io/heff/pen/EarCt/left/?editors=010
+*/
+
+// The following are SCSS variables to automate some of the values.
+// But don't feel limited by them. Change/replace whatever you want.
+// The color of icons, text, and the big play button border.
+// Try changing to #0f0
+$primary-foreground-color: $red; // #fff default
+// The default color of control backgrounds is mostly black but with a little
+// bit of blue so it can still be seen on all-black video frames, which are common.
+// Try changing to #900
+$primary-background-color: #fff; // #2B333F default
+// Try changing to true
+$center-big-play-button: true; // true default
+.video-js {
+  /* The base font size controls the size of everything, not just text.
+     All dimensions use em-based sizes so that the scale along with the font size.
+     Try increasing it to 15px and see what happens. */
+  font-size: 12px;
+  font-family: 'Gotham';
+  /* The main font color changes the ICON COLORS as well as the text */
+  color: $primary-foreground-color;
+}
+
+/* The "Big Play Button" is the play button that shows before the video plays.
+   To center it set the align values to center and middle. The typical location
+   of the button is the center, but there is trend towards moving it to a corner
+   where it gets out of the way of valuable content in the poster image.*/
+
+.vjs-default-skin .vjs-big-play-button {
+  /* The font size is what makes the big play button...big.
+     All width/height values use ems, which are a multiple of the font size.
+     If the .video-js font-size is 10px, then 3em equals 30px.*/
+  font-size: 2.5em;
+  /* We're using SCSS vars here because the values are used in multiple places.
+     Now that font size is set, the following em values will be a multiple of the
+     new font size. If the font-size is 3em (30px), then setting any of
+     the following values to 3em would equal 30px. 3 * font-size. */
+  $big-play-width: 2em;
+  /* 1.5em = 45px default */
+  $big-play-height: 1.5em;
+  line-height: $big-play-height;
+  height: $big-play-height;
+  width: $big-play-width;
+  /* 0.06666em = 2px default */
+  border: 0.06666em solid $primary-foreground-color;
+  /* 0.3em = 9px default */
+  border-radius: 0.2em;
+  @if $center-big-play-button {
+    /* Align center */
+    left: 50%;
+    top: 50%;
+    margin-left: -($big-play-width / 2);
+    margin-top: -($big-play-height / 2);
+  }
+  @else {
+    /* Align top left. 0.5em = 15px default */
+    left: 0.5em;
+    top: 0.5em;
+  }
+}
+
+/* The default color of control backgrounds is mostly black but with a little
+   bit of blue so it can still be seen on all-black video frames, which are common. */
+
+.video-js .vjs-control-bar,
+.video-js .vjs-big-play-button,
+.video-js .vjs-menu-button .vjs-menu-content {
+  /* IE8 - has no alpha support */
+  background-color: $primary-background-color;
+  /* Opacity: 1.0 = 100%, 0.0 = 0% */
+  background-color: rgba($primary-background-color, 0);
+}
+.video-js .vjs-control-bar {
+  left: 2.5px;
+  right: 2.5px;
+  width: calc(100% - 5px);
+  margin-bottom: 4px;
+}
+.video-js .vjs-control {
+  background-color: rgba($primary-background-color, 0.75);
+  margin: 0 2.5px;
+  outline: none;
+  //  border: 2px solid black;
+}
+// Make a slightly lighter version of the main background
+// for the slider background.
+$slider-bg-color: lighten($primary-background-color, 90%);
+
+/* Slider - used for Volume bar and Progress bar */
+
+.vjs-big-play-centered .vjs-big-play-button {
+  font-size: 12em;
+  border: none;
+  background: none;
+  outline: none;
+}
+.video-js .vjs-slider {
+  background-color: $slider-bg-color;
+  background-color: rgba($slider-bg-color, 0);
+}
+
+/* The slider bar color is used for the progress bar and the volume bar
+   (the first two can be removed after a fix that's coming) */
+
+.video-js .vjs-volume-level,
+.video-js .vjs-play-progress,
+.video-js .vjs-slider-bar {
+  background: $primary-foreground-color;
+  outline: none;
+}
+[class^="vjs-icon"] {
+  color: black;
+}
+.vjs-big-play-centered .vjs-big-play-button [class^="vjs-icon"] {
+  color: white;
+  font-size: 1em;
+  //  @include textGlitch("vjs", 17, $white, $purple, $green, $red, 800, 800);
+  //
+  //  &:before {
+  //      content: "\F101";
+  //
+  //  }
+}
+
+/* The main progress bar also has a bar that shows how much has been loaded. */
+
+.video-js .vjs-load-progress {
+  /* For IE8 we'll lighten the color */
+  background: ligthen($slider-bg-color, 80%);
+  /* Otherwise we'll rely on stacked opacities */
+  background: rgba($slider-bg-color, 0.8);
+}
+
+/* The load progress bar also has internal divs that represent
+   smaller disconnected loaded time ranges */
+
+.video-js .vjs-load-progress div {
+  /* For IE8 we'll lighten the color */
+  background: ligthen($slider-bg-color, 80%);
+  /* Otherwise we'll rely on stacked opacities */
+  background: rgba($slider-bg-color, 0.9);
+}
+.video-js:hover .vjs-big-play-button {
+  background-color: rgba(0, 0, 0, 0);
+  //  border-color: #647733;
+}
+button.vjs-mute-control {
+  background: none !important;
+}
+.video-js .vjs-progress-holder {
+  height: 100%;
+  margin: 0 !important;
+}
+.video-js .vjs-play-progress:before,
+.video-js .vjs-progress-control .vjs-mouse-display {
+  content: '';
+  height: 100%;
+  top: 0;
+  background: $green;
+  width: 1px;
+  right: 0;
+  box-shadow: 0px 0px 4px $green;
+}
+.video-js .vjs-volume-panel .vjs-volume-control.vjs-volume-vertical {
+  width: 4em;
+  left: -4em;
+  margin-left: calc(-1em/2);
+  height: 5em;
+}
+.vjs-time-tooltip,
+.video-js .vjs-time-tooltip {
+  font-family: 'Heroic Condensed';
+  line-height: 1;
+  padding-bottom: 0;
+  font-size: 1.35em;
+  line-height: 1.35em;
+}
+.video-js .vjs-time-tooltip {
+  top: -2em;
+}
+.video-js .vjs-progress-control:hover .vjs-time-tooltip,
+.video-js .vjs-progress-control:hover .vjs-progress-holder:focus .vjs-time-tooltip {
+  line-height: 1.35em;
+  font-size: 1.35em;
+}
+.vjs-remaining-time.vjs-time-control.vjs-control {
+  font-family: 'Heroic Condensed';
+  color: black;
+  font-size: 1.35em;
+  line-height: 2.35em;
+}
+.vjs-slider-vertical .vjs-volume-level:before {
+  width: 4em;
+  left: 0;
+  //  content: '';
+  //  background: white;
+  width: 100%;
+  //  height: 0.3em;
+  top: 0;
+  height: 2px;
+  background: $green;
+  content: '';
+}
+.vjs-icon-volume-mute:before,
+.video-js .vjs-mute-control.vjs-vol-0 .vjs-icon-placeholder:before {
+  content: '';
+  background-image: url(#{$theme}/img/player-vol-muted.svg);
+}
+.vjs-icon-volume-low:before,
+.video-js .vjs-mute-control.vjs-vol-1 .vjs-icon-placeholder:before {
+  content: '';
+  background-image: url(#{$theme}/img/player-vol-1.svg);
+}
+.vjs-icon-volume-mid:before,
+.video-js .vjs-mute-control.vjs-vol-2 .vjs-icon-placeholder:before {
+  content: '';
+  background-image: url(#{$theme}/img/player-vol-2.svg);
+}
+.vjs-icon-volume-high:before,
+.video-js .vjs-mute-control .vjs-icon-placeholder:before {
+  content: '';
+  background-image: url(#{$theme}/img/player-vol-3.svg);
+}
+.vjs-icon-volume-high:before,
+.video-js .vjs-mute-control .vjs-icon-placeholder:before,
+button.vjs-control.vjs-button.close-modal .vjs-icon-placeholder:before {
+  background-size: 1em;
+  background-repeat: no-repeat;
+  background-position: calc(50% - .075em) 50%;
+}
+button.vjs-control.vjs-button.close-modal {
+  cursor: pointer;
+}
+button.vjs-control.vjs-button.close-modal .vjs-icon-placeholder:before {
+  content: '';
+  background-image: url(#{$theme}/img/menu-close.svg);
+  background-size: .75em;
+}
+.video-js .vjs-slider-bar:not(.vjs-play-progress) {
+  background: none;
+}
+.video-js .vjs-volume-vertical {
+  bottom: calc(5em + 5px);
+}
+.vjs-volume-bar.vjs-slider-vertical {
+  width: 4em;
+  height: 5em;
+  margin: 0 auto;
+}
+.vjs-slider-vertical .vjs-volume-level {
+  width: 4em;
+}
+.vjs-volume-bar.vjs-slider-bar.vjs-slider.vjs-slider-vertical {
+  .vjs-volume-level {
+    transition: background-color .3s ease;
+  }
+  &[aria-valuenow^="1"],
+  &[aria-valuenow^="2"] {
+    .vjs-volume-level {
+      background-color: $green;
+    }
+  }
+  &[aria-valuenow^="3"],
+  &[aria-valuenow^="4"],
+  &[aria-valuenow^="5"],
+  &[aria-valuenow^="6"] {
+    .vjs-volume-level {
+      background-color: $purple;
+    }
+  }
+  &[aria-valuenow^="7"],
+  &[aria-valuenow^="8"] {
+    .vjs-volume-level {
+      background-color: #CC3FFF;
+    }
+  }
+  &[aria-valuenow^="9"],
+  &[aria-valuenow^="100"] {
+    .vjs-volume-level {
+      background-color: $red;
+    }
+  }
+}

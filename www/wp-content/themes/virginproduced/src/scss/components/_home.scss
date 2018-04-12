@@ -8,57 +8,226 @@ $half: $cropwidth / 2.35;
 @include media-breakpoint-down(lg) {
   $cropwidth: 40vw;
 }
+//.toggle.footer-in-view {
+//  #menu-icon {
+//
+//
+//    path {
+//
+//      color: $red !important;
+//    }
+//  }
+//}
+//iPhone 8 Plus
+//@media(max-width: 375px)  {
+//.iphone.retina_2x.orientation_portrait:not(.app-mode) {
+//  // (768px)
+//  #app {
+//    .home-vue {
+//      .main {
+//          height: calc(100vh - 65px - 75px);
+//      }
+//    }
+//  }
+//}
+//}
+////iPhone 8
+//
+//@media(max-width: 414px)  {
+//
+//.iphone.retina_3x.orientation_portrait:not(.app-mode) {
+//  // (768px)
+//  #app {
+//    .home-vue {
+//      .main {
+//          height: calc(100vh - 65px - 75px);
+//      }
+//    }
+//  }
+//}
+//}
+////iPhone X
+//
+//@media(max-width: 375px) {
+//
+//.iphone.retina_3x.orientation_portrait:not(.app-mode) {
+//  // (768px)
+//  #app {
+//    .home-vue {
+//      .main {
+//          height: calc(100vh - 65px - 115px);
+//      }
+//    }
+//  }
+//}
+//
+//}
+.iphone {
+  #app .home-vue .main .video-js {
+    display: none;
+  }
+}
 #app {
   .home-vue {
+    &.loading {
+      .lines,
+      .main-video,
+      .float-video,
+      .home-menu {
+        opacity: 0;
+        transition: all .75s $csstransition 1s;
+      }
+      &.loaded {
+        .lines,
+        .main-video,
+        .float-video,
+        .home-menu {
+          opacity: 1;
+        }
+        .lines {
+          transition-delay: 2s;
+        }
+      }
+    }
+    .video-js .vjs-fullscreen-control {
+      display: none;
+    }
     //    position: fixed;
     //    z-index: 2;
     //    background: white;
     //  background: black;
     overflow: hidden;
     .main {
-    width: calc(100vw - 2rem - 17rem);
-    height: calc(100vh - 4rem);
-    margin: 2rem 0 0;
-    overflow: hidden;
-    padding: 0;
-    margin-left: 17rem;
+      height: calc(100vh - 65px);
+      width: 100%;
+      @include media-breakpoint-up(lg) {
+        width: calc(100vw - 2rem - 17rem);
+        max-width: calc(100vw - 2rem - 17rem);
+        height: calc(100vh - 4rem);
+        margin: 2rem 0 0;
+        margin-left: 17rem;
+      }
+      overflow: hidden;
+      padding: 0;
+      &.video-play {
+        max-width: calc(100% - 4rem);
+        min-width: calc(100% - 4rem);
+        // (768px)
+        @include media-breakpoint-down(sm) {
+          max-width: 100vw;
+          min-width: 100vw;
+        }
+      }
+      .play-toggle {
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+        z-index: 2;
+      }
       video {
         height: 100%;
         width: 100%;
         object-fit: cover;
+        position: absolute;
+        z-index: -1;
+      }
+      .video-js {
+        padding-bottom: 0;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+      }
+      .float-video {
+        position: absolute;
+        z-index: 2;
+        width: 40vw;
+        bottom: 4.5rem;
+        right: 1rem;
+        clip-path: polygon(100% 0, 0 100%, 100% 100%);
+        height: 40vw;
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+        video {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
       }
       .lines {
         position: absolute;
         padding: 2rem 5rem 5rem 2rem;
-        background: url(../../src/img/triangle.svg);
+        background: url(#{$theme}/img/triangle.svg);
         background-size: cover;
         background-position: -50px -50px;
         background-repeat: no-repeat;
+        @include media-breakpoint-down(md) {
+          bottom: 0;
+          right: 0;
+          background: url(#{$theme}/img/triangle-bottom-right.svg);
+          padding: 8rem 0 0 2rem;
+          z-index: 1;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
         .hero-text {
-          background: url(../../src/img/red-triangle.svg);
+          background: url(#{$theme}/img/red-triangle.svg);
           background-size: cover;
           padding: 2rem 20rem 20rem 2rem;
           background-position: 100% 100%;
+          @include media-breakpoint-down(md) {
+            bottom: 0;
+            right: 0;
+            background: url(#{$theme}/img/red-triangle-bottom-right.svg);
+            background-repeat: no-repeat;
+            padding: 15rem 15px 10px 10rem;
+            text-align: right;
+            background-position: 0% 100%;
+            background-size: 100%;
+          }
           h1 {
             color: white;
             line-height: 1;
             font-weight: normal;
             font-size: 4rem;
             margin-bottom: 0;
+            // (768px)
+            @include media-breakpoint-down(sm) {
+              font-size: 2.5rem;
+            }
           }
           p {
             color: white;
             font-weight: bold;
             text-transform: uppercase;
             line-height: 1;
+            a {
+              > div {
+                width: 32px;
+                height: 32px;
+                display: inline-block;
+                line-height: 0;
+                bottom: -13px;
+                position: relative;
+                margin-right: 11px;
+              }
+            }
           }
         }
       }
       .home-menu {
         position: absolute;
         bottom: 0;
-        right: 2rem;
+        right: 1rem;
         z-index: 2;
+        //        width: calc((100vh - 2rem) / 2.15);
+        text-align: right;
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
         ul {
           list-style: none;
           margin: 0;
@@ -71,7 +240,7 @@ $half: $cropwidth / 2.35;
               color: $purple;
               font-size: 1.75rem;
               font-family: 'Heroic Condensed';
-              margin-left: .5rem;
+              margin: 0 .5rem;
               position: relative;
               top: -.1rem;
             }
@@ -87,9 +256,33 @@ $half: $cropwidth / 2.35;
               color: $red;
               line-height: 1;
               padding: 0;
-
               @include textGlitch("homemenu", 17, $red, white, $purple, $green, 450, 18);
-
+            }
+          }
+        }
+        .home-offerings {
+          //          position: absolute;
+          //          top: 7px;
+          //          left: 0;
+          //          right: 0;
+          position: relative;
+          //          top: -7px;
+          .toggle {
+            position: absolute;
+            margin-left: -1rem;
+            left: 0;
+            color: $purple;
+          }
+          ul {
+            li {
+              &:after {
+                margin-right: .5rem;
+              }
+              &:last-child {
+                &:after {
+                  margin-right: 0;
+                }
+              }
             }
           }
         }
@@ -103,10 +296,13 @@ $half: $cropwidth / 2.35;
       height: 100%;
       pointer-events: none;
       z-index: 2;
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
       > div {
         position: relative;
         width: $cropwidth;
-        right: -25vw;
+        right: 0;
         top: 0;
         width: 100%;
         background: none;
@@ -128,16 +324,16 @@ $half: $cropwidth / 2.35;
         //    }
         &:before {
           content: '';
-          background: url(../../src/img/white-triangle-reversed.svg);
+          background: url(#{$theme}/img/white-triangle-reversed.svg);
           display: block;
           margin-left: auto;
-          height: 100%;
-          width: 100vh;
+          height: 100vh;
+          width: 550px;
           position: relative;
           //        left: $cropwidth;
           background-size: cover;
           background-repeat: no-repeat;
-          background-position: 100% 100%;
+          background-position: 0% 100%;
           //        margin-left: -1px;
           //        margin-top: -1px;
         }

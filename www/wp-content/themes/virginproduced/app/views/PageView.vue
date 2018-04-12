@@ -1,71 +1,88 @@
 <template>
 
 
-  <div>
+  <div :is993="is993" :mobile="mobile" :ie="ie">
 
-    <vue-headful
-        :title="item.title.rendered"
-        description="Virgin Produced"
-    />
-          <!-- 404 -->
-    <div class="container main" v-if="error">
-      <div class="row">
-        <div class="col-12">
-          <h1 class="glitching" title="Pardon the disruption">Pardon the disruption</h1>
-        </div>
-      </div>
-    </div>
+
+    <!-- 404 -->
+
+    <Error404 v-if="item === undefined"></Error404>
+
     <!-- Main -->
-    <div class="container" v-if="item.content">
-      <div class="Row">
-        <div class="ColumnSeventy">
-          <article class="PageSingle">
-            <figure class="BlogPostSingle__images rellax" data-rellax-speed="2" v-if="item.better_featured_image">
-              <img :src="item.better_featured_image.source_url">
-            </figure>
-            <header class="BlogPostSingle__header">
-              <h1 class="rellax" data-rellax-speed="2">{{ item.title.rendered }}</h1>
-              <div class="row">
-                <div class="col-sm-4" v-for="work in acfWorks">
+      <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:leave="leave"
+      v-bind:css="false"
+      >
+      <AboutView
+                 v-on:update="onElementChange()"
+                 :src="elementChange()"
+                 v-if="item && item.template === 'about-us.php'"
+                 :is993="is993" :mobile="mobile" :ie="ie"
+                 >
+      </AboutView>
+      </transition>
+      <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:leave="leave"
+      v-bind:css="false"
 
-                <video id="video"
-                       class="video-js vjs-big-play-centered"
-                        controls
-                        :poster="work.acf.poster"
-                        data-setup="{}">
+      >
+      <GalleryView
+                   v-on:update="onElementChange()"
+                   :src="elementChange()"
+                   v-if="item && item.template === 'service-gallery.php'"
+                   :is993="is993" :mobile="mobile" :ie="ie"
+                   >
+      </GalleryView>
+      </transition>
+      <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:leave="leave"
+      v-bind:css="false"
 
+      >
+      <ParentService
+                     v-on:update="onElementChange()"
+                     :src="elementChange()"
+                     v-if="item && item.template === 'parent-service.php'"
+                     :is993="is993" :mobile="mobile" :ie="ie"
+                     >
+      </ParentService>
+      </transition>
+      <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:leave="leave"
+      v-bind:css="false"
 
-                     <source :src="work.acf.video" type="video/mp4" >
+      >
+      <ChildService
+                    v-on:update="onElementChange()"
+                    :src="elementChange()"
+                    v-if="item && item.template === 'child-service.php'"
+                    :is993="is993" :mobile="mobile" :ie="ie"
+                     >
+      </ChildService>
+      </transition>
+      <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:leave="leave"
+      v-bind:css="false"
 
-
-                </video>
-
-                <div class="over"><p>{{ work.post_title }}</p></div>
-                </div>
-              </div>
-
-            </header>
-            <aside class="BlogPostSingle__content">
-              <div v-html="item.content.rendered"></div>
-            </aside>
-          </article>
-        </div>
-        <div class="ColumnQuarter">
-          <aside class="SidebarItem">
-            <header class="SidebarItem__header">
-              <h3>Latest Posts</h3>
-            </header>
-            <ul>
-              <li v-for="post in limitedPosts" v-bind:key="post.slug">
-                <router-link :to="{ name: 'post', params: { id: post.slug } }">
-                  {{ post.title.rendered }}
-                </router-link>
-              </li>
-            </ul>
-          </aside>
-        </div>
-      </div>
-    </div>
+      >
+      <Contact
+               v-on:update="onElementChange()"
+               :src="elementChange()"
+               v-if="item && item.template === 'contact.php'"
+               :is993="is993" :mobile="mobile" :ie="ie"
+                     >
+      </Contact>
+      </transition>
   </div>
 
 </template>
@@ -79,23 +96,49 @@
 import PageService from '../services/PageService'
 import PostService from '../services/PostService'
 import GoodsService from '../services/GoodsService'
+import GalleryView from './GalleryView.vue'
+import ParentService from './ParentView.vue'
+import ChildService from './ChildView.vue'
+import AboutView from './AboutView.vue'
+import Contact from './Contact.vue'
+import Error404 from './NotFoundView.vue'
+import videojs from 'video.js'
 
 export default {
 
+  components: {
+
+  GalleryView,
+  ParentService,
+  AboutView,
+  ChildService,
+  Contact,
+  Error404
+
+  },
   data() {
     return {
       item: {},
       posts: [],
       error: false,
+
 //      samples: [this.acfwork]
 //      nestedAcf: [],
     }
+  },
+  props: {
+      items: {},
+      offerings: {},
+      ie: {},
+      mobile: {},
+      is993: {}
+
   },
     created() {
       const slug = this.$route.params.slug;
       this.$store.dispatch('FETCH_PAGE', slug);
       this.fetchItem()
-      this.fetchPosts()
+
     },
 
     mounted: function(){
@@ -104,28 +147,6 @@ export default {
   computed: {
     slug() { return this.$route.params.slug },
     pageContent() { return this.$store.state.pages[this.slug] },
-    acf() {
-      if(this.acf.work_samples != false || this.acf.main_roll != false || this.acf.child_services != false) {
-
-      return this.pageContent.acf || { test: 'poop' }
-
-      }
-    },
-    acfWorks() {
-//      return GoodsService.getAll();
-
-      if(this.acf.work_samples != false) {
-      return this.acf.work_samples.splice(0, 5) || {
-          test: 'poo'
-      }
-
-
-      }
-
-    },
-    limitedPosts() {
-      return this.posts.splice(0, 5)
-    },
 
   },
   watch: {
@@ -136,34 +157,99 @@ export default {
 
     updated: function(){
 
-         var rellax = new Rellax('.rellax')
-
-
     },
 
   methods: {
-//    fetchNestedAcf(slug) {
-//      const paramSlug = this.$route.params.slug || ''
-//      const pageSlug = slug || paramSlug
-//
-////      if (paramSlug === 'content-services') {
-//        const work = this.acfWorks.map(workPage => {
-//          return PageService
-//            .getAcf(workPage.post_name)
-//            .then(result => {
-//              this.nestedAcf.push(result.data[0].acf)
-//          })
-//        })
-//
-//        return Promise.all(work);
-////      }
-//    },
+    elementChange() {
 
+    this.$on('broll', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+//      this.src = payload.src
+
+        this.$parent.$emit('broll', {
+        src : payload.src
+        })
+
+
+
+    });
+    this.$on('reelPlay', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+//      this.src = payload.src
+
+//      setTimeout(function(){
+//      const getID = document.querySelector('#reel-player .video-js').id;
+//
+//      var player = videojs(getID);
+//
+//      player.play();
+//      player.requestFullscreen();
+//
+//      }, 3000);
+
+      this.$parent.$emit('reelPlay')
+
+
+
+    });
+    this.$on('title', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+//      this.src = payload.src
+
+//      setTimeout(function(){
+//      const getID = document.querySelector('#reel-player .video-js').id;
+//
+//      var player = videojs(getID);
+//
+//      player.play();
+//      player.requestFullscreen();
+//
+//      }, 3000);
+
+        this.$parent.$emit('title', {
+        title : payload.title
+        })
+
+    });
+    this.$on('contextual_menu', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+//      this.src = payload.src
+
+        this.$parent.$emit('contextual_menu', {
+        contextual_menu : payload.contextual_menu
+        })
+
+
+
+    });
+    this.$on('contextual_menu_links', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+//      this.src = payload.src
+
+        this.$parent.$emit('contextual_menu_links', {
+        contextual_menu_links : payload.contextual_menu_links
+        })
+
+
+
+    });
+      // payload is what you want here
+    },
     fetchItem(slug) {
-      const paramSlug = this.$route.fullPath.replace('/','').replace('/','') || '';
+      const paramSlug = this.$route.params.slug
       const pageSlug = slug || paramSlug
 
-      return PageService.get(pageSlug)
+      return PageService.get(paramSlug)
         .then(result => {
           this.item = result.data[0]
             console.log(result.data[0])
@@ -176,33 +262,39 @@ export default {
           this.error = true
         })
     },
-    fetchPosts() {
-      return PostService.getAll()
-        .then(result => {
-          this.posts = result.data
-        })
+    beforeEnter: function (el) {
+      el.style.opacity = 0
     },
-      // listen event
-      onPlayerPlay(player) {
-        // console.log('player play!', player)
-      },
-      onPlayerPause(player) {
-        // console.log('player pause!', player)
-      },
-      // ...player event
+    enter: function (el, done) {
 
-      // or listen state event
-      playerStateChanged(playerCurrentState) {
-        // console.log('player current update state', playerCurrentState)
-      },
+      Velocity(el,
+               {
+        opacity: 1,
 
-      // player is ready
-      playerReadied(player) {
-        console.log('the player is readied', player)
-        // you can use it to do something...
-        // player.[methods]
-      }
+      }, {
+        duration: 500,
+        delay: 1000
+      });
 
+
+
+    },
+    leave: function (el, done) {
+      Velocity(el,
+               {
+        opacity: 0
+      }, {
+        duration: 300
+      });
+
+      Velocity(el, {
+        display: 'none'
+      }, {
+        delay: 250,
+        complete: done
+
+      })
+    },
   }
 
 }
@@ -211,43 +303,3 @@ export default {
 
 
 </script>
-
-<style lang="stylus" scoped>
-
-/**
- * 404
- */
-.Jumbotron
-  padding: 1em 0
-  margin-bottom: 1.5em
-  background: #fff
-  border-bottom: 1px solid #ccc
-
-h3
-  padding: 1em 0
-  margin: 0 auto
-
-/**
- * Main
- */
-.fade-enter-active
-  transition: opacity 0.5s
-
-.fade-leave-active
-  @extend .fade-enter-active
-
-.fade-enter
-  opacity: 0
-
-.fade-leave
-  @extend .fade-enter
-
-.Row
-
-  padding: 5rem 0 0;
-
-@media only screen and (max-width: 640px)
-  .PageSingle
-    margin: 1em 0
-
-</style>

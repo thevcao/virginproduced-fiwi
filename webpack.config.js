@@ -50,8 +50,13 @@ module.exports = {
         test: /\.css$/,
         use: [
                     'style-loader',
-                    'css-loader'
+                    'css-loader',
+                    'postcss-loader'
                     ]
+      },
+      {
+          test: /\.scss$/,
+          loader: 'vue-style-loader!css-loader!sass-loader!postcss-loader'
       },
       {
         test: /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)/,
@@ -70,10 +75,10 @@ module.exports = {
               {
                 removeComments: true
               }
-      ]
+            ]
           }
         }
-}
+      }
 
 
 
@@ -81,7 +86,23 @@ module.exports = {
   },
 
   plugins: [
+
+
     new webpack.optimize.OccurrenceOrderPlugin(),
+
+    new webpack.LoaderOptionsPlugin({
+     // test: /\.xxx$/, // may apply this only for some modules
+         options: {
+           vue: {
+
+              loaders: {
+              scss: 'vue-style-loader!css-loader!sass-loader'
+              }
+
+           }
+         }
+    }),
+
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"development"',

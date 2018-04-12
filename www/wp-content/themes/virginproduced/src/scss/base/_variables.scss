@@ -1,9 +1,11 @@
+$theme: /wp-content/themes/virginproduced/dist;
+$csstransition: ease;
+
 $red: #E01931;
 $purple: #3D2A85;
 $grey: #333333;
 $light-grey: #A7AAAA;
-$green : #50E3C2;
-
+$green: #50E3C2;
 $randomNumber: random(1);
 $randomNumber2: random(2);
 $randomNumber3: random(3);
@@ -133,37 +135,7 @@ $randomNumber4: random(4);
     opacity: 1;
   }
 }
-@mixin glitch {
-  position: relative;
-  &:before,
-  &:after {
-    display: block;
-    content: attr(title);
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    opacity: .8;
-    padding: inherit;
-  }
-  &:after {
-    color: #f0f;
-    z-index: -2;
-  }
-  &:before {
-    color: #0ff;
-    z-index: -1;
-  }
-  &:hover {
-    &:before {
-      animation: glitch .3s cubic-bezier(.25, .46, .45, .94) both infinite
-    }
-    &:after {
-      animation: glitch .3s cubic-bezier(.25, .46, .45, .94) reverse both infinite
-    }
-  }
-}
+
 @mixin textGlitch($name, $intensity, $textColor, $background, $highlightColor1, $highlightColor2, $width, $height) {
   color: $textColor;
   position: relative;
@@ -176,33 +148,48 @@ $randomNumber4: random(4);
         @for $i from 0 through $steps {
           #{percentage($i*(1/$steps))} {
             clip: rect( random($height)+px, $width+px, random($height)+px, 0);
+            transform: skew(random(20) - 10 + deg) translate3d(random(10) - 5 + px, random(10) - 5 + px, 0);
           }
         }
       }
     }
   }
-  &:before,
-  &:after {
-    padding: inherit;
-    content: attr(title);
-    position: absolute;
-    margin: inherit;
-    line-height: inherit;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: $background;
-    clip: rect(0, 0, 0, 0);
-    opacity: 0;
-  }
-
+  //  &:before,
+  //  &:after {
+  //    padding: inherit;
+  //    content: attr(title);
+  //    position: absolute;
+  //    margin: inherit;
+  //    line-height: inherit;
+  //    top: 0;
+  //    left: 0;
+  //    width: 100%;
+  //    background: $background;
+  //    clip: rect(0, 0, 0, 0);
+  //    opacity: 0;
+  //  }
   &:hover {
-
-    color:  $highlightColor1;
-
+    color: $highlightColor1;
     &:before,
     &:after {
-      opacity: 1;
+
+      // (768px)
+      @include media-breakpoint-up(sm) {
+      padding: inherit;
+      content: attr(title);
+      position: absolute;
+      margin: inherit;
+      line-height: inherit;
+      top: 0;
+//      left: 0;
+      width: 100%;
+      background: $background;
+      clip: rect(0, 0, 0, 0);
+      pointer-events: none;
+      }
+
+
+      //    opacity: 0;
     }
   }
   &:after {
@@ -216,30 +203,3 @@ $randomNumber4: random(4);
     animation: #{$name}-anim-2 3s infinite linear alternate-reverse;
   }
 }
-@keyframes glitch {
-  0% {
-    -webkit-transform: translate(0);
-    transform: translate(0)
-  }
-  20% {
-    -webkit-transform: translate(-5px, 5px);
-    transform: translate(-5px, 5px)
-  }
-  40% {
-    -webkit-transform: translate(-5px, -5px);
-    transform: translate(-5px, -5px)
-  }
-  60% {
-    -webkit-transform: translate(5px, 5px);
-    transform: translate(5px, 5px)
-  }
-  80% {
-    -webkit-transform: translate(5px, -5px);
-    transform: translate(5px, -5px)
-  }
-  to {
-    -webkit-transform: translate(0);
-    transform: translate(0)
-  }
-}
-

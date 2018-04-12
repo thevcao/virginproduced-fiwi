@@ -4,8 +4,8 @@
  $properties = new CPT(
      array(
          'post_type_name' => 'suits',
-         'singular'       => 'suit',
-         'plural'         => 'suits',
+         'singular'       => 'Suit',
+         'plural'         => 'Suits',
          'slug'           => 'our-suits',
      ),
      array(

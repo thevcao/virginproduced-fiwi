@@ -1,38 +1,40 @@
+$theme: /wp-content/themes/virginproduced/dist;
+
 @font-face {
     font-family: 'Heroic Condensed';
-    src: url('../fonts/hinted-HeroicCondensed-Regular.woff2') format('woff2'),
-        url('../fonts/hinted-HeroicCondensed-Regular.woff') format('woff');
+    src: url('#{$theme}/fonts/hinted-HeroicCondensed-Regular.woff2') format('woff2'),
+        url('#{$theme}/fonts/hinted-HeroicCondensed-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Gotham';
-    src: url('../fonts/hinted-Gotham-BookItalic.woff2') format('woff2'),
-        url('../fonts/hinted-Gotham-BookItalic.woff') format('woff');
+    src: url('#{$theme}/fonts/hinted-Gotham-BookItalic.woff2') format('woff2'),
+        url('#{$theme}/fonts/hinted-Gotham-BookItalic.woff') format('woff');
     font-weight: 500;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'Gotham';
-    src: url('../fonts/hinted-Gotham-Light.woff2') format('woff2'),
-        url('../fonts/hinted-Gotham-Light.woff') format('woff');
+    src: url('#{$theme}/fonts/hinted-Gotham-Light.woff2') format('woff2'),
+        url('#{$theme}/fonts/hinted-Gotham-Light.woff') format('woff');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Gotham';
-    src: url('../fonts/hinted-Gotham-Bold.woff2') format('woff2'),
-        url('../fonts/hinted-Gotham-Bold.woff') format('woff');
+    src: url('#{$theme}/fonts/hinted-Gotham-Bold.woff2') format('woff2'),
+        url('#{$theme}/fonts/hinted-Gotham-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'Gotham';
-    src: url('../fonts/hinted-GothamBlack.woff2') format('woff2'),
-        url('../fonts/hinted-GothamBlack.woff') format('woff');
+    src: url('#{$theme}/fonts/hinted-GothamBlack.woff2') format('woff2'),
+        url('#{$theme}/fonts/hinted-GothamBlack.woff') format('woff');
     font-weight: 900;
     font-style: normal;
 }

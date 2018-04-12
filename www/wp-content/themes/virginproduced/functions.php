@@ -170,23 +170,23 @@ $OldFashioned = new OldFashioned(
  * Enqueue scripts and styles.
  */
 function vuewp_scripts() {
+//    wp_enqueue_script( 'ext-libraries', get_template_directory_uri() . '/dist/js/scripts.min.js', array(), '20151217', false );
 
     wp_enqueue_script( 'vuewp-common', get_template_directory_uri() . '/dist/js/common.min.js', array(), '20151217', true );
     wp_enqueue_script( 'vuewp-main', get_template_directory_uri() . '/dist/js/main.min.js', array(), '20151217', true );
 
     wp_enqueue_script( 'vuewp-vendor', get_template_directory_uri() . '/dist/js/vendor.min.js', array(), '20151217', true );
-    wp_enqueue_script( 'threejs', 'https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.min.js', array(), '20151217', true );
-    wp_enqueue_script( 'ext-libraries', get_template_directory_uri() . '/dist/js/scripts.min.js', array(), '20151217', true );
-    wp_enqueue_script( 'rellax', 'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.6.0/rellax.min.js', array(), '20151217', true );
+//    wp_enqueue_script( 'threejs', 'https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.min.js', array(), '20151217', true );
+//    wp_enqueue_script( 'rellax', 'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.6.0/rellax.min.js', array(), '20151217', true );
 
 }
 add_action( 'wp_enqueue_scripts', 'vuewp_scripts' );
 
 
-function prefix_add_footer_styles() {
-    wp_enqueue_style( 'vuewp-style', get_template_directory_uri() . '/dist/css/custom.min.css' );
-};
-add_action( 'get_footer', 'prefix_add_footer_styles' );
+//function prefix_add_footer_styles() {
+//    wp_enqueue_style( 'vuewp-style', get_template_directory_uri() . '/dist/css/custom.min.css' );
+//};
+//add_action( 'get_footer', 'prefix_add_footer_styles' );
 
 /**
  * Implement the Custom Header feature.
@@ -238,3 +238,24 @@ function deepIncludeACFFields( &$item, $key, $postTypes ) {
     $item->acf = get_fields( $item->ID );
   }
 }
+
+function override_mce_options($initArray) {
+    $opts = '*[*]';
+    $initArray['valid_elements'] = $opts;
+    $initArray['extended_valid_elements'] = $opts;
+    return $initArray;
+} add_filter('tiny_mce_before_init', 'override_mce_options');
+
+
+
+add_image_size( 'news_image', 800, 999999 );
+
+
+
+add_filter( 'rest_endpoints', function( $endpoints ){
+    if ( ! isset( $endpoints['/wp/v2/suits'] ) ) {
+        return $endpoints;
+    }
+    $endpoints['/wp/v2/suits'][0]['args']['per_page']['default'] = 100;
+    return $endpoints;
+});

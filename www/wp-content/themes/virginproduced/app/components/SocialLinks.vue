@@ -1,5 +1,4 @@
 <template>
-
               <ul class="social">
                 <li>
                 <a href="" title=""><i class="fa fa-facebook-square"></i></a>

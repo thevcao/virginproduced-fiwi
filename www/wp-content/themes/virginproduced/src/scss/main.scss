@@ -32,6 +32,8 @@ html {
   box-sizing: inherit;
 }
 
+
+
 @import "node_modules/bootstrap/scss/functions";
 @import "node_modules/bootstrap/scss/variables";
 
@@ -44,6 +46,17 @@ html {
 //
 
 @import "node_modules/bootstrap/scss/mixins/breakpoints";
+
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1442px
+);
+
+
 @import "node_modules/bootstrap/scss/mixins/grid-framework";
 @import "node_modules/bootstrap/scss/mixins/grid";
 
@@ -55,34 +68,12 @@ html {
 @import "node_modules/bootstrap/scss/utilities/display";
 
 ////Or shit mix your own!
-@import 'node_modules/outdated-browser/outdatedbrowser/outdatedbrowser.scss';
+//@import 'node_modules/outdated-browser/outdatedbrowser/outdatedbrowser.scss';
 
 // Style Base
-@import
-  'base/variables',
-  'base/fonts',
-  'base/typography';
+@import 'base/variables';
+@import 'base/fonts';
+@import 'base/typography';
 
 // Layout
-@import
-  'layout/header',
-  'layout/nav',
-  'layout/footer',
-  'layout/main',
-  'layout/sidebar';
-
-//@import 'layout/**/*/*.scss';
-
-//Pages
-//@import 'pages/**/*/*.scss';
-
-// Components
- @import 'components/*.scss';
-
-// Utils
-@import
-  'utils/mixins',
-  'utils/qa';
-
-@import
-  'shame';
+@import 'layout/main';

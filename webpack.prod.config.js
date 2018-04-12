@@ -48,8 +48,14 @@ module.exports = {
         test: /\.css$/,
         use: [
                     'style-loader',
-                    'css-loader'
+                    'css-loader',
+                    'postcss-loader'
+
                     ]
+      },
+      {
+          test: /\.scss$/,
+          loader: 'vue-style-loader!css-loader!sass-loader!postcss-loader'
       },
       {
         test: /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)/,
@@ -68,9 +74,9 @@ module.exports = {
               {
                 removeComments: true
               }
-      ]
-          }
+              ]
         }
+      }
 }
 
 
@@ -81,6 +87,18 @@ module.exports = {
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.LoaderOptionsPlugin({
+     // test: /\.xxx$/, // may apply this only for some modules
+         options: {
+           vue: {
+
+              loaders: {
+              scss: 'vue-style-loader!css-loader!sass-loader'
+              }
+
+           }
+         }
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
@@ -105,17 +123,17 @@ module.exports = {
       name: 'common',
     }),
 
-    // For prerendering routes
-    new PrerenderSpaPlugin(
-      // Absolute path to compiled SPA
-      // @see https://github.com/chrisvfritz/prerender-spa-plugin/issues/108#issuecomment-332134979
-      path.resolve(__dirname, './www/wp-content/themes/virginproduced/dist'),
-      // List of routes to prerender
-      ['/'],
-      // Advanced options
-      {
-        captureAfterTime: 5000,
-      },
-    ),
+//    // For prerendering routes
+//    new PrerenderSpaPlugin(
+//      // Absolute path to compiled SPA
+//      // @see https://github.com/chrisvfritz/prerender-spa-plugin/issues/108#issuecomment-332134979
+//      path.resolve(__dirname, './www/wp-content/themes/virginproduced/dist'),
+//      // List of routes to prerender
+//      ['/'],
+//      // Advanced options
+//      {
+//        captureAfterTime: 5000,
+//      },
+//    ),
   ],
 };

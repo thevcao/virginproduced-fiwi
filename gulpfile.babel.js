@@ -156,33 +156,33 @@
 
   /** Compiling and bundeling Sass into single CSS-File */
   gulp.task('styles', () => {
-    return (
-      gulp
-        .src(`${themePath}/src/scss/main.scss`)
-        .pipe(
-          plumber(error => {
-            util.log(util.colors.red(error.message));
-            this.emit('end');
-          }),
-        )
-        .pipe(sassGlob())
-        .pipe(sourcemaps.init())
-        // Sass
-        .pipe(plugins.sass({ outputStyle: 'compressed', includePaths: cssFrameworks }))
-        .on('error', plugins.sass.logError)
-        // Prefixer, Compression, etc.
-        .pipe(
-          autoprefixer({
-            browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3'],
-            cascade: false,
-          }),
-        )
-        .pipe(nano())
-//        .pipe(rename({ suffix: '.min' }))
-        .pipe(rename('custom.min.css'))
-        .pipe(gulp.dest(`${otherPaths.distPath}/css`))
-        .pipe(browserSync.stream())
-    );
+//    return (
+//      gulp
+//        .src(`${themePath}/src/scss/main.scss`)
+//        .pipe(
+//          plumber(error => {
+//            util.log(util.colors.red(error.message));
+//            this.emit('end');
+//          }),
+//        )
+//        .pipe(sassGlob())
+//        .pipe(sourcemaps.init())
+//        // Sass
+//        .pipe(plugins.sass({ outputStyle: 'compressed', includePaths: cssFrameworks }))
+//        .on('error', plugins.sass.logError)
+//        // Prefixer, Compression, etc.
+//        .pipe(
+//          autoprefixer({
+//            browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3'],
+//            cascade: false,
+//          }),
+//        )
+//        .pipe(nano())
+////        .pipe(rename({ suffix: '.min' }))
+//        .pipe(rename('custom.min.css'))
+//        .pipe(gulp.dest(`${otherPaths.distPath}/css`))
+//        .pipe(browserSync.stream())
+//    );
   });
   /** Compiling and bundeling Sass into single CSS-File */
   gulp.task('admin-styles', () => {
@@ -215,7 +215,6 @@
 // Scripts task
   gulp.task('ext-scripts', () => {
     return gulp.src([
-        'node_modules/rellax/rellax.js',
         `${themePath}/src/js/*.js`
     ])
     .pipe(plugins.plumber())
@@ -239,6 +238,21 @@
         ])
         .pipe(gulp.dest(`${themePath}/dist/fonts/`))
     })
+
+  // Optimizes images
+  gulp.task('images', () => {
+    return gulp.src(`${themePath}/src/img/*`)
+      .pipe(plugins.plumber())
+      .pipe(plugins.imagemin({
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [require('imagemin-pngquant')()]
+      }))
+      .pipe(plugins.plumber.stop())
+      .pipe(gulp.dest(`${themePath}/dist/img/`))
+      .pipe(plugins.size({ title: 'images' }));
+  });
+
   /*
   |-----------------------------------------------------------------------------
   | Gulp Tasks
@@ -247,8 +261,8 @@
 
   /** Build Task */
 
-  gulp.task('default', ['styles', 'admin-styles', 'fonts', 'favicons', 'ext-scripts', 'webpack:build']);
-  gulp.task('dev', ['styles', 'admin-styles', 'fonts', 'favicons', 'ext-scripts', 'webpack']);
+  gulp.task('default', ['styles', 'admin-styles', 'images', 'fonts', 'favicons', 'ext-scripts', 'webpack:build']);
+  gulp.task('dev', ['styles', 'admin-styles', 'images', 'fonts', 'favicons', 'ext-scripts', 'webpack']);
 
   /** Server Task */
   gulp.task('serve', ['dev', 'browser-sync'], () => {
@@ -260,6 +274,7 @@
 
     // Watch Styles
     gulp.watch(`${themePath}/src/scss/*.scss`, ['styles']);
+    gulp.watch(`${themePath}/src/img/*`, ['images']);
     gulp.watch(`${themePath}/src/scss/**/*.scss`, ['styles']);
     gulp.watch(`${themePath}/src/js/*.js`, ['ext-scripts']);
     gulp.watch(`${themePath}/admin/scss/*.scss`, ['admin-styles', browserSync.reload]);

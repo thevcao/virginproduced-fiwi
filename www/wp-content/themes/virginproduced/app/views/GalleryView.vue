@@ -1,57 +1,146 @@
-<template>
-<transition
-  appear
-  appear-class="custom-appear-class"
-  appear-to-class="custom-appear-to-class" (2.1.8+)
-  appear-active-class="custom-appear-active-class"
->
-  <div>
+<template v-if="item && item.acf.bg_video">
+  <div :is993="is993" :mobile="mobile" :ie="ie">
+    <div class="gallery-vue"  v-if="item && item.acf">
 
-          <!-- 404 -->
-    <div class="container main" v-if="error">
-      <div class="row">
-        <div class="col-12">
-          <h1 class="glitching" title="Pardon the disruption">Pardon the disruption</h1>
+          <transition
+          v-on:before-enter="reelEnter"
+          v-on:enter="reelEntered"
+          v-on:leave="reelLeave"
+          v-bind:css="false"
+          >
+          <reelPlayer :src="item.acf.main_roll" v-if="reel && is993 === true" @closeReel="closeReel"></reelPlayer>
+
+          </transition>
+        <div
+             class="video-hover ie transition-1"
+             data-anchor-target=".anchor"
+             data-bottom="transform:rotate(0deg)"
+             data-top="transform: rotate(37deg)"
+             v-if="ie"
+             v-on:click="playReel()"
+             >
+
+          <h2 class="glitching toggle-text" title="Play">Play</h2>
+
+
         </div>
-      </div>
-    </div>
+        <div class="video-hover transition-1"
+             data-anchor-target=".anchor"
+             data-bottom="transform:rotate(0deg)"
+             data-top="transform: rotate(37deg)"
+             v-if="is993 === false">
+            <video
+                :id="item.id"
+                class=""
 
-    <div class="gallery-vue"  v-if="item.content">
+                autoplay
+                loop
+                muted
+                preload="auto"
+               v-on:click="playReel()"
+                >
+               <source :src="item.acf.bg_video" type="video/mp4" >
 
 
-        <video autoplay loop
-               id="main-roll"
-               :src="item.acf.main_roll"
-               data-start="left:40%"
-               data-500-end="left:0%">
-        </video>
+          </video>
+          <h2 class="glitching toggle-text" title="Play">Play</h2>
 
-              <figure class="gallery-title"
+          <transition
+          v-on:before-enter="reelEnter"
+          v-on:enter="reelEntered"
+          v-on:leave="reelLeave"
+          v-bind:css="false"
+          >
+          <reelPlayer :src="item.acf.main_roll" v-if="reel" @closeReel="closeReel"></reelPlayer>
+          </transition>
+        </div>
+
+          <video
+                 autoplay
+                 loop
+                 muted
+                 id="main-roll"
+                 class="transition-2"
+                 :src="item.acf.bg_video"
+                 data-anchor-target=".anchor"
+                 data-bottom="left:40%"
+                 data-center="left:0%"
+                 preload="auto"
+                 v-if="mobile === false"
+                 >
+          </video>
+          <video
+                 autoplay
+                 loop
+                 muted
+                 playsinline
+                 id="main-roll"
+                 class="transition-2"
+                 :src="item.acf.bg_video_mobile"
+                 data-anchor-target=".anchor"
+                 data-bottom="left:40%"
+                 data-center="left:0%"
+                 preload="none"
+                 v-else
+                 >
+          </video>
+
+
+
+              <figure class="gallery-title transition-3" v-if="is993 === false"
 
                       >
+                <div class="overlay"
+
+                       data-anchor-target=".gallery"
+                        data-bottom-top="background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);"
+                        data-center-top="background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .75) 100%);"
+                     ></div>
                 <header class="float-title"
-                     data-center-center="transform:translate3d(0%,0%,0) rotate(-45deg)"
-                 data-top-bottom="transform:translate3d(50%,-50%,0) rotate(-45deg)"
+                        data-anchor-target=".anchor"
+                        data-bottom="transform:translate3d(0%,0%,0) rotate(-45deg)"
+                        data-top="transform:translate3d(50%,-50%,0) rotate(-45deg)"
 
                         >
                 <h1 :title="item.title.rendered">{{ item.title.rendered }}</h1>
                 </header>
+
+                  <a
+                     href="#"
+                     class="play-toggle"
+                     v-if="!reel"
+                     v-on:click="playReel()"
+
+                     data-anchor-target=".anchor"
+                     data-bottom="opacity: 1"
+                     data-top="opacity: 0"
+                     >
+                    <PlayIcon></PlayIcon>
+                  </a>
+
               </figure>
 
             <div
                 class="crop-bg"
-                 data-start="transform:translate3d(0%,0%,0)"
-                 data-end="transform:translate3d(-100%,0%,0)"
-                v-in-viewport>
+                 data-anchor-target=".anchor"
+                 data-bottom="transform:translate3d(0%,0%,0);"
+                 data-top="transform:translate3d(-100%,0,0);"
+                 v-if="is993 === false"
+
+                 >
                   <div>
                   </div>
             </div>
-          <div class="main post-content">
+          <div class="main post-content above-fold">
 
+           <div class="anchor"
+                data-100-bottom="transform:translate3d(0%,5%,0) rotate(0deg); opacity: 1"
+                data-top="transform:translate3d(0%,-15%,0) rotate(-76deg); opacity: 0;"
+                v-in-viewport
+                v-if="is993 === false"
+                ></div>
 
-
-
-            <div class="container">
+            <div class="container ml-xl-0 transition-4">
 
             <vue-headful
                 :title="item.title.rendered"
@@ -59,81 +148,122 @@
             />
 
               <div class="row">
-                <div class="col-sm-7">
-                  <h1 class="rellax" data-rellax-speed="2" v-html="item.acf.headline"></h1>
+                <div class="col-xl-8 col-lg-9 col-sm-6">
+                  <h1 class="rellax headline" data-rellax-speed="2" v-html="item.acf.headline"></h1>
+                  <a
+                     href="#"
+                     class="play-toggle mobile"
+                     v-if="item.acf.main_roll && is993 === true"
+                     v-on:click="playReel()"
+                     >
+                    <Play></Play>
+                  </a>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-5">
+              <div class="row" v-if="is993 === false">
+                <div class="col-xl-5 pr-xl-auto col-lg-5 pr-lg-5 col-md-4 pr-sm-auto">
 
 
-                          <div v-html="item.acf.content" data-start="opacity: 1" data-end="opacity: 0"></div>
+                <div v-html="item.acf.content" data-start="opacity: 1" data-end="opacity: 0">
 
 
                 </div>
+                <div class="roll-down"><span>More</span></div>
 
+
+                </div>
 
               </div>
 
-
-
-              <!--<div class="Row">
-                <div class="ColumnSeventy">
-                  <article class="PageSingle">
-                    <figure class="BlogPostSingle__images rellax" data-rellax-speed="2" v-if="item.better_featured_image">
-                      <img :src="item.better_featured_image.source_url">
-
-                    </figure>
-
-
-                    <header class="BlogPostSingle__header">
-
-
-
-                      <div class="row" v-if="acfWorks">
-                        <div class="col-sm-4" v-for="work in acfWorks">
-
-                        <video :id="work.id"
-                               class="video-js vjs-big-play-centered"
-                                controls
-                                :poster="work.acf.poster"
-                                data-setup="{}">
-
-
-                             <source :src="work.acf.video" type="video/mp4" >
-
-
-                        </video>
-
-                        <div class="over"><p>{{ work.post_title }}</p></div>
-                        </div>
-                      </div>
-
-                    </header>
-                    <aside class="BlogPostSingle__content">
-                    </aside>
-                  </article>
-                </div>
-              </div>-->
             </div>
 
           </div>
-            <div class="video-hover" v-on:click="hoverVideo" data-center-center="transform:rotate(0deg)" data-top-bottom="transform: rotate(37deg)">
-                  <video :id="item.id"
-                         class=""
-                          controls
-                          autoplay
-                          loop
-                          muted
-                         >
-                       <source :src="item.acf.main_roll" type="video/mp4" >
+          <div class="main post-content below-fold">
 
 
-                  </video>
+
+
+            <div class="container">
+
+
+              <div class="row" v-if="is993 === false">
+                <div class="col-sm-10">
+
+
+                <div class="content"
+                     v-html="item.acf.gallery_content"
+                     data-bottom-top="transform: translate3d(0, 10%, 0); opacity: 0"
+                     data-center="transform: translate3d(0, 0%, 0); opacity: 1"
+                     data-top-bottom="transform: translate3d(0, 0%, 0); opacity:0"></div>
+
+
+                </div>
+
+
+              </div>
+              <div class="gallery">
+              <div class="row" v-if="acfWorks">
+                <div class="col-xl-11 col-lg-12 p-xs-0">
+
+                  <h2
+                      class="gotham glitching"
+                      title="The Goods"
+                      data-bottom-top="transform: scaleY(0);"
+                      data-center="transform: scaleY(1);"
+                      v-if="is993 === false"
+                      >The Goods</h2>
+
+                  <div class="row">
+
+                        <div class="col-sm-6 item"
+                             v-for="work, i in acfWorks"
+                             v-in-viewport
+                             >
+
+
+                             <img
+                              v-on:click="createPlayer(i)"
+                              :src="work.acf.poster">
+
+
+
+
+                            <div class="over">
+                              <p>{{ work.post_title }}</p>
+                            </div>
+
+                              <transition
+                              v-on:before-enter="beforeEnter"
+                              v-on:enter="enter"
+                              v-on:leave="leave"
+                              v-bind:css="false"
+                              >
+
+                             <galleryPlayer :src="work.acf.video" v-if="currentPlayer === i"></galleryPlayer>
+
+                            </transition>
+
+                        </div>
+                  </div>
+
+
+
+
+
+                </div>
+
+
+              </div>
+              </div>
+
+
             </div>
+
+          </div>
+
         </div>
     </div>
-  </transition>
+
 </template>
 
 <script>
@@ -143,157 +273,387 @@
 
 //import videojs from "video.js" ;
 import GalleryService from '../services/GalleryService'
+import galleryPlayer from '../components/galleryPlayer.vue'
+import reelPlayer from '../components/reelPlayer.vue'
 let videojs = require('video.js');
 import inViewportDirective from 'vue-in-viewport-directive'
 import inViewport from 'vue-in-viewport-mixin'
+import PlayIcon from '../components/Play.vue'
+import Play from '../components/PlayIcon.vue'
+
+
 
 export default {
 
+  components: {galleryPlayer, PlayIcon, reelPlayer, Play},
+  props: {
+
+      ie: {},
+      mobile: {},
+      is993: {},
+  },
   data() {
     return {
-      item: {},
+      item: [],
       posts: [],
       error: false,
-      title: 'The Platform'
-//      samples: [this.acfwork]
-//      nestedAcf: [],
+      title: 'The Platform',
+      galleryPlayer: false,
+      reel: false,
+      currentPlayer: null,
+
+
     }
   },
     created() {
       const slug = this.$route.params.slug;
       this.$store.dispatch('FETCH_PAGE', slug);
-      this.fetchItem()
-//      playerReadied()
+
+      return Promise.all([
+        this.fetchItem(),
+//        this.updateValue()
+      ])
+
 
     },
-
     mounted: function(){
 
-      let footer = document.querySelector('footer');
-      footer.classList.add('disabled');
+
+      var vm = this;
+
+      console.log('mounting...')
+      vm.$el.classList.add('loading')
+
+      this.$nextTick(function () {
+
+
+           this.initView()
+
+          this.$parent.$emit('title', {
+          title : this.title
+          })
+
+
+      })
 
     },
     updated: function() {
-        let footer = document.querySelector('footer')
+//        let footer = document.querySelector('footer')
+//
+//        document.querySelector('header .router-link-active').classList.remove('white');
+//        footer.classList.add('white');
+//
+//        setTimeout(function(){
+//
+//          skrollr.init({
+//  //            forceHeight: false
+//
+//
+//          });
+//        }, 1000);
 
-        document.querySelector('header .router-link-active').classList.remove('white');
-        footer.classList.add('disabled');
-        skrollr.init({
-//            forceHeight: false
-
-
-        });
+//      this.$nextTick(function () {
+//        // Code that will run only after the
+//        // entire view has been rendered
+//      this.updateValue()
+//
+//      setTimeout(function(){
+//        skrollr.init();
+//
+//
+//      }, 1500);
+//
+//      })
     },
     mixins: [ inViewport ],
     watch: {
-     'inViewport.now': function(visible) {
-       if(visible){
-          document.querySelector('header .router-link-active').classList.remove('white');
+     'inViewport.now': function(visible, above) {
 
-//          console.log('BG is visible')
-       } else {
-          document.querySelector('header .router-link-active').classList.add('white');
-//          console.log('BG is outside of the viewport')
+       if(this.is993 === false){
+
+
+       if(visible){
+
+          document.querySelector('header .router-link-active').classList.remove('white');
+          document.querySelector('header .toggle').classList.remove('footer-in-view');
+
+          console.log('BG is visible')
+
        }
+       if(above) {
+          document.querySelector('header .router-link-active').classList.add('white');
+          document.querySelector('header .toggle').classList.add('footer-in-view');
+          console.log('BG is outside of the viewport')
+
+
+       }
+
+
+       }
+
+
      },
+    $route (to, from){
+//        this.show = false;
+    }
+
     },
     computed: {
     slug() { return this.$route.params.slug },
+
     pageContent() { return this.$store.state.pages[this.slug] },
+
     acf() {
-//      if(this.acf != false) {
 
       return this.item.acf || { test: 'poop' }
 
-//      }
 
     },
 
     acfWorks() {
-//      if(this.acf != false) {
+
       return this.acf.work_samples.splice(0, 5) || {
           test: 'poo'
       }
-//      }
-    },
-    limitedPosts() {
-      return this.posts.splice(0, 5)
-    },
 
     },
+//    limitedPosts() {
+//      return this.posts.splice(0, 5)
+//    },
+
+    },
+
     beforeDestroy: function(){
+      let footer = document.querySelector('footer')
 
-      footer.classList.remove('disabled');
+      footer.classList.remove('white');
       skrollr.init().destroy();
 
     },
-  methods: {
-//    fetchNestedAcf(slug) {
-//      const paramSlug = this.$route.params.slug || ''
-//      const pageSlug = slug || paramSlug
-//
-////      if (paramSlug === 'content-services') {
-//        const work = this.acfWorks.map(workPage => {
-//          return PageService
-//            .getAcf(workPage.post_name)
-//            .then(result => {
-//              this.nestedAcf.push(result.data[0].acf)
-//          })
-//        })
-//
-//        return Promise.all(work);
-////      }
-//    },
-        // listen event
-        onPlayerPlay(player) {
-           console.log('player play!', player)
-        },
-        onPlayerPause(player) {
-           console.log('player pause!', player)
-        },
-        // ...player event
 
-        // or listen state event
-        playerStateChanged(playerCurrentState) {
-           console.log('player current update state', playerCurrentState)
-        },
 
-        // player is ready
-        playerReadied(player) {
-          console.log('the player is readied', player)
-          // you can use it to do something...
-          // player.[methods]
-        },
+    methods: {
 
-        fetchItem(slug) {
-          const paramSlug = this.$route.fullPath.replace('/content-services/','') || '';
-          const pageSlug = slug || paramSlug
+          initView: function(){
 
-          return GalleryService.get(pageSlug)
-            .then(result => {
-              this.item = result.data[0]
-                console.log(result.data[0])
+            var vm = this;
+            if(this.is993 === false){
 
-    //            this.$nextTick(function() {
-    //              this.fetchNestedAcf();
-    //            });
+            console.log('mounting...')
+//            vm.$el.classList.add('loading')
+
+            let footer = document.querySelector('footer')
+
+            document.querySelector('header .router-link-active').classList.remove('white');
+            footer.classList.add('white');
+
+            document.querySelector('body').style.overflow="hidden";
+            if(vm.$el){
+
+            setTimeout(function(){
+            vm.$el.classList.add('loaded')
+
+
+            return { x: 0, y: 0 };
+
+
+
+            }, 2000);
+
+            setTimeout(function(){
+            vm.$el.classList.remove('loading');
+            vm.$el.classList.remove('loaded');
+            skrollr.init({
+
+              forceHeight: false
+
+            });
+            document.querySelector('body').style.overflow="";
+            vm.$el.querySelector('.roll-down').style.opacity="1";
+
+            }, 9000);
+
+            }
+
+            } else {
+
+            vm.$el.classList.remove('loading');
+
+            }
+
+          },
+
+          fetchItem(slug) {
+            const paramSlug = this.$route.params.slug
+            const pageSlug = slug || paramSlug
+
+            return GalleryService.get(paramSlug)
+              .then(result => {
+                this.item = result.data[0]
+                  console.log(result.data[0])
+              }).then(result => {
+
+                  if(this.acf.bg_video != undefined){
+
+                  this.$parent.$emit('broll', {
+                  src : this.acf.bg_video
+                  })
+                  console.log(this.acf.bg_video);
+
+                  }
+
+
+
+                })
+              .catch(err => {
+                this.error = true
+              })
+          },
+
+
+          createPlayer(i) {
+            this.currentPlayer = i
+            this.galleryPlayer = !this.galleryPlayer
+
+          },
+
+
+          playReel() {
+          this.reel = !this.reel;
+
+          },
+
+          beforeEnter: function (el) {
+
+            el.style.opacity = 0
+
+
+          },
+          enter: function (el, done) {
+
+
+            Velocity(el, {
+              opacity: 1
+            },{
+              duration: 300,
+              delay: 200
+                }
+                    );
+          },
+          leave: function (el, done) {
+            Velocity(el, {
+              opacity: 0
+            }, {
+              duration: 300,
+            });
+
+            Velocity(el, {
+              display: 'none'
+            }, {
+              complete: done,
+              delay: 300
             })
-            .catch(err => {
-              this.error = true
+          },
+
+          //Reel Modal Functions
+          reelEnter: function (el) {
+
+            el.style.opacity = 0
+
+
+          },
+          reelEntered: function (el, done) {
+
+            if(this.is993 === false){
+
+            skrollr.init().destroy();
+
+            var container = document.querySelector('.video-hover');
+
+            container.style.transition='all .3s ease'
+            container.classList.add('clipping');
+
+            Velocity(container, {
+              top: '0',
+              left: '0',
+              right: '0',
+              bottom: '0',
+              width: '100%',
+              height: '100%',
+            },{
+              duration: 750,
+              delay: 300,
+              begin: function(){
+
+              container.style.transition='none';
+              },
+              complete: function(){
+
+              },
             })
-        },
 
 
-          hoverVideo() {
+            }
 
 
-            console.log('clicked the hover video');
-            document.querySelector('.video-hover').classList.add('focus');
+            Velocity(el, {
+              opacity: 1
+            },{
+              duration: 300,
+              delay: 200
+                });
 
-          }
+
+          },
+          reelLeave: function (el, done) {
+
+            var container = document.querySelector('.video-hover');
 
 
-  }
+            Velocity(el, {
+              opacity: 0
+            }, {
+              duration: 500,
+              delay: 0,
+            });
+
+            Velocity(el, {
+              display: 'none'
+            }, {
+              complete: done,
+              delay: 1000
+            });
+
+            Velocity(container, "reverse", {
+
+              delay: 0,
+              begin: function(){
+
+              },
+              complete: function(){
+
+              container.style.transition='all .3s ease';
+              container.classList.remove('clipping');
+              container.style.top=''
+              container.style.left=''
+              container.style.right=''
+              container.style.bottom=''
+              container.style.width=''
+              container.style.height=''
+
+              skrollr.init()
+
+              },
+
+            })
+
+          },
+          closeReel() {
+
+              this.reel = !this.reel;
+
+          },
+    }
 
 }
 
@@ -302,77 +662,11 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss">
 
-/**
- * 404
- */
-.Jumbotron
-  padding: 1em 0
-  margin-bottom: 1.5em
-  background: #fff
-  border-bottom: 1px solid #ccc
+@import '../../src/scss/main.scss';
+@import '../../src/scss/components/_gallery.scss';
+@import '../../src/scss/components/videojs.scss';
 
-h3
-  padding: 1em 0
-  margin: 0 auto
-
-/**
- * Main
- */
-.fade-enter-active
-  transition: opacity 0.5s
-
-.fade-leave-active
-  @extend .fade-enter-active
-
-.fade-enter
-  opacity: 0
-
-.fade-leave
-  @extend .fade-enter
-
-.Row
-
-  padding: 5rem 0 0;
-  margin: 50vh 0;
-
-
-#main-roll
-  width: 100vw;
-  height: auto;
-
-.video-input
-
-    clip: polygon(20% 100%, 75% 0, 100% 0, 100% 100%);
-    clip-path: polygon(20% 100%, 75% 0, 100% 0, 100% 100%);
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    bottom: 0;
-    top: 0;
-
-.video-hover {
-    position: absolute;
-    z-index: 2;
-    width: 80%;
-    top: 30%;
-    left: 33%;
-    clip-path: polygon(62% 0, 25% 0, 25% 60%);
-    height: 85%;
-}
-.video-hover.modal-player {
-    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
-    position: fixed;
-    z-index: 100000;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: block;
-}
-@media only screen and (max-width: 640px)
-  .PageSingle
-    margin: 1em 0
 
 </style>

@@ -1,11 +1,12 @@
 
 <template>
-  <ul class="list pa2 tc main-menu">
-    <li v-for="page in orderedPages" v-bind:key="page.url" class="pa2 f3 f1-ns" v-if="page.target">
+  <ul class="list pa2 tc main-menu" :mobile="mobile">
+    <li v-for="page in pages" v-bind:key="page.url" class="pa2 f3 f1-ns" v-if="page.target">
       <a :href="page.url" class="white ttu" :title="page.title">{{ page.title }}</a>
     </li>
     <li v-bind:key="page.url" class="pa2 f3 f1-ns"  v-else>
-      <router-link :to="page.url" @click.native="toggleNavigation" :title="page.title" class="white ttu">{{ page.title }}</router-link>
+      <router-link v-if="mobile === false" :to="page.url" @click.native="toggleNavigation" :title="page.title" class="white ttu">{{ page.title }}</router-link>
+      <a v-else :href="page.url" @click.native="toggleNavigation" :title="page.title" class="white ttu">{{ page.title }}</a>
     </li>
   </ul>
 </template>
@@ -30,10 +31,16 @@ export default {
       target: null
     }
   },
+  props: {
+
+    pages: {},
+    mobile: {}
+
+  },
 
   created() {
-    this.fetchItems()
-    this.fetchInfoData()
+//    this.fetchItems()
+//    this.fetchInfoData()
   },
 
   computed: {
@@ -51,12 +58,12 @@ export default {
           this.items = result.data
         })
     },
-    fetchInfoData() {
-      return GlobalService.get()
-        .then(result => {
-          this.infoData = result.data
-        })
-    },
+//    fetchInfoData() {
+//      return GlobalService.get()
+//        .then(result => {
+//          this.infoData = result.data
+//        })
+//    },
 
     toggleNavigation() {
       console.log('emitting togglenav')
@@ -76,3 +83,7 @@ export default {
 }
 
 </script>
+<style lang="scss" scoped>
+@import '../../src/scss/main.scss';
+@import '../../src/scss/layout/_header.scss';
+</style>
