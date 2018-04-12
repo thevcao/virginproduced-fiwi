@@ -43,6 +43,7 @@
     "wpackagist-plugin/acf-to-rest-api": "~3.1.0",
     "wpackagist-plugin/better-rest-api-featured-images": "~1.2.1",
     "wpackagist-plugin/wp-api-menus": "~1.3.1",
+    "wpackagist-plugin/post-types-order": "~1.9.3.6",
     "findsomewinmore/admin-columns": "*",
     "findsomewinmore/advanced-custom-fields-pro": "*"
   },

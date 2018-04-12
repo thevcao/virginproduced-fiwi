@@ -39,14 +39,14 @@
   const gutil = require("gulp-util");
   const sassGlob = require('gulp-sass-glob');
   const sourcemaps = require('gulp-sourcemaps');
-
+  const favicons = require("gulp-favicons");
   /*
   |-----------------------------------------------------------------------------
   | Global Config
   |-----------------------------------------------------------------------------
   */
 
-  const themePath = './wp-content/themes/virginproduced';
+  const themePath = './www/wp-content/themes/virginproduced';
 
   const cssFrameworks = [
   'node_modules/bootstrap/',
@@ -87,7 +87,7 @@
   gulp.task("browser-sync", () => {
     browserSync.init({
       proxy: `${process.env.WP_HOME}`,
-      port: 8080,
+      port: 8000,
       open: true,
       browser: "chrome",
       notify: false
@@ -144,35 +144,45 @@
       .pipe(sassLint.failOnError());
   });
 
+
+// Favicons
+
+  gulp.task("favicons", function () {
+      return gulp.src(`${themePath}/src/img/favicons/favicon.png`).pipe(favicons({
+      }))
+      .on("error", util.log)
+      .pipe(gulp.dest(`${themePath}/dist/img/favicons/`));
+  });
+
   /** Compiling and bundeling Sass into single CSS-File */
   gulp.task('styles', () => {
-    return (
-      gulp
-        .src(`${themePath}/src/scss/main.scss`)
-        .pipe(
-          plumber(error => {
-            util.log(util.colors.red(error.message));
-            this.emit('end');
-          }),
-        )
-        .pipe(sassGlob())
-        .pipe(sourcemaps.init())
-        // Sass
-        .pipe(plugins.sass({ outputStyle: 'compressed', includePaths: cssFrameworks }))
-        .on('error', plugins.sass.logError)
-        // Prefixer, Compression, etc.
-        .pipe(
-          autoprefixer({
-            browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3'],
-            cascade: false,
-          }),
-        )
-        .pipe(nano())
-//        .pipe(rename({ suffix: '.min' }))
-        .pipe(rename('custom.min.css'))
-        .pipe(gulp.dest(`${otherPaths.distPath}/css`))
-        .pipe(browserSync.stream())
-    );
+//    return (
+//      gulp
+//        .src(`${themePath}/src/scss/main.scss`)
+//        .pipe(
+//          plumber(error => {
+//            util.log(util.colors.red(error.message));
+//            this.emit('end');
+//          }),
+//        )
+//        .pipe(sassGlob())
+//        .pipe(sourcemaps.init())
+//        // Sass
+//        .pipe(plugins.sass({ outputStyle: 'compressed', includePaths: cssFrameworks }))
+//        .on('error', plugins.sass.logError)
+//        // Prefixer, Compression, etc.
+//        .pipe(
+//          autoprefixer({
+//            browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3'],
+//            cascade: false,
+//          }),
+//        )
+//        .pipe(nano())
+////        .pipe(rename({ suffix: '.min' }))
+//        .pipe(rename('custom.min.css'))
+//        .pipe(gulp.dest(`${otherPaths.distPath}/css`))
+//        .pipe(browserSync.stream())
+//    );
   });
   /** Compiling and bundeling Sass into single CSS-File */
   gulp.task('admin-styles', () => {
@@ -203,11 +213,10 @@
   });
 
 // Scripts task
-gulp.task('ext-scripts', () => {
-  return gulp.src([
-      'node_modules/rellax/rellax.js',
-      `${themePath}/src/js/*.js`
-  ])
+  gulp.task('ext-scripts', () => {
+    return gulp.src([
+        `${themePath}/src/js/*.js`
+    ])
     .pipe(plugins.plumber())
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel())
@@ -218,7 +227,7 @@ gulp.task('ext-scripts', () => {
     .pipe(gulp.dest(`${themePath}/dist/js`))
     .pipe(browserSync.stream())
     .pipe(plugins.size({ title: 'ext-scripts' }));
-})
+  })
 
         // Fonts
     gulp.task('fonts', () => {
@@ -227,8 +236,23 @@ gulp.task('ext-scripts', () => {
           'node_modules/font-awesome/fonts/*',
     //      'node_modules/slick-carousel/slick/fonts/*',
         ])
-        .pipe(gulp.dest(`${themePath}/fonts/`))
+        .pipe(gulp.dest(`${themePath}/dist/fonts/`))
     })
+
+  // Optimizes images
+  gulp.task('images', () => {
+    return gulp.src(`${themePath}/src/img/*`)
+      .pipe(plugins.plumber())
+      .pipe(plugins.imagemin({
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [require('imagemin-pngquant')()]
+      }))
+      .pipe(plugins.plumber.stop())
+      .pipe(gulp.dest(`${themePath}/dist/img/`))
+      .pipe(plugins.size({ title: 'images' }));
+  });
+
   /*
   |-----------------------------------------------------------------------------
   | Gulp Tasks
@@ -237,9 +261,8 @@ gulp.task('ext-scripts', () => {
 
   /** Build Task */
 
-  gulp.task('default', ['styles', 'admin-styles', 'fonts', 'webpack:build']);
-
-  gulp.task('dev', ['styles', 'admin-styles', 'fonts', 'ext-scripts', 'webpack']);
+  gulp.task('default', ['styles', 'admin-styles', 'images', 'fonts', 'favicons', 'ext-scripts', 'webpack:build']);
+  gulp.task('dev', ['styles', 'admin-styles', 'images', 'fonts', 'favicons', 'ext-scripts', 'webpack']);
 
   /** Server Task */
   gulp.task('serve', ['dev', 'browser-sync'], () => {
@@ -251,7 +274,8 @@ gulp.task('ext-scripts', () => {
 
     // Watch Styles
     gulp.watch(`${themePath}/src/scss/*.scss`, ['styles']);
-    gulp.watch(`${themePath}/src/scss/*/*.scss`, ['styles']);
+    gulp.watch(`${themePath}/src/img/*`, ['images']);
+    gulp.watch(`${themePath}/src/scss/**/*.scss`, ['styles']);
     gulp.watch(`${themePath}/src/js/*.js`, ['ext-scripts']);
     gulp.watch(`${themePath}/admin/scss/*.scss`, ['admin-styles', browserSync.reload]);
 

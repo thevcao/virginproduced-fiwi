@@ -11,12 +11,12 @@ module.exports = {
   },
 
   entry: {
-    main: './wp-content/themes/classicvue/app/app.js',
+    main: './www/wp-content/themes/virginproduced/app/app.js',
     vendor: ['vue', 'vue-router'],
   },
 
   output: {
-    path: path.resolve('wp-content/themes/classicvue/dist/js'),
+    path: path.resolve('./www/wp-content/themes/virginproduced/dist/js'),
     filename: '[name].min.js',
     chunkFilename: '[name].min.js',
     publicPath: './js/', // relative to dist
@@ -44,12 +44,61 @@ module.exports = {
           },
         ],
       },
-    ],
+      {
+        test: /\.css$/,
+        use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader'
+
+                    ]
+      },
+      {
+          test: /\.scss$/,
+          loader: 'vue-style-loader!css-loader!sass-loader!postcss-loader'
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+        loader: 'url-loader?importLoaders=1&limit=100000'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'vue-svg-loader', // `vue-svg` for webpack 1.x
+        options: {
+          // optional [svgo](https://github.com/svg/svgo) options
+          svgo: {
+            plugins: [
+              {
+                removeDoctype: true
+              },
+              {
+                removeComments: true
+              }
+              ]
+        }
+      }
+}
+
+
+
+    ]
   },
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.LoaderOptionsPlugin({
+     // test: /\.xxx$/, // may apply this only for some modules
+         options: {
+           vue: {
+
+              loaders: {
+              scss: 'vue-style-loader!css-loader!sass-loader'
+              }
+
+           }
+         }
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
@@ -62,10 +111,10 @@ module.exports = {
     // Generate new index.html file with script tags
     // Note: Need to run webpack twice, without this the second time
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'wp-content/themes/classicvue/index.html'),
+      template: path.resolve(__dirname, './www/wp-content/themes/virginproduced/index.html'),
       filename: path.resolve(
         __dirname,
-        'wp-content/themes/classicvue/dist/index.html',
+        '.www/wp-content/themes/virginproduced/dist/index.html',
       ),
     }),
 
@@ -74,17 +123,17 @@ module.exports = {
       name: 'common',
     }),
 
-    // For prerendering routes
-    new PrerenderSpaPlugin(
-      // Absolute path to compiled SPA
-      // @see https://github.com/chrisvfritz/prerender-spa-plugin/issues/108#issuecomment-332134979
-      path.resolve(__dirname, 'wp-content/themes/classicvue/dist'),
-      // List of routes to prerender
-      ['/'],
-      // Advanced options
-      {
-        captureAfterTime: 5000,
-      },
-    ),
+//    // For prerendering routes
+//    new PrerenderSpaPlugin(
+//      // Absolute path to compiled SPA
+//      // @see https://github.com/chrisvfritz/prerender-spa-plugin/issues/108#issuecomment-332134979
+//      path.resolve(__dirname, './www/wp-content/themes/virginproduced/dist'),
+//      // List of routes to prerender
+//      ['/'],
+//      // Advanced options
+//      {
+//        captureAfterTime: 5000,
+//      },
+//    ),
   ],
 };

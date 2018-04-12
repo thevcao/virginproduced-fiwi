@@ -1,0 +1,259 @@
+$cropwidth: 40vw;
+$half: $cropwidth / 2.35;
+// @media (max-width: 1439px)
+@include media-breakpoint-down(xl) {
+  $cropwidth: 40vw;
+}
+// @media (max-width: 1439px)
+@include media-breakpoint-down(lg) {
+  $cropwidth: 40vw;
+}
+#app .suits-vue {
+  .crop-bg {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    @include media-breakpoint-down(sm) {
+      height: auto;
+      bottom: 65px;
+      left: 10vw;
+    }
+    > div {
+      position: relative;
+      width: $cropwidth;
+      left: 0;
+      top: 0;
+      background: white;
+      z-index: 1;
+      height: 100%;
+      display: inline-block;
+      @include media-breakpoint-down(sm) {
+        width: 0;
+      }
+      //    &:before {
+      //      content: '';
+      //      position: fixed;
+      //      width: 200%;
+      //      height: 100%;
+      //      background: white;
+      //      transform: rotate(-45deg);
+      //      transform-origin: 40vw 100% 0;
+      //      left: 0;
+      //      top: 0;
+      //      bottom: 0;
+      //      right: 0;
+      //    }
+      // (768px)
+      @include media-breakpoint-down(sm) {
+        left: 0;
+      }
+      &:after {
+        content: '';
+        background: url(#{$theme}/img/white-triangle.svg);
+        display: inline-block;
+        height: 100%;
+        width: 100vh;
+        position: relative;
+        left: $cropwidth;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 0% 100%;
+        margin-left: -1px;
+        margin-top: -1px;
+        @include media-breakpoint-down(sm) {
+          height: calc(100vh - 65px);
+          bottom: 65px;
+          position: fixed;
+          left: 10vw;
+          z-index: 10;
+        }
+      }
+    }
+  }
+  figure.team-headshot {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: $cropwidth;
+    top: 0;
+    margin: 0;
+    height: 100vh;
+    width: auto;
+    overflow: hidden;
+    @include media-breakpoint-down(sm) {
+      left: 10vw;
+      height: auto;
+      bottom: 65px;
+      position: fixed;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+      z-index: 1;
+    }
+    img {
+      height: 125%;
+      width: 125%;
+      object-position: 0% 0%;
+      object-fit: cover;
+      // (768px)
+      @include media-breakpoint-down(sm) {
+        height: 350px;
+        position: absolute;
+        bottom: 0;
+        width: 320px;
+        right: -25px;
+        left: auto;
+      }
+      @include media-breakpoint-down(xs) {
+        height: 350px;
+        position: absolute;
+        bottom: 0;
+        width: 320px;
+        right: -25px;
+        left: auto;
+      }
+    }
+    .float-title {
+      position: absolute;
+      left: $half;
+      bottom: calc(100vh / 6);
+      z-index: 1;
+      transform: rotate(-45deg);
+      transform-origin: 0vw 4vw 0;
+      // @media (max-width: 1439px)
+      @include media-breakpoint-down(xl) {
+        //    transform-origin: 6vw -3vw 0;
+      }
+      @include media-breakpoint-down(md) {
+        transform-origin: 6vw -3vw 0;
+      }
+      @include media-breakpoint-down(xs) {
+        transform-origin: 0% -50% 0;
+        left: 0;
+        bottom: 0;
+      }
+      overflow: visible;
+      width: 100%;
+      // (768px)
+      @include media-breakpoint-down(sm) {
+        z-index: 2
+      }
+      h2 {
+        font-size: 7rem;
+        color: white;
+        margin: 0;
+        line-height: .8;
+        @include textGlitch("title", 17, white, $green, $green, $red, 400, 100);
+        &:before,
+        &:after {
+          opacity: 1;
+        }
+        // (768px)
+        @include media-breakpoint-down(sm) {
+          font-size: 2rem;
+          color: $red;
+//          top: -.5rem;
+          position: relative;
+        }
+        span {
+          margin: 0;
+          display: block;
+          font-size: 1.5rem;
+          font-family: 'Gotham';
+          letter-spacing: -.025rem;
+          color: $red;
+          font-weight: 900;
+          line-height: 0;
+          @include media-breakpoint-down(sm) {
+            top: .5rem;
+            position: relative;
+            color: white;
+            font-size: 1rem;
+            left: 15%;
+            padding-right: 15%;
+            white-space: normal;
+            line-height: 1.25;
+          }
+        }
+      }
+    }
+  }
+  .SidebarItem {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 5px;
+      li {
+        padding: 0 0 1rem;
+        a {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
+          text-transform: uppercase;
+          @include textGlitch("suitsglitch", 17, black, white, $green, $red, 450, 16);
+          &.router-link-exact-active.router-link-active {
+            @include textGlitch("suitsglitchactive", 7, $red, white, $green, $purple, 450, 16);
+            &:before,
+            &:after {
+              opacity: 1;
+            }
+          }
+          &:hover {}
+          &.title-only {
+            pointer-events: none;
+            &:before,
+            &:after {
+              content: none;
+            }
+            span {
+              display: block;
+              font-size: .75rem;
+              color: $purple;
+              line-height: 1;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  // (768px)
+  @include media-breakpoint-down(md) {
+    .glitching.large {
+      font-size: 7rem;
+      padding-top: 6rem;
+      line-height: .8;
+      width: 70%;
+    }
+    .main {
+      margin: 9rem 0 0;
+      //      position: relative;
+      //      z-index: 10;
+    }
+    &.single {
+      .BlogPostSingle__content {
+        width: 70%;
+        max-height: 25vh;
+        overflow: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        padding-right: 10px;
+        div {
+          p {
+            font-size: .9rem;
+          }
+        }
+      }
+    }
+  }
+}

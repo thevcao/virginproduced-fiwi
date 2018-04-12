@@ -1,0 +1,330 @@
+<template>
+
+
+  <div class="">
+
+    <header-bar v-on:update="onElementChange()" :src="elementChange()" :is993="is993" :mobile="mobile"></header-bar>
+    <section class="MainSection">
+
+        <router-view class="view" :items="items" :offerings="offerings" :ie="ie" :is993="is993" :mobile="mobile"></router-view>
+
+
+      <vue-progress-bar></vue-progress-bar>
+      <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === true"></footer-bar>
+    </section>
+    <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === false"></footer-bar>
+    <mobileBar v-if="is993 === true" v-on:update="getcontextualMenuUpdate()" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
+
+
+  </div>
+
+
+</template>
+
+<script>
+import { orderBy } from 'lodash'
+
+import HeaderBar from '../components/Header.vue'
+import mobileBar from '../components/MobileBar.vue'
+import FooterBar from '../components/Footer.vue'
+import VueProgressBar from 'vue-progressbar'
+import OfferingsMenuService from '../services/OfferingsMenuService'
+//import SocialLinks from './SocialLinks.vue'
+import MenuService from '../services/MenuService'
+import videojs from 'video.js'
+
+export default {
+
+  data() {
+
+    return {
+            items: [],
+            offerings: [],
+            src: "/wp-content/themes/virginproduced/src/img/virgin-glitched.mp4",
+            ie: null,
+            is993: false,
+            contextual_menu: '',
+            contextual_menu_links: '',
+            mobile: false,
+            title: ''
+
+    }
+
+  },
+  props: {
+
+
+//    first: true
+  },
+  components: { HeaderBar, FooterBar, mobileBar },
+
+//    updated: function () {
+////        var vm = this;
+//        this.$on('update', () => {
+//
+//          console.log('hi');
+//
+//        })
+//    },
+  mounted () {
+    //  [App.vue specific] When App.vue is finish loading finish the progress bar
+
+
+//    setTimeout(function(){
+
+      this.$Progress.finish()
+      this.isIE()
+      this.islower993()
+      this.getcontextualMenuUpdate()
+      this.getcontextualLinks()
+      this.getTitle()
+//      this.firstTime()
+
+      if (window.navigator.standalone == true) {
+        document.querySelector('html').classList.add('app-mode')
+      }
+
+    this.$on('reelPlay', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+//      this.src = payload.src
+
+          setTimeout(function(){
+          const getID = document.querySelector('#reel-player .video-js').id;
+
+          var player = videojs(getID);
+
+          player.play();
+          player.requestFullscreen();
+
+          }, 1000);
+
+
+
+    });
+//    }, 1000);
+
+  },
+  updated () {
+
+      this.getcontextualMenuUpdate()
+      this.getcontextualLinks()
+      this.getTitle()
+
+  },
+  watch: {
+
+
+//      $route (to, from){
+//
+//        if(this.mobile === true){
+//
+//        this.show = false;
+//        location.reload()
+//
+//        }
+//
+//    }
+
+  },
+  computed: {
+
+//    orderedPages() {
+//      return orderBy(this.items.items, 'order')
+//    }
+  },
+  created () {
+    //  [App.vue specific] When App.vue is first loaded start the progress bar
+    this.getLinks()
+    this.getOfferings()
+    this.$Progress.start()
+    //  hook the progress bar to start before we move router-view
+    this.$router.beforeEach((to, from, next) => {
+      //  does the page we want to go to have a meta.progress object
+      if (to.meta.progress !== undefined) {
+        let meta = to.meta.progress
+        // parse meta tags
+        this.$Progress.parseMeta(meta)
+      }
+      //  start the progress bar
+      this.$Progress.start()
+      //  continue to next page
+      next()
+    })
+    //  hook the progress bar to finish after we've finished moving router-view
+    this.$router.afterEach((to, from) => {
+      //  finish the progress bar
+      this.$Progress.finish()
+    })
+
+//    this.$on('broll', (payload) => {
+////        alert(payload.src)
+//
+//    });
+
+
+  },
+  methods: {
+
+    getcontextualMenuUpdate() {
+
+    this.$on('contextual_menu', (payload) => {
+//      console.log(payload.src);
+//
+      this.contextual_menu = payload.contextual_menu
+
+
+    });
+      // payload is what you want here
+    },
+    getcontextualLinks() {
+
+    this.$on('contextual_menu_links', (payload) => {
+//      console.log(payload.src);
+//
+      this.contextual_menu_links = payload.contextual_menu_links
+
+
+    });
+      // payload is what you want here
+    },
+    getTitle() {
+
+    this.$on('title', (payload) => {
+//      console.log(payload.src);
+//
+      this.title = payload.title
+
+
+    });
+      // payload is what you want here
+    },
+
+    isIE() {
+
+    if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+
+    this.ie = true
+
+    }
+    },
+    isIE() {
+
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    this.mobile = true
+
+    }
+
+
+    },
+    islower993(){
+    var width = window.outerWidth;
+    var vm = this;
+
+    if (width < 993) {
+
+
+      vm.is993 = true
+
+      } else {
+
+      vm.is993 = false
+
+      }
+
+
+      window.addEventListener('resize', function(){
+
+      console.log('resize event')
+        // do stuff here
+
+      var width = window.outerWidth;
+
+      if (width < 993) {
+
+
+      vm.is993 = true
+
+      } else {
+
+      vm.is993 = false
+
+
+      }
+    })
+
+
+
+
+    },
+    elementChange() {
+
+    this.$on('broll', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+      this.src = payload.src
+    });
+      // payload is what you want here
+    },
+    updateFirst() {
+
+    this.$on('first', (payload) => {
+//      console.log(payload.src);
+//
+//      return payload.src;
+      this.first = payload.first
+    });
+      // payload is what you want here
+    },
+
+    getLinks() {
+      return MenuService.getAll()
+        .then(result => {
+          this.items = result.data
+        })
+    },
+    getOfferings() {
+      return OfferingsMenuService.getAll()
+        .then(result => {
+          this.offerings = result.data
+        })
+    },
+
+  }
+}
+
+</script>
+
+<style lang="scss">
+
+
+  .MainSection {
+
+    min-height: 100vh;
+
+  }
+
+
+
+  @media(min-width:993px){
+
+  #app {
+
+    min-height: 100vh;
+    position: relative;
+  }
+
+  }
+  @media(max-width:993px){
+
+  .view {
+
+    min-height: 100vh;
+  }
+
+  }
+
+
+</style>
