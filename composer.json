@@ -14,23 +14,25 @@
     }
   ],
   "config": {
-    "preferred-install": "dist"
+    "preferred-install": "inc"
   },
   "extra": {
     "installer-paths": {
-      "wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
-      "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+      "www/wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "www/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "www/wp-content/themes/{$name}/": ["type:wordpress-theme"],
+      "www/wp-content/themes/{$name}/inc/vendor/{$name}": ["vendor/package"]
     },
-    "wordpress-install-dir": ""
+    "wordpress-install-dir": "www/"
   },
   "autoload": {
     "psr-4": {
-        "OldFashioned\\": "wp-content/mu-plugins/OldFashioned"
+        "OldFashioned\\": "www/wp-content/themes/{$name}/inc/"
     }
   },
   "require": {
     "php": ">=7.0",
+    "jjgrainger/wp-custom-post-type-class": "dev-master",
     "wpackagist-plugin/redirection": "~3.1.1",
     "wpackagist-plugin/all-in-one-seo-pack": "~2.4.4.1",
     "wpackagist-plugin/all-in-one-wp-migration": "~6.61",

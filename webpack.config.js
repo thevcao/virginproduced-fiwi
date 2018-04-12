@@ -115,10 +115,10 @@ module.exports = {
     // Generate new index.html file with script tags
     // Note: Need to run webpack twice, without this the second time
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './www/wp-content/themes/virginproduced/index.html'),
+      template: path.resolve(__dirname, '/www/wp-content/themes/virginproduced/index.html'),
       filename: path.resolve(
         __dirname,
-        './www/wp-content/themes/virginproduced/dist/index.html',
+        '/www/wp-content/themes/virginproduced/dist/index.html',
       ),
     }),
 
