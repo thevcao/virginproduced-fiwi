@@ -16,6 +16,14 @@ $half: $cropwidth / 2;
       @include media-breakpoint-down(md) {
         padding-top: 0;
       }
+
+
+      // (768px)
+      @include media-breakpoint-down(sm) {
+
+        height: auto !important;
+      }
+
       .content {
         padding: 10rem 1rem;
         h2 {

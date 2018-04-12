@@ -5,8 +5,7 @@
       <a :href="page.url" class="white ttu" :title="page.title">{{ page.title }}</a>
     </li>
     <li v-bind:key="page.url" class="pa2 f3 f1-ns"  v-else>
-      <router-link v-if="mobile === false" :to="page.url" @click.native="toggleNavigation" :title="page.title" class="white ttu">{{ page.title }}</router-link>
-      <a v-else :href="page.url" @click.native="toggleNavigation" :title="page.title" class="white ttu">{{ page.title }}</a>
+      <router-link :to="page.url" @click.native="toggleNavigation" :title="page.title" class="white ttu">{{ page.title }}</router-link>
     </li>
   </ul>
 </template>

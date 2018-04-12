@@ -53,24 +53,30 @@
                @click="toggleContextmenu"
                @click.prevent
                v-if="this.$parent.contextual_menu"
-               class="context-toggle">{{ this.$parent.contextual_menu }}
-              <i class="fa fa-caret-up" v-if="this.$parent.contextual_menu"></i>
+               class="context-toggle primary" v-html="this.$parent.contextual_menu">
             </a>
-            <a href="#"
-               @click.prevent
-               v-else
-               class="context-toggle"
-               v-html="getTitle()">
-            </a>
+
             <a href="#"
                @click="toggleContextmenu"
                @click.prevent
 
-               v-if="main === 'our-suits'"
-               class="context-toggle">Our Suits
-              <i class="fa fa-caret-up"></i>
+               v-else="main === 'our-suits' || main === 'suits'"
+               class="context-toggle primary">Our Suits
+            </a>
+            <a href="#"
+               @click.prevent
+               v-else
+               class="context-toggle no-menu"
+               v-html="getTitle()">
             </a>
 
+
+            <a href="#"
+               @click.prevent
+               @click="toggleContextmenu"
+               v-if="this.$parent.contextual_menu || main === 'our-suits' || main === 'suits'"
+               class="context-toggle back"><i class="fa fa-caret-left"></i> Back
+            </a>
 
             <a @click="toggleNavigation" @click.prevent class="toggle">
                 <span v-if="!navigation">
@@ -91,7 +97,7 @@
 
       <ul>
         <li v-for="item in this.$parent.contextual_menu_links">
-          <a :href="item.link" v-if="item.link_type === 'internal'" @click.native="toggleContextmenu">{{ item.text }}</a>
+          <router-link :to="item.link" v-if="item.link_type === 'internal'" @click.native="toggleContextmenu">{{ item.text }}</router-link>
           <a :href="item.custom" v-else @click="toggleContextmenu">{{ item.text }}</a>
 
         </li>
@@ -171,13 +177,36 @@ export default {
 
   computed: {
       main(){
-          return this.$route.path === '/'
+          return this.$route.name
       }
 
   },
   updated: function () {
 
+        setTimeout(function(){
 
+
+        var menu = document.querySelector('.contextual-menu ul').getElementsByTagName("li");
+        var menuHeight = menu.length;
+
+
+          console.log(menuHeight);
+
+        if(menuHeight > 5) {
+
+
+
+          document.querySelector('.contextual-menu').classList.add('has-overflow');
+        } else {
+
+          document.querySelector('.contextual-menu').classList.remove('has-overflow');
+
+
+        }
+
+
+
+        }, 2000);
 
 
 
@@ -196,6 +225,7 @@ export default {
         const viewportInitial = window.innerHeight;
         console.log('viewport:' + viewportInitial)
         const screenSize = screen.height;
+        const footer = document.querySelector('footer');
 
         console.log('screen:' + screenSize)
 
@@ -212,11 +242,13 @@ export default {
 
 
           bar.classList.add('down')
+          footer.classList.remove('down')
 
           } else {
 
 
           bar.classList.remove('down')
+          footer.classList.add('down')
 
           }
 
@@ -242,6 +274,11 @@ export default {
 
 
           document.querySelector('.contextual-menu').classList.add('has-overflow');
+        } else {
+
+          document.querySelector('.contextual-menu').classList.remove('has-overflow');
+
+
         }
 
 
@@ -277,6 +314,8 @@ export default {
 
       var isFirefox = typeof InstallTrigger !== 'undefined';
       var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+
 
       console.log('eat me')
       this.navigation = !this.navigation;
@@ -376,27 +415,33 @@ export default {
       var button = document.querySelector('.context-toggle');
       var text = this.contextual_menu;
 
+      var primary = document.querySelector('.primary');
+      var back = document.querySelector('.back');
+
       if(hasClass(button, 'toggled')){
 
       menu.classList.remove('open');
 
       if(this.contextual_menu == ''){
 
-      button.innerHTML='Our Suits <i class="fa fa-caret-up"></i>';
+      button.innerHTML='Our Suits';
 
       } else {
 
-      button.innerHTML=text + ' <i class="fa fa-caret-up"></i>';
+      button.innerHTML=text;
 
 
       }
       button.classList.remove("toggled");
+      primary.classList.remove('primary-open');
+      back.classList.remove('back-open');
 
       } else {
 
       menu.classList.add('open');
-      button.innerHTML="<i class='fa fa-caret-left'></i> Back";
       button.classList.add("toggled");
+      primary.classList.add('primary-open');
+      back.classList.add('back-open');
 
       }
 

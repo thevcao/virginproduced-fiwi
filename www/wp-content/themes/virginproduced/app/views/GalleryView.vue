@@ -239,7 +239,7 @@
                               v-bind:css="false"
                               >
 
-                             <galleryPlayer :src="work.acf.video" v-if="currentPlayer === i"></galleryPlayer>
+                             <galleryPlayer :src="work.acf.video" :poster="work.acf.poster" :mobile="mobile" v-if="currentPlayer === i || mobile === true"></galleryPlayer>
 
                             </transition>
 
@@ -297,10 +297,10 @@ export default {
       item: [],
       posts: [],
       error: false,
-      title: 'The Platform',
       galleryPlayer: false,
       reel: false,
       currentPlayer: null,
+      title: ''
 
 
     }
@@ -329,9 +329,14 @@ export default {
 
            this.initView()
 
-          this.$parent.$emit('title', {
-          title : this.title
-          })
+
+
+//        setTimeout(function(){
+//
+//        this.title = this.item.title.rendered
+//        }, 300);
+
+
 
 
       })
@@ -502,7 +507,10 @@ export default {
 
                   }
 
-
+                this.title = this.item.title.rendered
+                this.$parent.$emit('title', {
+                title : this.item.title.rendered
+                })
 
                 })
               .catch(err => {
@@ -514,6 +522,8 @@ export default {
           createPlayer(i) {
             this.currentPlayer = i
             this.galleryPlayer = !this.galleryPlayer
+
+
 
           },
 

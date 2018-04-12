@@ -237,50 +237,30 @@ export default {
     }
     this.$nextTick(function () {
 
-    document.querySelector('#footer').style.display='none'
-//    document.querySelector('.toggle').classList.remove('footer-in-view');
-    this.initiView();
 
-    if(this.is993 === true) {
-
-    document.querySelector('body').style.position='fixed'
-    document.querySelector('body').style.width='100%'
-    document.querySelector('.main').style.height=window.innerHeight - 65 + 'px'
-
-    window.addEventListener('resize', function(){
-    document.querySelector('.main').style.height=window.innerHeight - 65 + 'px'
-
+      this.initiView();
 
     })
-
-    }
-
-
-    })
-
-  },
-  destroyed() {
-      document.querySelector('#footer').style.display='block'
-
 
   },
   beforeDestroy: function(){
 
+    document.querySelector('footer').style.display=''
 
-      var firstVisit = this.$cookie.get('first');
+    var firstVisit = this.$cookie.get('first');
 
-      if(firstVisit == undefined){
+    if(firstVisit == undefined){
 
-      console.log('setting cookie for first visit complete')
+    console.log('setting cookie for first visit complete')
 
-      this.$cookie.set('first', 'false', 1);
+    this.$cookie.set('first', 'false', 1);
 
 
-      }
+    }
     if(this.is993 === true) {
 
-    document.querySelector('body').style.position=''
-    document.querySelector('body').style.width=''
+    document.querySelector('body').style.position='initial'
+    document.querySelector('body').style.width='auto'
 
 
 
@@ -333,8 +313,55 @@ export default {
 
       }, 4000);
 
+      document.querySelector('#footer').style.display='none'
+  //    document.querySelector('.toggle').classList.remove('footer-in-view');
+
+      if(this.is993 === true) {
+
+      document.querySelector('body').style.position='fixed'
+      document.querySelector('body').style.width='100%'
+      if (window.navigator.standalone == true) {
+
+      var heroHeight = window.innerHeight - 80 + 'px'
+
+      } else {
+
+      var heroHeight = window.innerHeight - 65 + 'px'
+
+      }
+
+      document.querySelector('.main').style.height=heroHeight
 
 
+
+
+
+
+      }
+      if(this.mobile === false && this.is993 === true){
+
+      window.addEventListener('resize', function(){
+      if (window.navigator.standalone == true) {
+
+      var heroHeight = window.innerHeight - 80 + 'px'
+
+      } else {
+
+      var heroHeight = window.innerHeight - 65 + 'px'
+
+      }
+      console.log('redraw main...from home?')
+      document.querySelector('.main').style.height=heroHeight
+
+
+      })
+
+      } else {
+
+      document.querySelector('.main').style.height=''
+
+
+      }
     },
     closeIntro(){
 

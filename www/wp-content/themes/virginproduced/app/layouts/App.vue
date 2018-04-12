@@ -13,7 +13,7 @@
       <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === true"></footer-bar>
     </section>
     <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === false"></footer-bar>
-    <mobileBar v-if="is993 === true" v-on:update="onElementChange()" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
+    <mobileBar v-if="is993 === true" v-on:update="getcontextualMenuUpdate()" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
 
 
   </div>
@@ -77,7 +77,7 @@ export default {
       this.islower993()
       this.getcontextualMenuUpdate()
       this.getcontextualLinks()
-    this.getTitle()
+      this.getTitle()
 //      this.firstTime()
 
       if (window.navigator.standalone == true) {
@@ -104,6 +104,13 @@ export default {
 
     });
 //    }, 1000);
+
+  },
+  updated () {
+
+      this.getcontextualMenuUpdate()
+      this.getcontextualLinks()
+      this.getTitle()
 
   },
   watch: {
@@ -305,8 +312,16 @@ export default {
 
   #app {
 
-    height: 100%;
+    min-height: 100vh;
     position: relative;
+  }
+
+  }
+  @media(max-width:993px){
+
+  .view {
+
+    min-height: 100vh;
   }
 
   }

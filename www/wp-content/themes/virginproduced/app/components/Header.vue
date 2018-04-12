@@ -83,12 +83,10 @@
     <header class="nav-bar" :class="{ 'bg-white-90': !navigation }">
 
 
-          <router-link v-if="mobile === false" to="/" :class="{ 'white': navigation, primary: !navigation }" @click.native="closeNav">
+          <router-link to="/" :class="{ 'white': navigation, primary: !navigation }" @click.native="closeNav">
             <Logo></Logo>
           </router-link>
-          <a v-else href="/" class="router-link-exact-active router-link-active primary" @click.native="closeNav">
-            <Logo></Logo>
-          </a>
+
             <a @click="toggleNavigation" class="toggle" v-if="is993 === false">
                 <span v-if="!navigation">
                   <MenuIcon></MenuIcon>

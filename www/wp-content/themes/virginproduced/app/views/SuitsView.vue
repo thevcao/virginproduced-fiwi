@@ -19,8 +19,7 @@
       <h2 :title="item.title.rendered">{{ item.title.rendered }}<span>{{ item.acf.position }}</span></h2>
       </header>
     </figure>
-    <div v-if="is993 === false" class="crop-bg"><div></div><div>
-  </div>
+    <div v-if="is993 === false" class="crop-bg"><div></div>
   </div>
 
 
@@ -130,8 +129,13 @@ export default {
 
   },
   updated: function(){
+    var body = document.querySelector('body');
 
+    if(window.innerWidth < 993){
 
+      document.querySelector('body').style.position='fixed'
+      body.classList.add('no-header-bg')
+    }
 
   },
   mounted: function(){
@@ -144,6 +148,18 @@ export default {
       document.querySelector('body').style.position='fixed'
       body.classList.add('no-header-bg')
     }
+  },
+  beforeDestroy: function(){
+    var body = document.querySelector('body');
+
+
+    if(window.innerWidth < 993){
+
+      document.querySelector('body').style.position=''
+      body.classList.remove('no-header-bg')
+    }
+
+
   },
 
   methods: {

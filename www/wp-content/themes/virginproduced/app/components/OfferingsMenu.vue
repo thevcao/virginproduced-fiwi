@@ -11,17 +11,7 @@
                                @click.native="toggleNavigation"
                                :title="page.title"
                                class="white ttu"
-                               v-if="mobile === false"
-
                                >{{ page.title }}</router-link>
-                  <a
-                               :href="page.url"
-                               @click.native="toggleNavigation"
-                               :title="page.title"
-                               class="white ttu"
-                               v-else
-
-                               >{{ page.title }}</a>
                 </li>
               </ul>
 </template>
@@ -48,7 +38,8 @@ export default {
   },
   props: {
 
-    pages: {}
+    pages: {},
+    mobile: {}
 
   },
   created() {

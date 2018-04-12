@@ -81,7 +81,7 @@
 
 
 
-            <router-link v-if="mobile === false" to="/our-suits">
+            <router-link v-if="is993 === false" to="/our-suits">
 
             <div class="title-holder" data-start="transform: translateY(-25%); opacity: 0" data-end="transform: translateY(-0%); opacity: 1">
 
@@ -142,12 +142,7 @@ import PostService from '../services/PostService'
 
 export default {
 
-  props: {
 
-    ie: {},
-    is993: {},
-    mobile: {}
-  },
 
   data() {
     return {
@@ -155,6 +150,12 @@ export default {
       posts: [],
       error: false,
     }
+  },
+  props: {
+
+    ie: {},
+    is993: {},
+    mobile: {}
   },
     created() {
       const slug = this.$route.params.slug;
@@ -172,6 +173,11 @@ export default {
 
       }
 
+      setTimeout(function(){
+      document.querySelector('.main').style.height='auto'
+      }, 1000);
+
+
       });
 
     },
@@ -180,20 +186,19 @@ export default {
 
 
       document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('#app .about-vue .main figure .img img').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
 
-      if( this.mobile === false && this.is993 === true ) {
+      if( this.mobile === false) {
 
 
       window.addEventListener('resize', function(){
       document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('#app .about-vue .main figure .img img').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
 
 
       })
 
       }
-
 
       }
     },

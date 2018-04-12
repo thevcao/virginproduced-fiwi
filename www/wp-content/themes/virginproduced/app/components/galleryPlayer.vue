@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="" :mobile="mobile">
     <video-player id="gallery-player"
            class="video-js vjs-big-play-centered vjs-volume-vertical"
             controls
@@ -22,7 +22,9 @@ import { videoPlayer } from 'vue-video-player'
       src: {
         type: String,
         default: '/wp-content/themes/virginproduced/src/img/virgin-glitched.mp4'
-      }
+      },
+      poster: {},
+      mobile: {}
     },
     data() {
       return {
@@ -54,13 +56,20 @@ import { videoPlayer } from 'vue-video-player'
       setTimeout(function(){
 
 
-      const getID = document.querySelector('#gallery-player .video-js').id;
+        const getID = document.querySelector('#gallery-player .video-js').id;
 
         var player = videojs(getID);
+
+        if(this.mobile === false){
 
         setTimeout(function(){
         player.play();
         }, 300);
+
+        }
+
+
+
       }, 300);
 
       },
@@ -71,6 +80,7 @@ import { videoPlayer } from 'vue-video-player'
           // Create new clone of default options
           const options = {...this.playerOptions};
           options.sources[0].src = this.$props.src
+          options.poster = this.$props.poster
           return options
         }
         return this.playerOptions
