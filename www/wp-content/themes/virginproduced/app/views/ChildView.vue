@@ -315,41 +315,47 @@ export default {
     },
     updated: function() {
 
+      if(this.is993 === true){
 
-        var vm = this;
+      var vm = this;
 
-        vm.$el.classList.remove('loading');
-
-
-        setTimeout(function(){
-
-        if (window.navigator.standalone == true) {
-
-        var heroHeight = window.innerHeight - 80 + 'px'
-
-        } else {
-
-        var heroHeight = window.innerHeight - 65 + 'px'
-
-        }
-
-        vm.$el.querySelector('.above-fold').style.height=heroHeight
-
-        if(vm.acf.bg_video){
-
-        vm.$el.querySelector('#main-roll').style.height=heroHeight
+      vm.$el.classList.remove('loading');
 
 
-        }
-        if(vm.acf.main_image){
+      setTimeout(function(){
 
-        vm.$el.querySelector('.crop-image').style.height=heroHeight
+      if (window.navigator.standalone == true) {
+
+      var heroHeight = window.innerHeight - 80 + 'px'
+
+      } else {
+
+      var heroHeight = window.innerHeight - 65 + 'px'
+
+      }
+
+      vm.$el.querySelector('.above-fold').style.height=heroHeight
+
+      if(vm.acf.bg_video){
+
+      vm.$el.querySelector('#main-roll').style.height=heroHeight
 
 
-        }
+      }
+      if(vm.acf.main_image){
+
+      vm.$el.querySelector('.crop-image').style.height=heroHeight
 
 
-         }, 500);
+      }
+
+
+       }, 500);
+
+
+      }
+
+
 
     },
     mixins: [ inViewport ],

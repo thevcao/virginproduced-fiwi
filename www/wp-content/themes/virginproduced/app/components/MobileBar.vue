@@ -48,14 +48,6 @@
     </transition>
 
     <div class="mobile-bar" :class="{ 'bg-white-90': !navigation }">
-
-            <a href="#"
-               @click="toggleContextmenu"
-               @click.prevent
-               v-if="this.$parent.contextual_menu"
-               class="context-toggle primary" v-html="this.$parent.contextual_menu">
-            </a>
-
             <a href="#"
                @click="toggleContextmenu"
                @click.prevent
@@ -63,6 +55,14 @@
                v-if="main === 'our-suits' || main === 'suits'"
                class="context-toggle primary">Our Suits
             </a>
+            <a href="#"
+               @click="toggleContextmenu"
+               @click.prevent
+               v-else-if="this.$parent.contextual_menu"
+               class="context-toggle primary" v-html="this.$parent.contextual_menu">
+            </a>
+
+
             <a href="#"
                @click.prevent
                v-else
@@ -89,23 +89,8 @@
 
     </div>
 
-
     <div
-         v-if="this.$parent.contextual_menu_links"
-         class="contextual-menu">
-
-
-      <ul>
-        <li v-for="item in this.$parent.contextual_menu_links">
-          <router-link :to="item.link" v-if="item.link_type === 'internal'" @click.native="toggleContextmenu">{{ item.text }}</router-link>
-          <a :href="item.custom" v-else @click="toggleContextmenu">{{ item.text }}</a>
-
-        </li>
-      </ul>
-
-    </div>
-    <div
-         v-else="main === 'our-suits'"
+         v-if="main === 'our-suits' || main === 'suits'"
          class="contextual-menu">
 
 
@@ -121,6 +106,21 @@
       </ul>
 
     </div>
+    <div
+         v-else-if="this.$parent.contextual_menu_links"
+         class="contextual-menu">
+
+
+      <ul>
+        <li v-for="item in this.$parent.contextual_menu_links">
+          <router-link :to="item.link" v-if="item.link_type === 'internal'" @click.native="toggleContextmenu">{{ item.text }}</router-link>
+          <a :href="item.custom" v-else @click="toggleContextmenu">{{ item.text }}</a>
+
+        </li>
+      </ul>
+
+    </div>
+
   </div>
 </template>
 
@@ -182,7 +182,7 @@ export default {
 
   },
   updated: function () {
-        if(this.is993 === true && this.contextual_menu_links){
+        if((this.is993 === true && this.contextual_menu_links) || (this.is993 === true && (this.main === 'our-suits' || this.main === 'suits'))){
 
         setTimeout(function(){
 
@@ -260,7 +260,7 @@ export default {
 
       this.$nextTick(function () {
 
-        if(this.is993 === true && this.contextual_menu_links){
+        if((this.is993 === true && this.contextual_menu_links) || (this.is993 === true && (this.main === 'our-suits' || this.main === 'suits'))){
 
 
 

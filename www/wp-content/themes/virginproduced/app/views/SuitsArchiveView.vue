@@ -98,6 +98,58 @@ export default {
 
   mounted: function(){
 
+      if(this.is993 === true){
+
+      var vm = this;
+
+
+      setTimeout(function(){
+
+      if (window.navigator.standalone == true) {
+
+      var heroHeight = window.innerHeight - 80 + 'px'
+
+      } else {
+
+      var heroHeight = window.innerHeight - 65 + 'px'
+
+      }
+
+      vm.$el.querySelector('.main').style.height=heroHeight
+
+       }, 500);
+
+
+      }
+
+  },
+
+  updated: function(){
+
+
+        if(this.is993 === true){
+
+      var vm = this;
+
+
+      setTimeout(function(){
+
+      if (window.navigator.standalone == true) {
+
+      var heroHeight = window.innerHeight - 80 + 'px'
+
+      } else {
+
+      var heroHeight = window.innerHeight - 65 + 'px'
+
+      }
+
+      vm.$el.querySelector('.main').style.height=heroHeight
+
+       }, 500);
+
+
+      }
 
   },
 

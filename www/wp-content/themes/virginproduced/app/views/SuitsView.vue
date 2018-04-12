@@ -1,5 +1,5 @@
 <template>
-  <div class="suits-vue single" :ie="ie" :is993="is993" :mobile="mobile" contextual_menu="Our Suits">
+  <div class="suits-vue single" :ie="ie" :is993="is993" :mobile="mobile" :landscape="landscape" contextual_menu="Our Suits">
     <!-- 404 -->
     <div class="container main" v-if="error">
       <div class="row">
@@ -10,7 +10,7 @@
     </div>
 
 <div v-if="item.content">
-    <figure class="team-headshot" v-if="item && item.better_featured_image">
+    <figure class="team-headshot" v-if="item && item.better_featured_image && landscape === false ">
       <img :src="item.better_featured_image.media_details.sizes.medium.source_url" v-if="item.better_featured_image.media_details.sizes.medium">
       <img :src="item.better_featured_image.source_url" v-else>
       <div v-if="is993 === true" class="crop-bg"><div></div></div>
@@ -57,7 +57,14 @@
           </div>
           <div class="col-xl-4 col-lg-6 col-sm-8">
 
-          <article class="BlogPostSingle">
+
+            <div v-if="landscape === true">
+            <h1 v-html="item.title.rendered"></h1>
+              <div v-html="item.content.rendered"></div>
+
+            </div>
+
+          <article class="BlogPostSingle" v-if="landscape === false">
 
 
             <aside class="BlogPostSingle__content">
@@ -103,7 +110,8 @@ export default {
     ie: {},
     mobile: {},
     is993: {},
-    contextual_menu: 'Our Suits'
+    contextual_menu: 'Our Suits',
+    landscape: {}
 
 
   },
@@ -133,7 +141,12 @@ export default {
 
     if(this.is993 === true){
 
-      document.querySelector('body').style.position='fixed'
+      if(this.landscape === false){
+
+      body.style.position='fixed'
+
+
+      }
       body.classList.add('no-header-bg')
     }
 
@@ -145,7 +158,12 @@ export default {
 
     if(this.is993 === true){
 
-      document.querySelector('body').style.position='fixed'
+      if(this.landscape === false){
+
+      body.style.position='fixed'
+
+
+      }
       body.classList.add('no-header-bg')
     }
   },
@@ -155,7 +173,12 @@ export default {
     if(this.is993 === true){
     var body = document.querySelector('body');
 
-      document.querySelector('body').style.position=''
+      if(this.landscape === false){
+
+      body.style.position='fixed'
+
+
+      }
       body.classList.remove('no-header-bg')
     }
 

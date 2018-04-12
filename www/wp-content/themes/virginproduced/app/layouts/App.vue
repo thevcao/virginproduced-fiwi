@@ -3,17 +3,17 @@
 
   <div class="">
 
-    <header-bar v-on:update="onElementChange()" :src="elementChange()" :is993="is993" :mobile="mobile"></header-bar>
+    <header-bar v-on:update="onElementChange()" :src="elementChange()" :is993="is993" :mobile="mobile" :landscape="landscape"></header-bar>
     <section class="MainSection">
 
-        <router-view class="view" :items="items" :offerings="offerings" :ie="ie" :is993="is993" :mobile="mobile"></router-view>
+        <router-view class="view" :items="items" :offerings="offerings" :ie="ie" :is993="is993" :mobile="mobile" :landscape="landscape"></router-view>
 
 
       <vue-progress-bar></vue-progress-bar>
-      <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === true"></footer-bar>
+      <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === true" :landscape="landscape"></footer-bar>
     </section>
     <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === false"></footer-bar>
-    <mobileBar v-if="is993 === true" v-on:update="getcontextualMenuUpdate()" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
+    <mobileBar v-if="is993 === true" v-on:update="getcontextualMenuUpdate()"  :is993="is993" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
 
 
   </div>
@@ -46,7 +46,8 @@ export default {
             contextual_menu: '',
             contextual_menu_links: '',
             mobile: false,
-            title: ''
+            title: '',
+            landscape: false
 
     }
 
@@ -78,6 +79,8 @@ export default {
       this.getcontextualMenuUpdate()
       this.getcontextualLinks()
       this.getTitle()
+      this.isMobile()
+      this.isLandscape()
 //      this.firstTime()
 
       if (window.navigator.standalone == true) {
@@ -209,10 +212,26 @@ export default {
 
     }
     },
-    isIE() {
+    isMobile() {
 
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     this.mobile = true
+
+    }
+
+
+    },
+    isLandscape() {
+
+    if(window.innerHeight < window.innerWidth){
+
+      if(this.mobile === true) {
+
+      this.landscape = true
+
+
+      }
+
 
     }
 

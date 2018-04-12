@@ -8,6 +8,9 @@ footer {
   @include media-breakpoint-down(md) {
     padding: 2rem 1rem 100px;
   }
+
+
+
   //  &:before {
   //    content: '';
   //    position: absolute;
@@ -180,6 +183,10 @@ footer {
         //        margin-right: 2rem;
         line-height: 1;
         // (768px)
+        @include media-landscape-down(sm) {
+
+          display: block;
+        }
         @include media-breakpoint-up(lg) {
           &:after {
             content: '/';
@@ -267,5 +274,11 @@ footer {
         padding: 2rem 1rem 100px;
       }
     }
+
+  @include media-landscape-down(sm) {
+
+  padding-bottom: 100px;
+
+  }
   }
 }
