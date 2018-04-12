@@ -110,13 +110,13 @@ module.exports = {
 
     // Generate new index.html file with script tags
     // Note: Need to run webpack twice, without this the second time
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '/www/wp-content/themes/virginproduced/index.html'),
-      filename: path.resolve(
-        __dirname,
-        '/www/wp-content/themes/virginproduced/dist/index.html',
-      ),
-    }),
+//    new HtmlWebpackPlugin({
+//      template: path.resolve(__dirname, '/www/wp-content/themes/virginproduced/index.html'),
+//      filename: path.resolve(
+//        __dirname,
+//        '/www/wp-content/themes/virginproduced/dist/index.html',
+//      ),
+//    }),
 
     // Extract common dependencies into an existing entry chunk or an entirely // new chunk
     new webpack.optimize.CommonsChunkPlugin({

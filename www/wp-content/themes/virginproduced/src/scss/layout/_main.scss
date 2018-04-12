@@ -15,9 +15,14 @@
   .main {
     padding: 0;
     // (768px)
+
     @include media-breakpoint-up(lg) {
       padding: 5rem 0px 5rem 17rem;
     }
+    @include media-breakpoint-up(md) {
+      padding: 8rem 0 0 0rem;
+    }
+
     position: relative;
     z-index: 1;
     // @media (max-width: 1439px)
