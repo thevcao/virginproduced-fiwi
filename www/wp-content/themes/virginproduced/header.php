@@ -47,6 +47,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/skrollr@0.6.26/dist/skrollr.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src='https://s3.amazonaws.com/fw-devtools/cssbrowserselector/cssbrowserselector.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.3/ofi.min.js'></script>
+<script src='https://s3.amazonaws.com/fw-devtools/object-fit-videos/object-fit-videos.min.js'></script>
 
 <?php wp_head(); ?>
 </head>

@@ -50,6 +50,8 @@ import { videoPlayer } from 'vue-video-player'
 
     mounted: function(){
 
+      objectFitImages()
+      objectFitVideos()
 
       var vm = this;
 

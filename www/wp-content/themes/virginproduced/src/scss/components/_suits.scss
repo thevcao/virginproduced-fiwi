@@ -105,17 +105,19 @@ $half: $cropwidth / 2.35;
       width: 125%;
       object-position: 0% 0%;
       object-fit: cover;
+      font-family: 'object-fit: cover;';
       // (768px)
       @include media-breakpoint-down(sm) {
-        height: 350px;
+        height: 360px;
         position: absolute;
         bottom: 0;
         width: 320px;
         right: -25px;
         left: auto;
+        -webkit-mask-image: -webkit-linear-gradient(left, transparent 0%, #000 25%);
       }
       @include media-breakpoint-down(xs) {
-        height: 350px;
+        height: 360px;
         position: absolute;
         bottom: 0;
         width: 320px;
@@ -141,6 +143,10 @@ $half: $cropwidth / 2.35;
         transform-origin: 0% -50% 0;
         left: 0;
         bottom: 0;
+        top: auto;
+        overflow: visible;
+        //        background: white;
+        //        padding: 10px;
       }
       overflow: visible;
       width: 100%;
@@ -150,19 +156,21 @@ $half: $cropwidth / 2.35;
       }
       h2 {
         font-size: 7rem;
-        color: white;
+        //        color: white;
         margin: 0;
         line-height: .8;
-        @include textGlitch("title", 17, white, $green, $green, $red, 400, 100);
-        &:before,
-        &:after {
-          opacity: 1;
-        }
+        //        @include textGlitch("title", 17, white, $green, $green, $red, 400, 100);
+        //        &:before,
+        //        &:after {
+        //          opacity: 0;
+        //        }
         // (768px)
         @include media-breakpoint-down(sm) {
           font-size: 2rem;
           color: $red;
-//          top: -.5rem;
+          line-height: .95;
+          //           background: white;
+          top: -.5rem;
           position: relative;
         }
         span {
@@ -179,8 +187,8 @@ $half: $cropwidth / 2.35;
             position: relative;
             color: white;
             font-size: 1rem;
-            left: 15%;
-            padding-right: 15%;
+            //            left: 15%;
+            //            padding-right: 15%;
             white-space: normal;
             line-height: 1.25;
           }
@@ -236,18 +244,21 @@ $half: $cropwidth / 2.35;
       width: 70%;
     }
     .main {
-//      margin: 9rem 0 0;
+      //      margin: 9rem 0 0;
       //      position: relative;
       //      z-index: 10;
     }
     &.single {
       .BlogPostSingle__content {
         width: 70%;
-        max-height: 25vh;
+        max-height: 30vh;
         overflow: hidden;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
         padding-right: 10px;
+        -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, from(transparent), color-stop(25%, #000));
+        -webkit-mask-image: -webkit-linear-gradient(bottom, transparent 0%, #000 25%);
+        padding-bottom: 5vh;
         div {
           p {
             font-size: .9rem;

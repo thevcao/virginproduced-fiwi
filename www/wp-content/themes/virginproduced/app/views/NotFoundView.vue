@@ -1,19 +1,14 @@
 <template>
-
     <div class="container main ml-lg-0 404">
     <video src="/wp-content/themes/virginproduced/src/img/404.mp4" autoplay muted loop preload="auto" class="video-404"></video>
-
-
       <div class="row">
         <div class="col-12">
           <h1 class="glitching large" title="Pardon the disruption">Pardon the disruption</h1>
-
           <div class="row mt-5 mb-5">
             <div class="col-sm-6">
               <MainNav
                        :pages="this.$parent.items.items"
                        ></MainNav>
-
             </div>
             <div class="col-sm-5 offset-sm-1">
               <div class="offerings">
@@ -22,46 +17,26 @@
                              :pages="this.$parent.offerings.items"
                              ></OfferingsMenu>
               </div>
-
             </div>
-
           </div>
-
-
-
-
-
-
-
         </div>
       </div>
     </div>
 </template>
-
-
 <script>
-
 import { orderBy } from 'lodash'
-
 //import MenuService from '../services/MenuService'
 //import OfferingsMenuService from '../services/OfferingsMenuService'
 //import GlobalService from '../services/GlobalService'
 import MainNav from '../components/MainNav.vue'
 import OfferingsMenu from '../components/OfferingsMenu.vue'
 import SocialLinks from '../components/SocialLinks.vue'
-
 export default {
-
   components: { MainNav, OfferingsMenu, SocialLinks },
-
 }
-
 </script>
-
-
 <style lang="scss">
 @import '../../src/scss/main.scss';
-
   .main-menu {
     padding: 0;
     margin: 0;
@@ -126,10 +101,7 @@ export default {
       }
     }
   }
-
   .video-404 {
-
-
     position: fixed;
     top: 0;
     left: 0;
@@ -137,8 +109,7 @@ export default {
     width: 100%;
     z-index: -1;
     object-fit: cover;
+    font-family: 'object-fit: cover;';
     opacity: .1;
   }
-
-
 </style>

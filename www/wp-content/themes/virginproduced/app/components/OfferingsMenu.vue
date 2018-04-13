@@ -1,6 +1,4 @@
 <template>
-
-
               <ul class="">
                 <li v-for="page in pages" v-bind:key="page.url" class="pa2 f3 f1-ns" v-if="page.target">
                   <a :href="page.url" class="white ttu" :title="page.title">{{ page.title }}</a>
@@ -15,37 +13,25 @@
                 </li>
               </ul>
 </template>
-
 <script>
-
 import { orderBy } from 'lodash'
 //import OfferingsMenuService from '../services/OfferingsMenuService'
-
 //inViewport = require('vue-in-viewport-mixin');
 // module.exports = {
 //
 // }
-
 export default {
-
   data() {
-
     return {
             items: [],
-
     }
-
   },
   props: {
-
     pages: {},
     mobile: {}
-
   },
   created() {
 //    this.fetchItems()
-
-
   },
   computed: {
     orderedPages() {
@@ -53,8 +39,6 @@ export default {
     }
   },
    methods: {
-
-
 //    fetchItems() {
 //      return OfferingsMenuService.getAll()
 //        .then(result => {
@@ -65,17 +49,10 @@ export default {
       console.log('emitting togglenav')
       this.$emit('togglenav')
 //      this.navigation = !this.navigation;
-
-
 //      setTimeout(function(){
 //        toggle.classList.toggle('active');
 //      }, 300);
-
-
     },
    }
-
-
 }
-
 </script>

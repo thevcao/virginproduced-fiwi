@@ -1,4 +1,3 @@
-
 <template>
   <ul class="list pa2 tc main-menu" :mobile="mobile">
     <li v-for="page in pages" v-bind:key="page.url" class="pa2 f3 f1-ns" v-if="page.target">
@@ -9,19 +8,13 @@
     </li>
   </ul>
 </template>
-
 <script>
-
 import { orderBy } from 'lodash'
-
 import MenuService from '../services/MenuService'
 import GlobalService from '../services/GlobalService'
 import Search from './Search.vue'
-
 export default {
-
   components: { Search },
-
   data() {
     return {
       items: [],
@@ -31,26 +24,19 @@ export default {
     }
   },
   props: {
-
     pages: {},
     mobile: {}
-
   },
-
   created() {
 //    this.fetchItems()
 //    this.fetchInfoData()
   },
-
   computed: {
     orderedPages() {
       return orderBy(this.items.items, 'order')
     }
   },
-
   methods: {
-
-
     fetchItems() {
       return MenuService.getAll()
         .then(result => {
@@ -63,24 +49,16 @@ export default {
 //          this.infoData = result.data
 //        })
 //    },
-
     toggleNavigation() {
       console.log('emitting togglenav')
       this.$emit('togglenav')
 //      this.navigation = !this.navigation;
-
-
 //      setTimeout(function(){
 //        toggle.classList.toggle('active');
 //      }, 300);
-
-
     },
-
   }
-
 }
-
 </script>
 <style lang="scss" scoped>
 @import '../../src/scss/main.scss';

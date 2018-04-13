@@ -2,7 +2,6 @@
   <div class="">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    width="32.974px" height="34px" viewBox="0 0 32.974 34" style="enable-background:new 0 0 32.974 34;" xml:space="preserve">
-
 <g id="Home">
   <g id="Home---Desktop" transform="translate(-226.000000, -661.000000)">
     <g>
@@ -15,7 +14,6 @@
     <div class="glitch-1">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    width="32.974px" height="34px" viewBox="0 0 32.974 34" style="enable-background:new 0 0 32.974 34;" xml:space="preserve">
-
 <g id="Home">
   <g id="Home---Desktop" transform="translate(-226.000000, -661.000000)">
     <g>
@@ -29,7 +27,6 @@
     <div class="glitch-2">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    width="32.974px" height="34px" viewBox="0 0 32.974 34" style="enable-background:new 0 0 32.974 34;" xml:space="preserve">
-
 <g id="Home">
   <g id="Home---Desktop" transform="translate(-226.000000, -661.000000)">
     <g>
@@ -40,37 +37,31 @@
 </g>
 </svg>
     </div>
-
   </div>
 </template>
-
 <script>
-
-
-
 </script>
-
-
 <style lang="scss" scoped>
 @import '../../src/scss/main.scss';
-
   div {
-
     position: relative;
     width: 32px;
     height: 32px;
     display: inline-block;
-
     svg {
-
     width: 32px;
     height: 32px;
 
 
+      // (768px)
+      @include media-breakpoint-down(sm) {
+
+
+        position: relative;
+        z-index: 1;
+      }
+
     }
-
-
-
   .glitch-1,
   .glitch-2 {
     position: absolute;
@@ -90,12 +81,20 @@
       animation: textGlitch-anim-2-data-v-26ccff6c 3s infinite linear alternate-reverse;
       opacity: 1;
       z-index: 1;
+      @include media-breakpoint-down(sm) {
+
+        display: none;
+      }
     }
     .glitch-2 {
       animation: offerings-anim-2 3s infinite linear alternate-reverse;
       opacity: 1;
       z-index: 0;
-    }
+      @include media-breakpoint-down(sm) {
 
+        display: none;
+      }
+    }
+    @include textGlitch("playicon", 17, white, $red, $purple, $green, 1, 1);
   }
 </style>

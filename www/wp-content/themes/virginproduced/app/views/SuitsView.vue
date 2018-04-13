@@ -8,25 +8,19 @@
         </div>
       </div>
     </div>
-
 <div v-if="item.content">
     <figure class="team-headshot" v-if="item && item.better_featured_image && landscape === false ">
       <img :src="item.better_featured_image.media_details.sizes.medium.source_url" v-if="item.better_featured_image.media_details.sizes.medium">
       <img :src="item.better_featured_image.source_url" v-else>
       <div v-if="is993 === true" class="crop-bg"><div></div></div>
-
       <header class="float-title">
       <h2 :title="item.title.rendered">{{ item.title.rendered }}<span>{{ item.acf.position }}</span></h2>
       </header>
     </figure>
     <div v-if="is993 === false" class="crop-bg"><div></div>
   </div>
-
-
     <div class="main">
-
       <vue-headful :title="item.title.rendered" description="Virgin Produced"/>
-
       <div class="container ml-xl-0">
         <div class="row" v-if="is993 === false">
           <div class="col-sm-4">
@@ -34,12 +28,8 @@
             <header class="SidebarItem__header">
               <h1>Our Suits</h1>
             </header>
-
           </aside>
-
           </div>
-
-
         </div>
         <div class="row">
           <div class="col-xl-3 col-lg-3 col-sm-8" v-if="is993 === false">
@@ -53,141 +43,112 @@
               </li>
             </ul>
           </aside>
-
           </div>
           <div class="col-xl-4 col-lg-6 col-sm-8">
-
-
             <div v-if="landscape === true">
             <h1 v-html="item.title.rendered"></h1>
               <div v-html="item.content.rendered"></div>
-
             </div>
-
           <article class="BlogPostSingle" v-if="landscape === false">
-
-
             <aside class="BlogPostSingle__content">
-
               <div v-html="item.content.rendered"></div>
-
             </aside>
-
             </article>
-
           </div>
-
         </div>
-
-
-
-
       </div>
     </div>
   </div>
-
 </div>
 </template>
-
 <script>
-
 import SuitsService from '../services/SuitsService'
 //import Glitch from '../../src/js/_Glitch.js'
-
 export default {
-
   data() {
     return {
       item: {},
       posts: [],
       error: false,
-
     }
   },
-
   props: {
-
     ie: {},
     mobile: {},
     is993: {},
     contextual_menu: 'Our Suits',
     landscape: {}
-
-
   },
-
   created() {
     this.fetchItem()
     this.fetchPosts()
-
-
-
-
-
   },
-
   watch: {
     '$route': 'fetchItem'
   },
-
   computed: {
     limitedPosts() {
       return this.posts.splice(0, 999)
     }
-
   },
   updated: function(){
     var body = document.querySelector('body');
 
-    if(this.is993 === true){
-
-      if(this.landscape === false){
-
+    var vm = this;
+    if(vm.is993 === true){
+      if(vm.landscape === false){
       body.style.position='fixed'
+      } else {
+
+      body.style.position=''
 
 
       }
       body.classList.add('no-header-bg')
+
     }
+
+
+    this.$parent.$emit('contextual_menu', {
+    contextual_menu : 'Our Suits'
+    })
+
+    this.$parent.$emit('contextual_menu_links', {
+    contextual_menu_links : ''
+    })
+
+  },
+  beforeDestroy() {
+
+    this.$parent.$emit('contextual_menu', {
+    contextual_menu : ''
+    })
+
+    this.$parent.$emit('contextual_menu_links', {
+    contextual_menu_links : ''
+    })
 
   },
   mounted: function(){
-
-
     var body = document.querySelector('body');
-
     if(this.is993 === true){
-
       if(this.landscape === false){
-
       body.style.position='fixed'
-
-
       }
       body.classList.add('no-header-bg')
+
     }
   },
   beforeDestroy: function(){
-
-
     if(this.is993 === true){
     var body = document.querySelector('body');
-
       if(this.landscape === false){
-
-      body.style.position='fixed'
-
-
+      body.style.position=''
       }
       body.classList.remove('no-header-bg')
     }
-
-
   },
-
   methods: {
-
-
     fetchItem() {
       return SuitsService.get(this.$route.params.slug)
         .then(result => {
@@ -203,8 +164,6 @@ export default {
           this.posts = result.data
         })
     },
-
-
 //    beforeEnter: function (el) {
 //      el.style.opacity = 0
 //    },
@@ -225,17 +184,9 @@ export default {
 ////      }, { complete: done })
 //    }
   }
-
 }
-
-
 </script>
-
 <style lang="scss">
-
-
 @import '../../src/scss/main.scss';
 @import '../../src/scss/components/_suits.scss';
-
-
 </style>

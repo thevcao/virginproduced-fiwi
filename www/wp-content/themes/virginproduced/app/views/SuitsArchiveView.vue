@@ -13,7 +13,6 @@
         </div>
       </div>
     </div>
-
           <!-- Main -->
           <div class="main">
         <div class="container ml-xl-0">
@@ -27,7 +26,6 @@
               <div class="row">
                 <div class="col-xl-3 col-lg-3 col-sm-8" v-if="is993 === false">
                       <aside class="SidebarItem">
-
                         <ul>
                           <li v-for="post in limitedPosts" v-bind:key="post.slug" v-if="post.better_featured_image">
                             <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
@@ -38,39 +36,22 @@
                         </ul>
                       </aside>
                   </div>
-
-
                   <div class="col-xl-4 col-lg-6 col-sm-8">
-
                   <article class="BlogPostSingle">
-
-
                     <aside class="BlogPostSingle__content">
-
-
                       <h2 v-if="is993 === false">Select a Bio to Read More</h2>
                       <h2 v-else class="large glitching">Select a Bio to Read More</h2>
-
                     </aside>
-
                     </article>
-
                   </div>
               </div>
             </div>
           </div>
-
-
-
   </div>
 </template>
-
 <script>
-
 import SuitsArchiveService from '../services/SuitsArchiveService'
-
 export default {
-
   data() {
     return {
       item: [],
@@ -80,89 +61,68 @@ export default {
     }
   },
   props: {
-
-
     ie: {},
     mobile: {},
     is993: {},
-
-
   },
-
+  beforeDestroy() {
+  },
   created() {
 //    this.fetchItem()
     this.fetchPosts()
-
-
   },
-
   mounted: function(){
-
       if(this.is993 === true){
-
       var vm = this;
-
-
       setTimeout(function(){
-
       if (window.navigator.standalone == true) {
-
       var heroHeight = window.innerHeight - 80 + 'px'
-
       } else {
-
       var heroHeight = window.innerHeight - 65 + 'px'
-
       }
-
       vm.$el.querySelector('.main').style.height=heroHeight
-
        }, 500);
-
-
       }
-
   },
-
   updated: function(){
-
-
         if(this.is993 === true){
-
       var vm = this;
-
-
       setTimeout(function(){
-
       if (window.navigator.standalone == true) {
-
       var heroHeight = window.innerHeight - 80 + 'px'
-
       } else {
-
       var heroHeight = window.innerHeight - 65 + 'px'
-
       }
-
       vm.$el.querySelector('.main').style.height=heroHeight
-
        }, 500);
-
-
       }
+      this.$parent.$emit('contextual_menu', {
+      contextual_menu : 'Our Suits'
+      })
 
+      this.$parent.$emit('contextual_menu_links', {
+      contextual_menu_links : ''
+      })
   },
-
   watch: {
 //    '$route': 'fetchItem'
   },
-
   computed: {
     limitedPosts() {
       return this.posts.splice(0, 999)
     }
   },
+  beforeDestroy() {
 
+    this.$parent.$emit('contextual_menu', {
+    contextual_menu : ''
+    })
+
+    this.$parent.$emit('contextual_menu_links', {
+    contextual_menu_links : ''
+    })
+
+  },
   methods: {
 //    fetchItem() {
 //      return SuitsArchiveService.get(this.$route.params.slug)
@@ -179,15 +139,10 @@ export default {
           this.posts = result.data
         })
     },
-
   }
-
 }
 </script>
-
 <style lang="scss" scoped>
-
 @import '../../src/scss/main.scss';
 @import '../../src/scss/components/_suits.scss';
-
 </style>

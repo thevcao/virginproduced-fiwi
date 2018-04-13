@@ -13,6 +13,7 @@ import VueVideoPlayer from 'vue-video-player'
 import inViewportDirective from 'vue-in-viewport-directive'
 import VueProgressBar from 'vue-progressbar'
 import vueHeadful from 'vue-headful';
+import objectfitvideos from 'object-fit-videos';
 
 Vue.component('vue-headful', vueHeadful);
 Vue.directive('in-viewport', inViewportDirective)

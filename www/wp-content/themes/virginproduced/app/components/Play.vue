@@ -16,7 +16,6 @@
     </svg>
     <div class="glitch-1">
     <svg width="106px" height="34px" viewBox="0 0 106 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-
         <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Home---Desktop" transform="translate(-226.000000, -661.000000)" fill="#50E3C2">
                 <g id="Video-Play" transform="translate(226.000000, 661.000000)">
@@ -33,7 +32,6 @@
     </div>
     <div class="glitch-2">
     <svg width="106px" height="34px" viewBox="0 0 106 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-
         <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Home---Desktop" transform="translate(-226.000000, -661.000000)" fill="#E01931">
                 <g id="Video-Play" transform="translate(226.000000, 661.000000)">
@@ -48,34 +46,18 @@
         </g>
     </svg>
     </div>
-
   </div>
 </template>
-
 <script>
-
-
-
 </script>
-
-
 <style lang="scss" scoped>
-
   div {
-
     width: 200px;
-
     svg {
-
     width: 200px;
     height: auto;
 /*    margin-left: auto;*/
 /*    display: block;*/
-
-
     }
-
   }
-
-
 </style>

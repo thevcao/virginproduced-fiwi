@@ -1,6 +1,5 @@
 $theme: /wp-content/themes/virginproduced/dist;
 $csstransition: ease;
-
 $red: #E01931;
 $purple: #3D2A85;
 $grey: #333333;
@@ -10,12 +9,10 @@ $randomNumber: random(1);
 $randomNumber2: random(2);
 $randomNumber3: random(3);
 $randomNumber4: random(4);
-
 // Portrait
 @mixin portrait() {
     @media screen and (orientation:portrait) { @content; }
 }
-
 @mixin media-portrait-up($name) {
     @include portrait {
         @include media-breakpoint-up($name) {
@@ -23,7 +20,6 @@ $randomNumber4: random(4);
         }
     }
 }
-
 @mixin media-portrait-down($name) {
     @include portrait {
         @include media-breakpoint-down($name) {
@@ -31,12 +27,10 @@ $randomNumber4: random(4);
         }
     }
 }
-
 // Landscape
 @mixin landscape() {
     @media screen and (orientation:landscape) { @content; }
 }
-
 @mixin media-landscape-up($name) {
     @include landscape {
         @include media-breakpoint-up($name) {
@@ -44,7 +38,6 @@ $randomNumber4: random(4);
         }
     }
 }
-
 @mixin media-landscape-down($name) {
     @include landscape {
         @include media-breakpoint-down($name) {
@@ -52,7 +45,6 @@ $randomNumber4: random(4);
         }
     }
 }
-
 :root {
   --animation-time: 2s;
 }
@@ -178,7 +170,6 @@ $randomNumber4: random(4);
     opacity: 1;
   }
 }
-
 @mixin textGlitch($name, $intensity, $textColor, $background, $highlightColor1, $highlightColor2, $width, $height) {
   color: $textColor;
   position: relative;
@@ -215,7 +206,6 @@ $randomNumber4: random(4);
     color: $highlightColor1;
     &:before,
     &:after {
-
       // (768px)
       @include media-breakpoint-up(sm) {
       padding: inherit;
@@ -230,8 +220,6 @@ $randomNumber4: random(4);
       clip: rect(0, 0, 0, 0);
       pointer-events: none;
       }
-
-
       //    opacity: 0;
     }
   }

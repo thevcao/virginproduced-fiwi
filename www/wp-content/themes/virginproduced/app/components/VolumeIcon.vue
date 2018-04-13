@@ -102,7 +102,7 @@
   div {
     display: inline-block;
     margin-left: 15px;
-    transform: rotate(-90deg);
+    transform: rotate(-90deg) scale(.75);
     position: absolute;
     margin-right: -100px;
     top: -50px;

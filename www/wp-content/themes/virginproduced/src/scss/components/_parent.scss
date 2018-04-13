@@ -88,20 +88,19 @@ $half: $cropwidth / 2;
     .main {
       padding: 0 0;
     }
+    overflow-x: hidden;
   }
   //  .main {
   //    padding-top: 0;
   .above-fold {
     min-height: 100vh;
     // (768px)
-    @include media-breakpoint-down(sm) {
-      min-height: calc(100vh - 9rem);
-
+    @include media-portrait-down(sm) {
+      min-height: 0;
       padding-top: 9rem;
-//      margin-bottom: 2rem;
+      //      margin-bottom: 2rem;
       .intro-in {
-
-//        margin-top: 9rem;
+        //        margin-top: 9rem;
         .glitching.large {
           transform: rotate(-90deg) translate3d(-37%, -110%, 0);
           font-size: 7rem;
@@ -118,12 +117,40 @@ $half: $cropwidth / 2;
         }
       }
     }
+    @include media-landscape-down(sm) {
+      min-height: 0;
+      padding-top: 9rem;
+      //      margin-bottom: 2rem;
+      .intro-in {
+        //        margin-top: 9rem;
+        .glitching.large {
+          //          transform: rotate(-90deg) translate3d(-37%, -110%, 0);
+          font-size: 9.75rem;
+          //          position: absolute;
+          //          top: 0;
+          //          left: 0;
+        }
+        h1.glitching.large + h4 {
+          //          padding-left: 7rem;
+          width: 50%;
+        }
+        h1.headline.large.experiences {
+          font-size: 2.5rem;
+          padding-right: 25%;
+        }
+      }
+    }
   }
   .content {
     padding: 5rem 0;
     // (768px)
     @include media-breakpoint-down(sm) {
       padding: 3rem 15px;
+      // (768px)
+      @include landscape() {
+        max-width: 75%;
+        margin: 0 auto;
+      }
     }
   }
   .child-services {
@@ -143,6 +170,7 @@ $half: $cropwidth / 2;
         left: 0;
         top: 0;
         object-fit: cover;
+        font-family: 'object-fit: cover;';
         height: 100%;
         width: 100%;
         opacity: .25;
@@ -157,21 +185,17 @@ $half: $cropwidth / 2;
         //        color: black;
         text-transform: uppercase;
         font-weight: normal;
-
         // (768px)
         @include media-breakpoint-up(md) {
-        @include textGlitch("childlink", 17, $grey, white, $purple, $green, 600, 48);
-
-
-        &:hover {
-          &:before,
-          &:after {
-            content: attr(title) ' ';
-            font-family: 'Heroic Condensed', fontawesome;
+          @include textGlitch("childlink", 17, $grey, white, $purple, $green, 600, 48);
+          &:hover {
+            &:before,
+            &:after {
+              content: attr(title) ' ';
+              font-family: 'Heroic Condensed', fontawesome;
+            }
           }
         }
-        }
-
         i {
           color: $purple;
         }
@@ -211,6 +235,7 @@ $half: $cropwidth / 2;
         margin-left: auto;
         height: 150px;
         object-fit: contain;
+        font-family: 'object-fit: contain;';
       }
     }
   }
@@ -260,6 +285,7 @@ $half: $cropwidth / 2;
       left: 0;
       top: 0;
       object-fit: cover;
+      font-family: 'object-fit: cover;';
       //      transition: opacity .5s ease;
       cursor: pointer;
       &:hover {
@@ -344,10 +370,19 @@ $half: $cropwidth / 2;
       background-size: cover;
       background-position: -10vw 0%;
       // (768px)
-      @include media-breakpoint-down(sm) {
+      @include media-portrait-down(sm) {
         background: url(#{$theme}/img/white-triangle.svg);
         background-position: 0% 0%;
         background-size: 150%;
+        background-repeat: no-repeat;
+        z-index: 1;
+        bottom: 0;
+        height: auto;
+      }
+      @include media-landscape-down(sm) {
+        background: url(#{$theme}/img/white-triangle.svg);
+        background-position: 0% 0%;
+        background-size: cover;
         background-repeat: no-repeat;
         z-index: 1;
         bottom: 0;
@@ -373,6 +408,7 @@ $half: $cropwidth / 2;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      font-family: 'object-fit: cover;';
       // (768px)
       @include media-breakpoint-down(sm) {
         height: 75%;

@@ -1,8 +1,5 @@
 <template>
-
-
   <div class="intro">
-
       <Player
               src = "/wp-content/themes/virginproduced/dist/img/intro.mp4"
              :first="first"
@@ -17,21 +14,14 @@
     </h4>
   </div>
 </template>
-
-
 <script>
 import Player from '../components/home-player.vue'
-
-
 export default {
-
   components: {
     Player
   },
   props: {
-
     first: {}
-
   },
     mounted() {
 //      console.log('this is current player instance object', this.player)
@@ -42,10 +32,7 @@ export default {
 //    }
   },
   methods: {
-
     closeIntro(){
-
-
       var vm = this;
       vm.$cookie.set('first', 'true', 1);
       vm.$emit('closeIntro');
@@ -60,19 +47,12 @@ export default {
 //        },
 //        delay: 300
 //      })
-
     },
-
   },
-
 }
-
 </script>
-
-
 <style lang="scss">
 @import '../../src/scss/main.scss';
-
 #app .intro {
     background: white;
     position: fixed;
@@ -83,30 +63,40 @@ export default {
     bottom: 0;
     height: 100vh;
     width: 100%;
+    border: 2rem solid white;
+    overflow: hidden;
+    opacity: 0;
+
+  &.started {
+
     pointer-events: none;
-
+  }
+  /*    transition: transform 1s ease;*/
   .video-js {
-
     position: absolute;
     top: 0;
     height: 100%;
     padding-bottom: 0;
-
+    background: white;
+    overflow: hidden;
     video {
-
       object-fit: cover;
     }
-
-    .vjs-control-bar, .vjs-big-play-button {
-
+    .vjs-control-bar  {
       display: none;
     }
   }
-
+  &.logo-out {
+    .video-js {
+      video {
+        object-fit: contain;
+      }
+    }
+  }
   .skip {
       position: absolute;
       right: 2rem;
-      bottom: 2rem;
+      bottom: 1rem;
       line-height: 1;
       margin: 0;
       z-index: 1;
@@ -118,12 +108,9 @@ export default {
       text-transform: uppercase;
       color: #E01931;
       line-height: 1;
-
       a {
-
         color: $red;
       }
   }
 }
-
 </style>
