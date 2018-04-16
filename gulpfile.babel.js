@@ -238,6 +238,15 @@
         ])
         .pipe(gulp.dest(`${themePath}/dist/fonts/`))
     })
+        // Fonts
+    gulp.task('admin-fonts', () => {
+      return gulp.src([
+          `${themePath}/src/fonts/**/*`,
+          'node_modules/font-awesome/fonts/*',
+    //      'node_modules/slick-carousel/slick/fonts/*',
+        ])
+        .pipe(gulp.dest(`${themePath}/admin/fonts/`))
+    })
 
   // Optimizes images
   gulp.task('images', () => {
@@ -261,8 +270,8 @@
 
   /** Build Task */
 
-  gulp.task('default', ['styles', 'admin-styles', 'images', 'fonts', 'favicons', 'ext-scripts', 'webpack:build']);
-  gulp.task('dev', ['styles', 'admin-styles', 'images', 'fonts', 'favicons', 'ext-scripts', 'webpack']);
+  gulp.task('default', ['styles', 'admin-styles', 'images', 'fonts', 'admin-fonts', 'favicons', 'ext-scripts', 'webpack:build']);
+  gulp.task('dev', ['styles', 'admin-styles', 'images', 'fonts', 'admin-fonts', 'favicons', 'ext-scripts', 'webpack']);
 
   /** Server Task */
   gulp.task('serve', ['dev', 'browser-sync'], () => {

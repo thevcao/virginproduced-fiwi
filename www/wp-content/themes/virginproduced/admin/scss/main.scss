@@ -1,82 +1,64 @@
 // Making an Oldfashioned
 // findsomewinmore
 // Licensed under MIT Open Source
-
 // Make sure the charset is set appropriately
 @charset 'UTF-8';
-
-$basecolor: #23282d;
-$primaryaccent: #ea5340;
-
+//$basecolor: #23282d;
+//$primaryaccent: #ea5340;
+$basecolor: #000;
+$primaryaccent: #E01931;
+$theme: /wp-content/themes/virginproduced/dist;
+$headline: 'Heroic Condensed';
+$multiplier: 1.5;
 @import '../../src/scss/base/fonts';
 @import 'fiwi-ui';
 @import 'base';
 
-
-
-
 #tinymce {
-
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-
-//// Framework - Foundation
-//@import 'vendor/foundation/settings',
-//		'node_modules/foundation-sites/scss/foundation';
-
-//// Framework - Bootstrap 4
-//@import 'vendor/bootstrap4/custom',
-//		'node_modules/bootstrap/scss/bootstrap';
-
-// Framework - Bootstrap 4 - Type/Grid/Ultility Helpers
-@at-root {
-  @-ms-viewport { width: device-width; }
-}
-
-html {
-  box-sizing: border-box;
-  -ms-overflow-style: scrollbar;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
-@import "node_modules/bootstrap/scss/print";
-@import "node_modules/bootstrap/scss/reboot";
-@import "node_modules/bootstrap/scss/type";
-
-    //
-// Grid mixins
-//
-
-@import "node_modules/bootstrap/scss/mixins/breakpoints";
-@import "node_modules/bootstrap/scss/mixins/grid-framework";
-@import "node_modules/bootstrap/scss/mixins/grid";
-
-@import "node_modules/bootstrap/scss/grid";
-@import "node_modules/bootstrap/scss/utilities/flex";
-
-@import
-  '../../src/scss/base/variables',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  //// Framework - Foundation
+  //@import 'vendor/foundation/settings',
+  //		'node_modules/foundation-sites/scss/foundation';
+  //// Framework - Bootstrap 4
+  //@import 'vendor/bootstrap4/custom',
+  //		'node_modules/bootstrap/scss/bootstrap';
+  // Framework - Bootstrap 4 - Type/Grid/Ultility Helpers
+  @at-root {
+    @-ms-viewport {
+      width: device-width;
+    }
+  }
+  html {
+    box-sizing: border-box;
+    -ms-overflow-style: scrollbar;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  @import "node_modules/bootstrap/scss/functions";
+  @import "node_modules/bootstrap/scss/variables";
+  @import "node_modules/bootstrap/scss/mixins";
+  @import "node_modules/bootstrap/scss/print";
+  @import "node_modules/bootstrap/scss/reboot";
+  @import "node_modules/bootstrap/scss/type";
+  //
+  // Grid mixins
+  //
+  @import "node_modules/bootstrap/scss/mixins/breakpoints";
+  @import "node_modules/bootstrap/scss/mixins/grid-framework";
+  @import "node_modules/bootstrap/scss/mixins/grid";
+  @import "node_modules/bootstrap/scss/grid";
+  @import "node_modules/bootstrap/scss/utilities/flex";
+  @import '../../src/scss/base/variables',
   '../../src/scss/base/fonts',
   '../../src/scss/base/typography';
-
-
-    // Style Base
-@import
-  '../../src/scss/base/variables',
+  // Style Base
+  @import '../../src/scss/base/variables',
   '../../src/scss/base/fonts',
   '../../src/scss/base/typography';
-
-
 }
-
-
 //.wp-login, .wp-admin {
 //
 //    // Style Base
@@ -84,8 +66,4 @@ html {
 //  'src/scss/base/variables',
 //  'src/scss/base/fonts',
 //  'src/scss/base/typography';
-
 //}
-
-
-

@@ -4,3 +4,42 @@
     display: flex;
   }
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $headline !important;
+  text-transform: uppercase;
+  line-height: 1 !important;
+  font-weight: normal !important;
+  padding-top: .5em!important;
+  margin-bottom: .25em !important;
+}
+
+
+body:not(.mce-content-body) #titlediv #title {
+
+  font-family: $headline !important;
+
+
+}
+h1 {
+  font-size: ($multiplier * 2.5) + rem !important;
+}
+h2 {
+  font-size: ($multiplier * 2) + rem !important;
+}
+h3 {
+  font-size: ($multiplier * 1.75) + rem !important;
+}
+h4 {
+  font-size: ($multiplier * 1.5) + rem !important;
+}
+h5 {
+  font-size: ($multiplier * 1.25) + rem !important;
+}
+h6 {
+  font-size: ($multiplier * 1) + rem !important;
+}
