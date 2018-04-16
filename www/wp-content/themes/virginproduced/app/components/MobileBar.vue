@@ -136,6 +136,9 @@ export default {
       }
   },
   updated: function () {
+        function hasClass(element, className) {
+            return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
+        }
 
         this.$nextTick(function () {
         var element =  document.querySelector('.contextual-menu');
@@ -151,7 +154,14 @@ export default {
         if(menuHeight > 5) {
           document.querySelector('.contextual-menu').classList.add('has-overflow');
         } else {
+
+          if(hasClass('.contextual-menu', 'has-overflow')){
+
           document.querySelector('.contextual-menu').classList.remove('has-overflow');
+
+
+          }
+
         }
         }, 2000);
         }
@@ -163,29 +173,32 @@ export default {
         })
   },
   mounted: function () {
-        if(this.mobile === true){
-        function hasClass(element, className) {
+
+     function hasClass(element, className) {
             return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
         }
-        const viewportInitial = window.innerHeight;
-        console.log('viewport:' + viewportInitial)
-        const screenSize = screen.height;
-        const footer = document.querySelector('footer');
-        console.log('screen:' + screenSize)
-        window.addEventListener('scroll', function(){
-        var viewportScroll = window.innerHeight;
-        console.log('viewport full UI:' + viewportInitial)
-        console.log('viewport updated:' + viewportScroll)
-          var bar = document.querySelector('.mobile-bar');
-          if(viewportInitial < viewportScroll) {
-          bar.classList.add('down')
-          footer.classList.remove('down')
-          } else {
-          bar.classList.remove('down')
-          footer.classList.add('down')
-          }
-        })
+
+      if(this.mobile === true){
+
+      const viewportInitial = window.innerHeight;
+      console.log('viewport:' + viewportInitial)
+      const screenSize = screen.height;
+      const footer = document.querySelector('footer');
+      console.log('screen:' + screenSize)
+      window.addEventListener('scroll', function(){
+      var viewportScroll = window.innerHeight;
+      console.log('viewport full UI:' + viewportInitial)
+      console.log('viewport updated:' + viewportScroll)
+        var bar = document.querySelector('.mobile-bar');
+        if(viewportInitial < viewportScroll) {
+        bar.classList.add('down')
+        footer.classList.remove('down')
+        } else {
+        bar.classList.remove('down')
+        footer.classList.add('down')
         }
+      })
+      }
       this.$nextTick(function () {
         var vm = this;
 
@@ -201,7 +214,13 @@ export default {
         if(menuHeight > 5) {
           document.querySelector('.contextual-menu').classList.add('has-overflow');
         } else {
+
+          if(hasClass('.contextual-menu', 'has-overflow')){
+
           document.querySelector('.contextual-menu').classList.remove('has-overflow');
+
+
+          }
         }
         }, 2000);
         }
