@@ -1,7 +1,21 @@
 {
-  "name": "ClassicVue",
+  "name": "virginproduced",
   "version": "1.0.0",
   "description": "VueJS 2.0 SPA for Wordpress X OldFashion",
+  "project": {
+    "code": "VIPR",
+    "environment": [
+      {
+        "name": "VIPR - Virgin Produced",
+        "contents": [
+          {
+            "cred_name": "Serverpilot User - Staging",
+            "env_name": "STAGE"
+          }
+        ]
+      }
+    ]
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
