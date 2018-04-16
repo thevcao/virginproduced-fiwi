@@ -84,7 +84,7 @@
              preload="auto"
              class="main-video"
              id="main-roll"
-             v-if="is993 === false"
+             v-if="desktop === true"
              :src="item.acf.bg_video">
       </video>
       <video
@@ -223,6 +223,17 @@ export default {
     this.$nextTick(function () {
       this.initiView();
     })
+      window.addEventListener('resize', function(){
+
+      var player = document.querySelector('#main-roll');
+
+        if (player.paused) {
+            player.play();
+        } else {
+//            player.pause();
+        }
+
+      });
   },
   beforeDestroy: function(){
     document.querySelector('footer').style.display=''
@@ -253,6 +264,11 @@ export default {
     updated: function(){
     this.$nextTick(function () {
 //        this.updateValue()
+
+
+
+
+
     })
     },
   methods: {
@@ -315,8 +331,6 @@ export default {
       var padding = (4 * fontSize);
       var heroHeight = window.innerHeight - padding + 'px';
       document.querySelector('.main').style.height=heroHeight
-      var video = document.querySelector('.main-video');
-      video.play()
         }, 500);
       })
       } else if(vm.mobile === true) {
