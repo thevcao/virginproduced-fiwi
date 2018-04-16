@@ -2230,7 +2230,7 @@ body:not(.mce-content-body) {
   &.wp-admin #wpadminbar #wp-admin-bar-site-name>.ab-item:before {
     color: rgba(0, 0, 0, 0) !important;
     background: url(../../admin/img/admin-logo.png) !important;
-    background: url(#{$theme}/img/logo.svg) !important;
+    background: url(#{$theme}/img/logo-horizontal.svg) !important;
     background-size: auto 30px !important;
     background-repeat: no-repeat !important;
     background-position: 50% !important;
@@ -2358,7 +2358,7 @@ body:not(.mce-content-body) {
     a {
       background-image: url(../../admin/img/fiwi-login.svg) !important;
       background-image: url(../../admin/img/fiwi-login.svg) !important;
-      background-image: url(#{$theme}/img/logo.svg) !important;
+      background-image: url(#{$theme}/img/logo-horizontal.svg) !important;
       background-size: auto 100% !important;
     }
     &:after {

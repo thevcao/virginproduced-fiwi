@@ -23,7 +23,7 @@
         <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-              <Logo></Logo>
+              <LogoHor></LogoHor>
           </div>
         </div>
         <div class="row">
@@ -174,11 +174,12 @@ import Blank from '../views/Blank.vue'
 import inViewportDirective from 'vue-in-viewport-directive'
 import videojs from 'video.js'
 import Logo from '../components/Logo.vue'
+import LogoHor from '../components/LogoHorizonal.vue'
 const Post = () => import(
   /* webpackChunkName: "below-fold" */ '../components/Post.vue'
 );
 export default {
-  components: { Post, OfferingsMenu, PlayIcon, Player, Intro, PlayIconMobile, VolumeIcon, Logo },
+  components: { Post, OfferingsMenu, PlayIcon, Player, Intro, PlayIconMobile, VolumeIcon, Logo, LogoHor },
   data() {
     return {
       item: {},
