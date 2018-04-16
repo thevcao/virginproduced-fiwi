@@ -77,6 +77,13 @@
           padding: 0;
           display: block;
           line-height: 1.5;
+
+          // (768px)
+          @include media-portrait-up(md) {
+
+            font-size: 4rem
+          }
+
         }
         &:last-child {
           //          padding-bottom: 3rem;
@@ -120,6 +127,19 @@
   right: 0;
   bottom: 0;
   pointer-events: none;
+
+
+  // (768px)
+  @include media-breakpoint-down(md) {
+  align-items: center;
+
+  }
+  // (768px)
+  @include media-breakpoint-down(md) {
+  align-items: flex-end;
+
+  }
+
   .menu-transition {
     opacity: 0;
     transform: scale(1.1);
@@ -231,6 +251,11 @@
           pointer-events: all;
 
 
+        @include media-landscape-down(md) {
+
+          font-size: 4rem;
+
+        }
         @include media-landscape-down(sm) {
 
           font-size: 2rem;

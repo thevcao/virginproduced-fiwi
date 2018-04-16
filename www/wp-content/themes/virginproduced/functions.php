@@ -170,7 +170,7 @@ $OldFashioned = new OldFashioned(
  * Enqueue scripts and styles.
  */
 function vuewp_scripts() {
-//    wp_enqueue_script( 'ext-libraries', get_template_directory_uri() . '/dist/js/scripts.min.js', array(), '20151217', false );
+    wp_enqueue_script( 'ext-libraries', get_template_directory_uri() . '/dist/js/scripts.min.js', array(), '20151217', false );
 
     wp_enqueue_script( 'vuewp-common', get_template_directory_uri() . '/dist/js/common.min.js', array(), '20151217', true );
     wp_enqueue_script( 'vuewp-main', get_template_directory_uri() . '/dist/js/main.min.js', array(), '20151217', true );

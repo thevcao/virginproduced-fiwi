@@ -337,7 +337,7 @@ export default {
       let footer = document.querySelector('footer')
 //      document.querySelector('header .router-link-active').classList.remove('white');
 //      footer.classList.remove('white');
-      if(this.is993 === false){
+      if(this.is993 === false && this.mobile === false){
       document.querySelector('body').style.overflow="hidden";
       if(vm){
       vm.$el.classList.add('loading')

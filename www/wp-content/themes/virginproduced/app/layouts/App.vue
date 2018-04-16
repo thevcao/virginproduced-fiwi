@@ -22,6 +22,8 @@ import MenuService from '../services/MenuService'
 import videojs from 'video.js'
 import objectfitvideos from 'object-fit-videos';
 
+
+
 export default {
   data() {
     return {
@@ -33,6 +35,7 @@ export default {
             contextual_menu: '',
             contextual_menu_links: '',
             mobile: false,
+            tablet: false,
             title: '',
             landscape: false
     }
@@ -59,6 +62,7 @@ export default {
       this.getcontextualLinks()
       this.getTitle()
       this.isMobile()
+      this.isiPad()
       this.isLandscape()
       objectFitImages()
       objectFitVideos()
@@ -163,13 +167,27 @@ export default {
     }
     },
     isMobile() {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+
+    var md = new MobileDetect(window.navigator.userAgent);
+
+    if (md.phone() != null) {
+
     this.mobile = true
+    }
+    },
+    isiPad() {
+
+    var md = new MobileDetect(window.navigator.userAgent);
+
+
+    if (md.tablet() != null) {
+    this.tablet = true
     }
     },
     isLandscape() {
       var vm = this;
-    if(window.innerHeight < window.innerWidth){
+
+      if(window.innerHeight < window.innerWidth){
       if(vm.mobile === true) {
       vm.landscape = true
       } else {

@@ -41,15 +41,10 @@
 <meta name="msapplication-square150x150logo" content="<?php echo get_template_directory_uri(); ?>/dist/img/favicons/mstile-150x150.png" />
 <meta name="msapplication-wide310x150logo" content="<?php echo get_template_directory_uri(); ?>/dist/img/favicons/mstile-310x150.png" />
 <meta name="msapplication-square310x310logo" content="<?php echo get_template_directory_uri(); ?>/dist/img/favicons/mstile-310x310.png" />
-<script type="text/javascript" src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/skrollr@0.6.26/dist/skrollr.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<script src='https://s3.amazonaws.com/fw-devtools/cssbrowserselector/cssbrowserselector.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.3/ofi.min.js'></script>
-<script src='https://s3.amazonaws.com/fw-devtools/object-fit-videos/object-fit-videos.min.js'></script>
 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <?php wp_head(); ?>
 </head>
 
