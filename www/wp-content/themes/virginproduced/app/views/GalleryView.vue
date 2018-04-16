@@ -328,7 +328,7 @@ export default {
     methods: {
           initView: function(){
             var vm = this;
-           if(this.desktop === true){
+           if(vm.desktop === true){
             console.log('mounting...')
 //            vm.$el.classList.add('loading')
             let footer = document.querySelector('footer')
@@ -343,13 +343,17 @@ export default {
             setTimeout(function(){
             vm.$el.classList.remove('loading');
             vm.$el.classList.remove('loaded');
+            if(vm.is993 === false){
             skrollr.init({
               forceHeight: false
             });
-            document.querySelector('body').style.overflow="";
             vm.$el.querySelector('.roll-down').style.opacity="1";
+
+            }
+            document.querySelector('body').style.overflow="";
             }, 9000);
             }
+
             } else {
             vm.$el.classList.remove('loading');
             setTimeout(function(){
@@ -365,7 +369,7 @@ export default {
               if(vm.acf.main_image){
               vm.$el.querySelector('.crop-image').style.height=heroHeight
               }
-             }, 500);
+             }, 1000);
               if(vm.mobile === true) {
                     window.addEventListener('orientationchange', function(){
                       setTimeout(function(){
@@ -449,6 +453,9 @@ export default {
                 this.$parent.$emit('title', {
                 title : this.item.title.rendered
                 })
+
+
+
                 })
               .catch(err => {
                 this.error = true

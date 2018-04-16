@@ -70,6 +70,7 @@
          v-if="main === 'our-suits' || main === 'suits'"
          class="contextual-menu">
       <ul>
+        <li></li>
         <li v-for="item in posts" v-bind:key="item.slug" v-if="item.better_featured_image">
           <router-link :to="{name: 'suits', params: { slug: item.slug } }" @click.native="toggleContextmenu">{{ item.title.rendered }}</router-link>
         </li>
@@ -82,6 +83,7 @@
          v-else-if="this.$parent.contextual_menu_links"
          class="contextual-menu">
       <ul>
+        <li></li>
         <li v-for="item in this.$parent.contextual_menu_links">
           <router-link :to="item.link" v-if="item.link_type === 'internal'" @click.native="toggleContextmenu">{{ item.text }}</router-link>
           <a :href="item.custom" v-else @click="toggleContextmenu">{{ item.text }}</a>
@@ -141,9 +143,10 @@ export default {
         }
 
         this.$nextTick(function () {
+        var li =  document.querySelector('.contextual-menu ul');
         var element =  document.querySelector('.contextual-menu');
 
-        if( element != 'undefined' && element != null) {
+        if( li != 'undefined' && li != null) {
 
         if((this.is993 === true && this.contextual_menu_links !='') || (this.is993 === true && this.main === 'our-suits' || this.main === 'suits')){
         setTimeout(function(){
@@ -163,7 +166,7 @@ export default {
           }
 
         }
-        }, 2000);
+        }, 3000);
         }
 
 

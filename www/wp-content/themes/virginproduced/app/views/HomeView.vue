@@ -1,7 +1,7 @@
 <template>
     <div class="home-vue loading" :ie="ie" :is993="is993" :mobile="mobile" :desktop="desktop" :tablet="tablet">
       <vue-headful
-          title="Home"
+          title="This is Virgin Produced"
           description="Virgin Produced"
       />
       <transition

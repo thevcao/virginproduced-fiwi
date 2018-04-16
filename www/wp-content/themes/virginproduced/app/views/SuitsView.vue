@@ -130,13 +130,13 @@ export default {
 
 
 
-    this.$parent.$emit('contextual_menu', {
-    contextual_menu : 'Our Suits'
-    })
-
-    this.$parent.$emit('contextual_menu_links', {
-    contextual_menu_links : ''
-    })
+//    this.$parent.$emit('contextual_menu', {
+//    contextual_menu : 'Our Suits'
+//    })
+//
+//    this.$parent.$emit('contextual_menu_links', {
+//    contextual_menu_links : ''
+//    })
 
   },
   beforeDestroy() {
