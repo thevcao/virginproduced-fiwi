@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-7">
+              <div class="col-md-7">
                 <aside class="SidebarItem">
                   <form accept-charset="UTF-8" action="https://formkeep.com/f/3580b3c5e6f4" method="POST">
                     <input type="hidden" name="utf8" value="✓">

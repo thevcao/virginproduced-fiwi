@@ -1,5 +1,5 @@
 <template>
-  <div :is993="is993" :mobile="mobile" :ie="ie">
+  <div :is993="is993" :mobile="mobile" :ie="ie" :tablet="tablet">
     <!-- 404 -->
     <Error404 v-if="item === undefined"></Error404>
     <!-- Main -->
@@ -13,7 +13,12 @@
                  v-on:update="onElementChange()"
                  :src="elementChange()"
                  v-if="item && item.template === 'about-us.php'"
-                 :is993="is993" :mobile="mobile" :ie="ie"
+                 :is993="is993"
+                 :mobile="mobile"
+                 :ie="ie"
+                 :tablet="tablet"
+                 :desktop="desktop"
+                 :landscape="landscape"
                  >
       </AboutView>
       </transition>
@@ -27,7 +32,12 @@
                    v-on:update="onElementChange()"
                    :src="elementChange()"
                    v-if="item && item.template === 'service-gallery.php'"
-                   :is993="is993" :mobile="mobile" :ie="ie"
+                   :is993="is993"
+                   :mobile="mobile"
+                   :ie="ie"
+                   :tablet="tablet"
+                   :desktop="desktop"
+                   :landscape="landscape"
                    >
       </GalleryView>
       </transition>
@@ -41,7 +51,12 @@
                      v-on:update="onElementChange()"
                      :src="elementChange()"
                      v-if="item && item.template === 'parent-service.php'"
-                     :is993="is993" :mobile="mobile" :ie="ie"
+                     :is993="is993"
+                     :mobile="mobile"
+                     :ie="ie"
+                     :tablet="tablet"
+                     :desktop="desktop"
+                     :landscape="landscape"
                      >
       </ParentService>
       </transition>
@@ -55,7 +70,12 @@
                     v-on:update="onElementChange()"
                     :src="elementChange()"
                     v-if="item && item.template === 'child-service.php'"
-                    :is993="is993" :mobile="mobile" :ie="ie"
+                    :is993="is993"
+                    :mobile="mobile"
+                    :ie="ie"
+                    :tablet="tablet"
+                    :desktop="desktop"
+                    :landscape="landscape"
                      >
       </ChildService>
       </transition>
@@ -69,7 +89,12 @@
                v-on:update="onElementChange()"
                :src="elementChange()"
                v-if="item && item.template === 'contact.php'"
-               :is993="is993" :mobile="mobile" :ie="ie"
+               :is993="is993"
+               :mobile="mobile"
+               :ie="ie"
+               :tablet="tablet"
+               :desktop="desktop"
+               :landscape="landscape"
                      >
       </Contact>
       </transition>
@@ -109,7 +134,10 @@ export default {
       offerings: {},
       ie: {},
       mobile: {},
-      is993: {}
+      is993: {},
+      tablet: {},
+      desktop: {},
+      landscape: {}
   },
     created() {
       const slug = this.$route.params.slug;

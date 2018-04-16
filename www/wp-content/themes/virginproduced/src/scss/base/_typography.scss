@@ -14,6 +14,12 @@ li {
   font-size: 1rem;
   line-height: 2;
   color: $grey;
+  @include media-breakpoint-down(sm) {
+    font-size: 1rem;
+  }
+  @include media-landscape-down(sm) {
+    font-size: 1.25rem
+  }
 }
 h1,
 h2,
@@ -150,9 +156,7 @@ a {
       font-size: 1.5rem;
     }
   }
-
   &:focus {
-
     outline: none;
   }
 }

@@ -137,6 +137,8 @@ export default {
       var isChrome = !!window.chrome && !!window.chrome.webstore;
       console.log('eat me')
       this.navigation = !this.navigation;
+      var bgvid = document.getElementById('main-roll');
+      if( bgvid != 'undefined' && bgvid != null) {
       if(this.navigation && (isFirefox || isChrome)){
       var video = document.getElementById('main-roll');
       this.$emit('videotime', {
@@ -147,6 +149,7 @@ export default {
       var headerVideo = document.querySelector('.video-bg');
       headerVideo.currentTime=time
       }, 50);
+      }
       }
     },
     getVideotime() {

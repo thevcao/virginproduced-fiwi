@@ -130,12 +130,12 @@
 
 
   // (768px)
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-up(md) {
   align-items: center;
 
   }
   // (768px)
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
   align-items: flex-end;
 
   }
@@ -251,6 +251,11 @@
           pointer-events: all;
 
 
+        @include media-portrait-up(md) {
+
+          font-size: 4rem;
+
+        }
         @include media-landscape-down(md) {
 
           font-size: 4rem;

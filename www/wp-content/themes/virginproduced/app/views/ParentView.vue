@@ -1,5 +1,11 @@
 <template>
-  <div :is993="is993" :mobile="mobile" :ie="ie">
+  <div
+       :is993="is993"
+       :mobile="mobile"
+       :tablet="tablet"
+       :desktop="desktop"
+       :landscape="landscape"
+       :ie="ie">
       <!-- Main -->
       <div class="parent-vue" v-if="item && item.acf">
         <vue-headful
@@ -125,14 +131,14 @@
       <div class="main">
         <div class="container ml-xl-0 above-fold">
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-lg-6 col-md-10">
                   <div class="intro-in" v-html="item.acf.content"></div>
                 </div>
               </div>
         </div>
         <div class="container below-fold">
               <div class="row align-items-center">
-                <div class="col-sm-5 col-11 mx-auto content">
+                <div class="col-lg-5 col-md-10 col-11 mx-auto content">
                   <div
                        v-html="item.acf.page_content"
                        data-anchor-target=".below-fold"
@@ -140,7 +146,7 @@
                         data-center="transform: translate3d(0, -5%, 0);"
                        ></div>
                 </div>
-                <div class="col-sm-6" v-if="is993 === false">
+                <div class="col-lg-6" v-if="is993 === false">
                   <ul class="child-services" v-if="item && item.acf.links_or_images === 'links'">
                     <li
                         v-for="offering in serviceOfferings"
@@ -166,7 +172,7 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col-sm-6 pr-0 pl-0" v-else>
+                <div class="col-lg-6 pr-0 pl-0" v-else>
                   <ul class="child-services" v-if="item && item.acf.links_or_images === 'links'">
                     <li
                         v-for="offering in serviceOfferings"
@@ -230,7 +236,10 @@ export default {
   props: {
     ie: {},
     mobile: {},
-    is993: {}
+    tablet: {},
+    desktop: {},
+    is993: {},
+    landscape: {}
   },
     created() {
       const slug = this.$route.params.slug;
@@ -337,7 +346,7 @@ export default {
       let footer = document.querySelector('footer')
 //      document.querySelector('header .router-link-active').classList.remove('white');
 //      footer.classList.remove('white');
-      if(this.is993 === false && this.mobile === false){
+      if(this.desktop === true){
       document.querySelector('body').style.overflow="hidden";
       if(vm){
       vm.$el.classList.add('loading')
@@ -379,6 +388,40 @@ export default {
                 }, 300);
               })
         }
+        if(vm.tablet === true){
+
+
+
+              window.addEventListener('orientationchange', function(){
+
+
+                if (vm.landscape === false) {
+                console.log('resizing for landscape tablet')
+
+                setTimeout(function(){
+
+                  vm.$el.querySelector('.above-fold').style.height=''
+                }, 300);
+              } else {
+
+              setTimeout(function(){
+                if (window.navigator.standalone == true) {
+                var heroHeight = window.innerHeight - 80 + 'px'
+                } else {
+                var heroHeight = window.innerHeight - 65 + 'px'
+                }
+                vm.$el.querySelector('.above-fold').style.height=heroHeight
+
+              }, 300);
+
+
+              }
+
+
+              })
+
+
+      }
       }
     },
     fetchItem(slug) {

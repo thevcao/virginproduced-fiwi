@@ -1,21 +1,39 @@
 <template v-if="item">
-  <div class="about-vue" :is993="is993" :mobile="mobile" :ie="ie">
+  <div
+       class="about-vue"
+       :is993="is993"
+       :mobile="mobile"
+       :ie="ie"
+       :tablet="tablet"
+       :desktop="desktop">
           <!-- 404 -->
-    <div class="container main" v-if="error">
+    <div
+         class="container main"
+         v-if="error">
       <div class="row">
         <div class="col-12">
-          <h1 class="glitching" title="Pardon the disruption">Pardon the disruption</h1>
+          <h1
+              class="glitching"
+              title="Pardon the disruption">Pardon the disruption</h1>
         </div>
       </div>
     </div>
     <!-- Main -->
     <div class="main" v-if="item.content">
-      <figure class="BlogPostSingle__images rellax" data-rellax-speed="2" v-if="item.better_featured_image">
+      <figure
+              class="BlogPostSingle__images rellax"
+              data-rellax-speed="2"
+              v-if="item.better_featured_image">
         <div class="bg-video" v-if="is993 === false">
-          <video :src="item.acf.background_video" autoplay loop muted></video>
+          <video
+                 :src="item.acf.background_video"
+                 autoplay
+                 loop
+                 muted></video>
         </div>
         <div class="img">
-          <img :src="item.better_featured_image.media_details.sizes.large.source_url">
+          <img
+               :src="item.better_featured_image.media_details.sizes.large.source_url">
           <div class="mask"></div>
         </div>
         <header class="BlogPostSingle__header">
@@ -37,13 +55,13 @@
           <article class="">
             <div class="container-fluid">
             <div class="row">
-              <div class="col-sm-5 mr-auto">
+              <div class="col-xl-5 col-lg-6 col-sm-10 mr-lg-auto mx-lg-0 mx-sm-auto">
                 <div id="content" class="content" v-html="item.content.rendered">
                 </div>
               </div>
               <div
                    id="news"
-                   class="col-sm-4 ml-auto pr-0 news-sidebar"
+                   class="col-lg-4 ml-lg-auto col-sm-10 mx-lg-0 mx-sm-auto pr-0 news-sidebar"
                    data-bottom-top="transform: translateY(5%); opacity: 0"
                    data-top="transform: translateY(-0%); opacity: 1">
                 <h2>Virgin News</h2>
@@ -108,7 +126,9 @@ export default {
   props: {
     ie: {},
     is993: {},
-    mobile: {}
+    mobile: {},
+    tablet: {},
+    desktop: {}
   },
     created() {
       const slug = this.$route.params.slug;
@@ -117,10 +137,34 @@ export default {
       this.fetchPosts()
     },
     mounted: function(){
+
+      var vm = this;
+
+      if(vm.mobile === true || (vm.tablet === true && vm.landscape === true)){
+
+      window.addEventListener('orientationchange', function(){
+
+      setTimeout(function(){
+
+      console.log('hello?')
+      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
+
+      }, 300);
+
+
+      })
+
+
+
+      }
+
       this.$nextTick(function () {
-      if(this.is993 === false) {
+     if(this.desktop === true){
       this.initView()
       }
+
+
 //      setTimeout(function(){
 //      document.querySelector('.main').style.height='auto'
 //      }, 1000);
@@ -162,6 +206,7 @@ export default {
     },
     methods: {
       initView: function(){
+
         console.log('mounting...')
         document.querySelector('body').style.pointerevents="hidden";
         setTimeout(function(){

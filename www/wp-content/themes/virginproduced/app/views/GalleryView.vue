@@ -1,5 +1,11 @@
 <template v-if="item && item.acf.bg_video">
-  <div :is993="is993" :mobile="mobile" :ie="ie">
+  <div
+       :is993="is993"
+       :mobile="mobile"
+       :tablet="tablet"
+       :desktop="desktop"
+       :landscape="landscape"
+       :ie="ie">
     <div class="gallery-vue"  v-if="item && item.acf">
           <transition
           v-on:before-enter="reelEnter"
@@ -145,7 +151,7 @@
             </div>
           </div>
           <div class="main post-content below-fold">
-            <div class="container">
+            <div class="container p-md-0">
               <div class="row" v-if="is993 === false">
                 <div class="col-sm-10">
                 <div class="content"
@@ -157,7 +163,7 @@
               </div>
               <div class="gallery">
               <div class="row" v-if="acfWorks">
-                <div class="col-xl-11 col-lg-12 p-xs-0">
+                <div class="col-xl-11 col-lg-12 p-md-0">
                   <h2
                       class="gotham glitching"
                       title="The Goods"
@@ -166,7 +172,7 @@
                       v-if="is993 === false"
                       >The Goods</h2>
                   <div class="row">
-                        <div class="col-sm-6 item"
+                        <div class="col-md-6 item"
                              v-for="work, i in acfWorks"
                              v-in-viewport
                              >
@@ -209,7 +215,10 @@ export default {
   props: {
       ie: {},
       mobile: {},
+      tablet: {},
+      desktop: {},
       is993: {},
+      landscape: {}
   },
   data() {
     return {
@@ -235,6 +244,8 @@ export default {
       console.log('mounting...')
       vm.$el.classList.add('loading')
       this.$nextTick(function () {
+
+
            this.initView()
 //        setTimeout(function(){
 //
@@ -244,22 +255,22 @@ export default {
     },
     updated: function() {
       if(this.is993 === true){
-      var vm = this;
-      vm.$el.classList.remove('loading');
-      setTimeout(function(){
-      if (window.navigator.standalone == true) {
-      var heroHeight = window.innerHeight - 80 + 'px'
-      } else {
-      var heroHeight = window.innerHeight - 65 + 'px'
-      }
-      vm.$el.querySelector('.above-fold').style.height=heroHeight
-      if(vm.acf.bg_video){
-      vm.$el.querySelector('#main-roll').style.height=heroHeight
-      }
-      if(vm.acf.main_image){
-      vm.$el.querySelector('.crop-image').style.height=heroHeight
-      }
-       }, 500);
+//      var vm = this;
+//      vm.$el.classList.remove('loading');
+//      setTimeout(function(){
+//      if (window.navigator.standalone == true) {
+//      var heroHeight = window.innerHeight - 80 + 'px'
+//      } else {
+//      var heroHeight = window.innerHeight - 65 + 'px'
+//      }
+//      vm.$el.querySelector('.above-fold').style.height=heroHeight
+//      if(vm.acf.bg_video){
+//      vm.$el.querySelector('#main-roll').style.height=heroHeight
+//      }
+//      if(vm.acf.main_image){
+//      vm.$el.querySelector('.crop-image').style.height=heroHeight
+//      }
+//       }, 500);
       }
     },
     mixins: [ inViewport ],
@@ -317,7 +328,7 @@ export default {
     methods: {
           initView: function(){
             var vm = this;
-            if(this.is993 === false){
+           if(this.desktop === true){
             console.log('mounting...')
 //            vm.$el.classList.add('loading')
             let footer = document.querySelector('footer')
@@ -342,37 +353,82 @@ export default {
             } else {
             vm.$el.classList.remove('loading');
             setTimeout(function(){
-            if (window.navigator.standalone == true) {
-            var heroHeight = window.innerHeight - 80 + 'px'
-            } else {
-            var heroHeight = window.innerHeight - 65 + 'px'
-            }
-            vm.$el.querySelector('.above-fold').style.height=heroHeight
-            if(vm.acf.bg_video){
-            vm.$el.querySelector('#main-roll').style.height=heroHeight
-            }
-            if(vm.acf.main_image){
-            vm.$el.querySelector('.crop-image').style.height=heroHeight
-            }
+              if (window.navigator.standalone == true) {
+              var heroHeight = window.innerHeight - 80 + 'px'
+              } else {
+              var heroHeight = window.innerHeight - 65 + 'px'
+              }
+              vm.$el.querySelector('.above-fold').style.height=heroHeight
+              if(vm.acf.bg_video){
+              vm.$el.querySelector('#main-roll').style.height=heroHeight
+              }
+              if(vm.acf.main_image){
+              vm.$el.querySelector('.crop-image').style.height=heroHeight
+              }
              }, 500);
-                if(this.mobile === true) {
+              if(vm.mobile === true) {
+                    window.addEventListener('orientationchange', function(){
+                      setTimeout(function(){
+                        if (window.navigator.standalone == true) {
+                        var heroHeight = window.innerHeight - 80 + 'px'
+                        } else {
+                        var heroHeight = window.innerHeight - 65 + 'px'
+                        }
+                        vm.$el.querySelector('.above-fold').style.height=heroHeight
+                        if(vm.acf.bg_video){
+                        vm.$el.querySelector('#main-roll').style.height=heroHeight
+                        }
+                        if(vm.acf.main_image){
+                        vm.$el.querySelector('.crop-image').style.height=heroHeight
+                        }
+                      }, 300);
+                    })
+              }
+              if(vm.tablet === true){
+
+
+
                       window.addEventListener('orientationchange', function(){
+
+
+                        if (vm.landscape === false) {
+                        console.log('resizing for landscape tablet')
+
                         setTimeout(function(){
-                          if (window.navigator.standalone == true) {
-                          var heroHeight = window.innerHeight - 80 + 'px'
-                          } else {
-                          var heroHeight = window.innerHeight - 65 + 'px'
-                          }
-                          document.querySelector('.above-fold').style.height=heroHeight
+
+                          vm.$el.querySelector('.above-fold').style.height=''
                           if(vm.acf.bg_video){
-                          vm.$el.querySelector('#main-roll').style.height=heroHeight
+                          vm.$el.querySelector('#main-roll').style.height=''
                           }
                           if(vm.acf.main_image){
-                          vm.$el.querySelector('.crop-image').style.height=heroHeight
+                          vm.$el.querySelector('.crop-image').style.height=''
                           }
                         }, 300);
+                      } else {
+
+                      setTimeout(function(){
+                        if (window.navigator.standalone == true) {
+                        var heroHeight = window.innerHeight - 80 + 'px'
+                        } else {
+                        var heroHeight = window.innerHeight - 65 + 'px'
+                        }
+                        vm.$el.querySelector('.above-fold').style.height=heroHeight
+                        if(vm.acf.bg_video){
+                        vm.$el.querySelector('#main-roll').style.height=heroHeight
+                        }
+                        if(vm.acf.main_image){
+                        vm.$el.querySelector('.crop-image').style.height=heroHeight
+                        }
+                      }, 300);
+
+
+                      }
+
+
                       })
-                }
+
+
+              }
             }
           },
           fetchItem(slug) {

@@ -3,6 +3,7 @@
     <video-player id="gallery-player"
            class="video-js vjs-big-play-centered vjs-volume-vertical"
             controls
+            autoplay
             preload="none"
            :options="options">
   </video-player>
@@ -50,8 +51,6 @@ import { videoPlayer } from 'vue-video-player'
 
     mounted: function(){
 
-      objectFitImages()
-      objectFitVideos()
 
       var vm = this;
 
@@ -62,11 +61,11 @@ import { videoPlayer } from 'vue-video-player'
 
         var player = videojs(getID);
 
-        if(this.mobile === false){
+        if(vm.mobile === false){
 
-        setTimeout(function(){
+          console.log('hello ' + getID)
+
         player.play();
-        }, 300);
 
         }
 

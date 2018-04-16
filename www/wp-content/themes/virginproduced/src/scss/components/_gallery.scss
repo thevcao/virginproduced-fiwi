@@ -192,7 +192,13 @@ $half: $cropwidth / 2;
     object-fit: cover;
     font-family: 'object-fit: cover;';
     // (768px)
-    @include media-breakpoint-down(sm) {
+    @include media-landscape-down(lg) {
+      bottom: 0;
+      left: 0;
+      height: calc(100vh);
+      position: absolute;
+    }
+    @include media-breakpoint-down(md) {
       bottom: 0;
       left: 0;
       height: calc(100vh - 65px);
@@ -207,6 +213,10 @@ $half: $cropwidth / 2;
     height: 100%;
     pointer-events: none;
     z-index: 1;
+    @include media-landscape-down(lg) {
+      position: absolute;
+      overflow: hidden;
+    }
     > div {
       position: relative;
       width: $cropwidth;
@@ -242,6 +252,10 @@ $half: $cropwidth / 2;
         background-position: 0% 100%;
         margin-left: -1px;
         margin-top: -1px;
+        @include media-landscape-down(lg) {
+          height: 100vh;
+          width: 100vh;
+        }
       }
     }
   }
@@ -270,6 +284,9 @@ $half: $cropwidth / 2;
       height: 100%;
       background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
       z-index: 1;
+      @include media-landscape-down(lg) {
+        display: none;
+      }
     }
     .float-title {
       position: absolute;
@@ -407,6 +424,39 @@ $half: $cropwidth / 2;
   .above-fold {
     min-height: 125vh;
     // (768px)
+    @include media-breakpoint-down(md) {
+      min-height: 0;
+      //      height: calc(100vh - 65px);
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+        z-index: 1;
+      }
+      > .container {
+        height: 100%;
+        > .row {
+          height: 100%;
+          align-items: flex-end;
+          position: relative;
+          z-index: 1;
+          h1 {
+//            width: 65%;
+            color: white;
+//            font-size: 3rem;
+            margin: 0 .5rem 1rem;
+            @include landscape() {
+              text-align: right;
+              margin-left: auto;
+            }
+          }
+        }
+      }
+    }
     @include media-breakpoint-down(sm) {
       min-height: 0;
       //      height: calc(100vh - 65px);
@@ -454,7 +504,7 @@ $half: $cropwidth / 2;
   }
   .below-fold {
     // (768px)
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       padding: 0 !important;
     }
     .content {
@@ -469,6 +519,10 @@ $half: $cropwidth / 2;
       //      padding-top: 50vh;
       min-height: 50vh;
       padding: 5rem 0 30rem;
+       @include media-landscape-down(lg) {
+        min-height: 0;
+        padding: 8rem 0;
+      }
       //      padding-bottom: 50vh;
       p {
         color: white;
@@ -479,18 +533,32 @@ $half: $cropwidth / 2;
         line-height: 1.5;
         font-weight: 400;
         text-align: center;
+        // @media (max-width: 1439px)
+        @include media-landscape-down(lg) {
+          color: $grey;
+          text-align: left;
+        }
       }
     }
+
+      .p-md-0 {
+        // (768px)
+        @include media-breakpoint-down(md) {
+          padding: 0;
+          max-width: 100%;
+        }
+      }
     .gallery {
       //      padding-top: 50vh;
       padding-bottom: 5rem;
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         padding-bottom: 0;
       }
-      .p-xs-0 {
+      .p-md-0 {
         // (768px)
-        @include media-breakpoint-down(sm) {
-          padding: 0
+        @include media-breakpoint-down(md) {
+          padding: 0;
+          max-width: 100%;
         }
       }
       h2 {
@@ -510,13 +578,14 @@ $half: $cropwidth / 2;
         transform: translateY(5%);
         transition: all .5s ease;
         // (768px)
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
           opacity: 1;
           transform: none;
         }
         // (768px)
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
           margin-bottom: 0;
+          padding: 0;
         }
         &.in-viewport {
           @include itemdelay;
@@ -562,6 +631,14 @@ $half: $cropwidth / 2;
           object-fit: cover;
           font-family: 'object-fit: cover;';
           transition: box-shadow .3s ease;
+
+          // @media (max-width: 1439px)
+          @include media-breakpoint-down(lg) {
+
+//            height:
+
+          }
+
           //          position: absolute;
         }
         &:hover {
@@ -587,7 +664,7 @@ $half: $cropwidth / 2;
           transform-origin: 50% 50% 0;
           height: 280px;
           // (768px)
-          @include media-breakpoint-down(sm) {
+          @include media-breakpoint-down(md) {
             opacity: 1;
             z-index: 2;
           }
@@ -624,7 +701,7 @@ $half: $cropwidth / 2;
             width: 100%;
             left: 50%;
             // (768px)
-            @include media-portrait-down(sm) {
+            @include media-portrait-down(md) {
               transform: translate3d(-60%, 35px, 0);
               padding: 0 2rem;
               font-size: 1.75rem;
@@ -636,7 +713,7 @@ $half: $cropwidth / 2;
   }
   .main {
     // (768px)
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       padding: 0;
     }
     h1 {

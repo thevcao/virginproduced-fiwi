@@ -1,16 +1,16 @@
 <template>
-  <footer id="footer" :ie="ie" :is993="is993" :mobile="mobile" v-in-viewport>
+  <footer id="footer" :ie="ie" :is993="is993" :mobile="mobile" :tablet="tablet" :desktop="desktop" v-in-viewport>
     <div class="bg"><div></div></div>
       <div class="container max-margin ml-xl-0">
         <div class="row align-items-center">
-          <div class="col-md-6">
+          <div class="col-lg-6">
             <div class="row align-items-sm-center">
               <div class="col-sm-4" v-if="is993 === false">
                     <router-link to="/">
                         <Logo></Logo>
                     </router-link>
               </div>
-              <div class="col-6" v-else>
+              <div class="col-md-3 col-6" v-else>
                     <router-link to="/">
                       <Logo></Logo>
                     </router-link>
@@ -20,19 +20,35 @@
                 <p>12575 Beatrice</p>
                 <p>Playa Vista, CA 90066</p>
               </div>
-              <div class="col-6 text-right" v-else>
+              <div class="col-md-9 col-6 text-right" v-else>
                 <div class="footer-menu">
                     <p>Offerings</p>
                     <OfferingsMenu
                                    :pages="this.$parent.offerings.items"
                                    ></OfferingsMenu>
+
+                    <div class="main-nav" v-if="mobile === false">
+                    <MainNav
+                    :pages="this.$parent.items.items"
+                    ></MainNav>
+
+
+                    </div>
+
+
                   </div>
+                    <div v-if="mobile === false">
+                    <p>© Virgin Produced {{ new Date().getFullYear() }}.</p>
+                    <SocialLinks></SocialLinks>
+
+                  </div>
+
               </div>
               <div class="col-12" v-if="is993 === false">
                 <p>© Virgin Produced {{ new Date().getFullYear() }}.</p>
                 <SocialLinks></SocialLinks>
               </div>
-              <div class="col-12 text-sm-left text-center address" v-else>
+              <div class="col-12 text-sm-left text-center address" v-else-if="desktop === true || (tablet === true && landscape === true) || mobile === true">
                 <SocialLinks></SocialLinks>
                 <p class="name">Virgin Produced</p>
                 <p>12575 Beatrice</p>
@@ -40,7 +56,7 @@
               </div>
             </div>
           </div>
-        <div class="col-md-6" v-if="is993 === false">
+        <div class="col-lg-6" v-if="is993 === false">
           <div class="footer-menu">
               <p>Offerings</p>
               <OfferingsMenu
@@ -85,7 +101,9 @@ export default {
   props: {
     ie: {},
     is993: {},
-    mobile: {}
+    mobile: {},
+    tablet: {},
+    desktop: {}
   },
    mixins: [ inViewport ],
    watch: {

@@ -143,7 +143,7 @@ $half: $cropwidth / 2.35;
       @include media-breakpoint-down(xl) {
         //    transform-origin: 6vw -3vw 0;
       }
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
         transform-origin: 6vw -3vw 0;
       }
       overflow: visible;

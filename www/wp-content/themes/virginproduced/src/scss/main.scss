@@ -48,13 +48,13 @@ html {
 @import "node_modules/bootstrap/scss/mixins/breakpoints";
 
 
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1442px
-);
+//$grid-breakpoints: (
+//  xs: 0,
+//  sm: 576px,
+//  md: 768px,
+//  lg: 992px,
+//  xl: 1442px
+//);
 
 
 @import "node_modules/bootstrap/scss/mixins/grid-framework";

@@ -1,13 +1,48 @@
 <template>
   <div class="">
-    <header-bar v-on:update="onElementChange()" :src="elementChange()" :is993="is993" :mobile="mobile" :landscape="landscape"></header-bar>
-    <section class="MainSection">
-        <router-view class="view" :items="items" :offerings="offerings" :ie="ie" :is993="is993" :mobile="mobile" :landscape="landscape"></router-view>
+    <header-bar
+                v-on:update="onElementChange()"
+                :src="elementChange()"
+                :is993="is993"
+                :mobile="mobile"
+                :desktop="desktop"
+                :landscape="landscape"></header-bar>
+    <section
+             class="MainSection">
+        <router-view
+                     class="view"
+                     :items="items"
+                     :offerings="offerings"
+                     :ie="ie"
+                     :is993="is993"
+                     :mobile="mobile"
+                     :landscape="landscape"
+                     :desktop="desktop"
+                     :tablet="tablet"></router-view>
       <vue-progress-bar></vue-progress-bar>
-      <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === true" :landscape="landscape"></footer-bar>
+      <footer-bar
+                  :ie="ie"
+                  :is993="is993"
+                  :mobile="mobile"
+                  v-if="is993 === true"
+                  :desktop="desktop"
+                  :landscape="landscape"></footer-bar>
     </section>
-    <footer-bar :ie="ie" :is993="is993" :mobile="mobile" v-if="is993 === false"></footer-bar>
-    <mobileBar v-if="is993 === true" v-on:update="getcontextualMenuUpdate()"  :is993="is993" :mobile="mobile" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links" :title="title"></mobileBar>
+    <footer-bar
+                :ie="ie"
+                :is993="is993"
+                :mobile="mobile"
+                :desktop="desktop"
+                v-if="is993 === false"></footer-bar>
+    <mobileBar
+               v-if="is993 === true"
+               v-on:update="getcontextualMenuUpdate()"
+               :is993="is993"
+               :mobile="mobile"
+               :desktop="desktop"
+               :tablet="tablet"
+               :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links"
+               :title="title"></mobileBar>
   </div>
 </template>
 <script>
@@ -36,6 +71,7 @@ export default {
             contextual_menu_links: '',
             mobile: false,
             tablet: false,
+            desktop: false,
             title: '',
             landscape: false
     }
@@ -64,6 +100,7 @@ export default {
       this.isMobile()
       this.isiPad()
       this.isLandscape()
+      this.isDesktop()
       objectFitImages()
       objectFitVideos()
     //      this.firstTime()
@@ -182,6 +219,15 @@ export default {
 
     if (md.tablet() != null) {
     this.tablet = true
+    }
+    },
+    isDesktop() {
+
+    var md = new MobileDetect(window.navigator.userAgent);
+
+
+    if (md.tablet() == null && md.phone() == null) {
+    this.desktop = true
     }
     },
     isLandscape() {

@@ -1,5 +1,10 @@
 <template v-if="item && item.acf.bg_video">
-  <div :is993="is993" :mobile="mobile" :ie="ie">
+  <div
+       :is993="is993"
+       :mobile="mobile"
+       :tablet="tablet"
+       :desktop="desktop"
+       :ie="ie">
     <div class="child-vue"  v-if="item && item.acf">
           <transition
           v-on:before-enter="reelEnter"
@@ -227,7 +232,9 @@ export default {
   props: {
     ie: {},
     mobile: {},
-    is993: {}
+    is993: {},
+    tablet: {},
+    desktop: {}
   },
     created() {
       const slug = this.$route.params.slug;

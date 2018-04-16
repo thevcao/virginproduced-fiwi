@@ -17,7 +17,7 @@ $half: $cropwidth / 2.35;
     height: 100vh;
     pointer-events: none;
     z-index: 1;
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       height: auto;
       bottom: 65px;
       left: 10vw;
@@ -31,7 +31,7 @@ $half: $cropwidth / 2.35;
       z-index: 1;
       height: 100%;
       display: inline-block;
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         width: 0;
       }
       //    &:before {
@@ -48,7 +48,7 @@ $half: $cropwidth / 2.35;
       //      right: 0;
       //    }
       // (768px)
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         left: 0;
       }
       &:after {
@@ -64,7 +64,7 @@ $half: $cropwidth / 2.35;
         background-position: 0% 100%;
         margin-left: -1px;
         margin-top: -1px;
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
           height: calc(100vh - 65px);
           bottom: 65px;
           position: fixed;
@@ -84,11 +84,12 @@ $half: $cropwidth / 2.35;
     height: 100vh;
     width: auto;
     overflow: hidden;
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       left: 10vw;
       height: auto;
       bottom: 65px;
       position: fixed;
+      top: 25vh;
     }
     &:before {
       content: '';
@@ -107,6 +108,10 @@ $half: $cropwidth / 2.35;
       object-fit: cover;
       font-family: 'object-fit: cover;';
       // (768px)
+      @include media-breakpoint-down(lg) {
+      height: 100%;
+
+      }
       @include media-breakpoint-down(sm) {
         height: 360px;
         position: absolute;
@@ -131,13 +136,26 @@ $half: $cropwidth / 2.35;
       bottom: calc(100vh / 6);
       z-index: 1;
       transform: rotate(-45deg);
-      transform-origin: 0vw 4vw 0;
+      transform-origin: 0vw -7vw 0;
       // @media (max-width: 1439px)
       @include media-breakpoint-down(xl) {
         //    transform-origin: 6vw -3vw 0;
       }
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
+
+
+        @include portrait(){
+
         transform-origin: 6vw -3vw 0;
+
+
+        }
+        @include landscape(){
+
+        transform-origin: 1vw -3vw 0;
+
+
+        }
       }
       @include media-breakpoint-down(xs) {
         transform-origin: 0% -50% 0;
@@ -156,7 +174,7 @@ $half: $cropwidth / 2.35;
       }
       h2 {
         font-size: 7rem;
-        //        color: white;
+                color: white;
         margin: 0;
         line-height: .8;
         //        @include textGlitch("title", 17, white, $green, $green, $red, 400, 100);
@@ -165,6 +183,14 @@ $half: $cropwidth / 2.35;
         //          opacity: 0;
         //        }
         // (768px)
+        @include media-breakpoint-down(md) {
+          //          font-size: 2rem;
+          color: $red;
+          line-height: .95;
+          //           background: white;
+          top: -.5rem;
+          position: relative;
+        }
         @include media-breakpoint-down(sm) {
           font-size: 2rem;
           color: $red;
@@ -182,7 +208,7 @@ $half: $cropwidth / 2.35;
           color: $red;
           font-weight: 900;
           line-height: 0;
-          @include media-breakpoint-down(sm) {
+          @include media-breakpoint-down(md) {
             top: .5rem;
             position: relative;
             color: white;
@@ -237,6 +263,37 @@ $half: $cropwidth / 2.35;
   }
   // (768px)
   @include media-breakpoint-down(md) {
+    .glitching.large {
+      font-size: 14rem;
+      padding-top: 15rem;
+      line-height: .8;
+      width: 70%;
+    }
+    .main {
+      //      margin: 9rem 0 0;
+      //      position: relative;
+      //      z-index: 10;
+    }
+    &.single {
+      .BlogPostSingle__content {
+        width: 100%;
+        max-height: 50vh;
+        overflow: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        padding-right: 10px;
+        -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, from(transparent), color-stop(25%, #000));
+        -webkit-mask-image: -webkit-linear-gradient(bottom, transparent 0%, #000 25%);
+        padding-bottom: 5vh;
+        div {
+          p {
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
+  }
+  @include media-breakpoint-down(sm) {
     .glitching.large {
       font-size: 7rem;
       padding-top: 6rem;

@@ -1,5 +1,12 @@
 <template>
-  <div class="suits-vue single" :ie="ie" :is993="is993" :mobile="mobile" :landscape="landscape" contextual_menu="Our Suits">
+  <div class="suits-vue single"
+       :ie="ie"
+       :is993="is993"
+       :mobile="mobile"
+       :landscape="landscape"
+       :tablet="tablet"
+       :desktop="desktop"
+       contextual_menu="Our Suits">
     <!-- 404 -->
     <div class="container main" v-if="error">
       <div class="row">
@@ -8,13 +15,23 @@
         </div>
       </div>
     </div>
-<div v-if="item.content">
-    <figure class="team-headshot" v-if="item && item.better_featured_image && landscape === false ">
-      <img :src="item.better_featured_image.media_details.sizes.medium.source_url" v-if="item.better_featured_image.media_details.sizes.medium">
-      <img :src="item.better_featured_image.source_url" v-else>
-      <div v-if="is993 === true" class="crop-bg"><div></div></div>
-      <header class="float-title">
-      <h2 :title="item.title.rendered">{{ item.title.rendered }}<span>{{ item.acf.position }}</span></h2>
+<div
+     v-if="item.content">
+    <figure
+            class="team-headshot"
+            v-if="item && item.better_featured_image && ((mobile === false && landscape === false) || (mobile === true && landscape === false))">
+      <img
+           :src="item.better_featured_image.media_details.sizes.medium.source_url"
+           v-if="item.better_featured_image.media_details.sizes.medium">
+      <img
+           :src="item.better_featured_image.source_url" v-else>
+      <div
+           v-if="is993 === true"
+           class="crop-bg"><div></div></div>
+      <header
+              class="float-title">
+      <h2
+          :title="item.title.rendered">{{ item.title.rendered }}<span>{{ item.acf.position }}</span></h2>
       </header>
     </figure>
     <div v-if="is993 === false" class="crop-bg"><div></div>
@@ -45,11 +62,11 @@
           </aside>
           </div>
           <div class="col-xl-4 col-lg-6 col-sm-8">
-            <div v-if="landscape === true">
+            <div v-if="landscape === true && mobile === true">
             <h1 v-html="item.title.rendered"></h1>
               <div v-html="item.content.rendered"></div>
             </div>
-          <article class="BlogPostSingle" v-if="landscape === false">
+          <article class="BlogPostSingle" v-if="landscape === false || tablet === true">
             <aside class="BlogPostSingle__content">
               <div v-html="item.content.rendered"></div>
             </aside>
@@ -77,7 +94,9 @@ export default {
     mobile: {},
     is993: {},
     contextual_menu: 'Our Suits',
-    landscape: {}
+    landscape: {},
+    tablet: {},
+    desktop: {}
   },
   created() {
     this.fetchItem()
@@ -109,6 +128,8 @@ export default {
     }
 
 
+
+
     this.$parent.$emit('contextual_menu', {
     contextual_menu : 'Our Suits'
     })
@@ -138,6 +159,20 @@ export default {
       body.classList.add('no-header-bg')
 
     }
+    window.addEventListener('orientationchange', function(){
+      if(this.landscape === false){
+
+      body.style.position='fixed'
+
+      } else {
+
+      body.style.position=''
+
+
+      }
+
+
+    });
   },
   beforeDestroy: function(){
     if(this.is993 === true){

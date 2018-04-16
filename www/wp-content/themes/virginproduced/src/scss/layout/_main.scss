@@ -1,3 +1,6 @@
+body[style="position: fixed;"] {
+  width: 100%;
+}
 #app {
   //  opacity: 0;
   //  transition: .5s ease;
@@ -15,14 +18,12 @@
   .main {
     padding: 9rem 0 0 0rem;
     // (768px)
-
-
     @include media-breakpoint-up(sm) {
       padding: 8rem 0 0 0rem;
     }
-    @include media-breakpoint-up(md) {
-      padding: 8rem 0 0 0rem;
-    }
+//    @include media-breakpoint-up(md) {
+//      padding: 8rem 0 0 0rem;
+//    }
     @include media-breakpoint-up(lg) {
       padding: 5rem 0px 5rem 17rem;
     }
@@ -71,25 +72,17 @@
       animation: textGlitch-anim-2-data-v-26ccff6c 3s infinite linear alternate-reverse;
       opacity: 1;
       z-index: 1;
-
-
       // (768px)
       @include media-breakpoint-down(sm) {
-
-          animation: homemenu-anim-2 3s infinite linear alternate-reverse;
-
+        animation: homemenu-anim-2 3s infinite linear alternate-reverse;
       }
-
     }
     .glitch-2 {
       animation: offerings-anim-2 3s infinite linear alternate-reverse;
       opacity: 1;
       z-index: 0;
-
       @include media-breakpoint-down(sm) {
-
-          animation: homemenu-anim-2 3s infinite linear alternate-reverse;
-
+        animation: homemenu-anim-2 3s infinite linear alternate-reverse;
       }
     }
   }

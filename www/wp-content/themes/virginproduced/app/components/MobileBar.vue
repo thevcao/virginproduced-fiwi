@@ -138,9 +138,13 @@ export default {
   updated: function () {
 
         this.$nextTick(function () {
+        var element =  document.querySelector('.contextual-menu ul');
+
+        if( element != 'undefined' && element != null) {
 
         if((this.is993 === true && this.contextual_menu_links !='') || (this.is993 === true && this.main === 'our-suits' || this.main === 'suits')){
         setTimeout(function(){
+
         var menu = document.querySelector('.contextual-menu ul').getElementsByTagName("li");
         var menuHeight = menu.length;
           console.log(menuHeight);
@@ -151,6 +155,11 @@ export default {
         }
         }, 2000);
         }
+
+
+        }
+
+
         })
   },
   mounted: function () {
@@ -179,6 +188,11 @@ export default {
         }
       this.$nextTick(function () {
         var vm = this;
+
+        var element =  vm.$el.querySelector('.contextual-menu ul');
+
+        if( element != 'undefined' && element != null) {
+
         if((vm.is993 === true && vm.contextual_menu_links !='') || (vm.is993 === true && vm.main === 'our-suits' || vm.main === 'suits')){
         setTimeout(function(){
         var menu = vm.$el.querySelector('.contextual-menu ul').getElementsByTagName("li");
@@ -190,6 +204,7 @@ export default {
           document.querySelector('.contextual-menu').classList.remove('has-overflow');
         }
         }, 2000);
+        }
         }
       })
   },

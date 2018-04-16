@@ -19,7 +19,7 @@
 <meta property="og:description">
 <meta name="twitter:description">
 <meta charset="<?php bloginfo( 'charset' ); ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-touch-fullscreen" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default">

@@ -14,7 +14,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(lg) {
     position: fixed;
     z-index: 10;
   }
@@ -32,6 +32,9 @@
   position: absolute;
   width: 100vw;
   height: 100vh;
+
+
+
   .menu-transition {
     opacity: 0;
     transform: scale(1.1);
@@ -152,7 +155,7 @@
 }
 .nav-bar {
   position: absolute;
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(lg) {
     position: fixed;
   }
   left: 0;
@@ -165,7 +168,7 @@
   padding: 2rem;
   // (768px)
   @include media-breakpoint-down(md) {
-    padding: 10px 8rem 8rem 10px;
+    padding: 20px 12rem 12rem 10px;
     background: url(/wp-content/themes/virginproduced/dist/img/white-triangle.svg);
     background-position: 0 0;
     background-size: 100%;
@@ -173,11 +176,18 @@
     background-repeat: no-repeat;
     pointer-events: none;
   }
+  @include media-breakpoint-down(sm) {
+    padding: 10px 8rem 8rem 10px;
+  }
   .router-link-active {
     pointer-events: all;
     svg {
       // (768px)
       @include media-breakpoint-down(md) {
+        width: 10rem;
+        height: 10rem;
+      }
+      @include media-breakpoint-down(sm) {
         width: 6rem;
         height: 7rem;
       }
