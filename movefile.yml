@@ -14,6 +14,7 @@ default: &default
     - 'movefile'
     - 'movefile.yml'
     - 'movefile.yaml'
+    - '.env'
     - 'wp-config.php'
     - 'wp-content/*.sql'
     - 'wp-content/*.sql.gz'
@@ -36,7 +37,7 @@ local:
 
 
 staging:
-  vhost: <%= ENV['STAGE_URL'] %>
+  vhost: <%= ENV['STAGE_URL'] %> # http://vipr.virginproduced.staging.findsomewinmore.com
   wordpress_path: "/srv/users/<%= ENV['STAGE_USERNAME'] %>/apps/<%= ENV['STAGE_APP'] %>/public" # ServerPilot convention
 
   ssh:
@@ -82,3 +83,9 @@ production:
   #     languages: false
   #     uploads: false
   #     mu-plugins: false
+  #
+  # hooks:
+  #   push:
+  #     after:
+  #       remote:
+  #         - 'cd ~/apps/<%= ENV['PROD_APP'] %>/public && mv .env.production .env'
