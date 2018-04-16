@@ -1,7 +1,7 @@
 <template>
   <div class="" >
     <video-player id="home-modal"
-                  v-if="mobile === false"
+                  v-if="desktop === true"
                   class="video-js vjs-big-play-centered vjs-volume-vertical"
                   controls
                   playsinline
@@ -10,6 +10,7 @@
                   :options="options"
                   :first="first"
                   :mobile="mobile"
+                  :desktop="desktop"
                   >
   </video-player>
     <video-player id="home-modal"
@@ -38,7 +39,8 @@ import { videoPlayer } from 'vue-video-player'
         default: '/wp-content/themes/virginproduced/src/img/virgin-glitched.mp4'
       },
       first: {},
-      mobile: {}
+      mobile: {},
+      desktop: {}
     },
     data() {
       return {

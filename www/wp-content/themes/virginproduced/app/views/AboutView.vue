@@ -163,24 +163,56 @@ export default {
      if(this.desktop === true){
       this.initView()
       }
+      var vm = this;
+
+//      setTimeout(function(){
+//      vm.$el.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+//      vm.$el.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
+//      }, 2000);
 
 
+
+      if( vm.tablet === true) {
+      setTimeout(function(){
+      vm.$el.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      vm.$el.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
+      }, 2000);
+      window.addEventListener('orientationchange', function(){
+        setTimeout(function(){
+
+      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
+        }, 300);
+      })
+      }else if( vm.desktop === true) {
+      window.addEventListener('resize', function(){
+        setTimeout(function(){
+      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
+          }, 300);
+      })
+      } else if(vm.mobile === true) {
+      setTimeout(function(){
+      vm.$el.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      vm.$el.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
+      }, 2000);
+      window.addEventListener('orientationchange', function(){
+        setTimeout(function(){
+
+      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
+      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
+        }, 300);
+      })
+
+
+      }
 //      setTimeout(function(){
 //      document.querySelector('.main').style.height='auto'
 //      }, 1000);
       });
     },
     updated: function(){
-      if(this.is993 === true) {
-      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-      if( this.mobile === false) {
-      window.addEventListener('resize', function(){
-      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-      })
-      }
-      }
+
     },
     computed: {
       slug() { return this.$route.params.slug },
@@ -207,12 +239,19 @@ export default {
     methods: {
       initView: function(){
 
+
         console.log('mounting...')
         document.querySelector('body').style.pointerevents="hidden";
         setTimeout(function(){
           skrollr.init({});
           document.querySelector('body').style.overflow="";
+
         }, 3000);
+
+
+
+
+
       },
       fetchItem() {
         return AboutService.get(this.$route.params.slug)

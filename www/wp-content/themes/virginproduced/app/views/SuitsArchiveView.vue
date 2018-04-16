@@ -145,4 +145,16 @@ export default {
 <style lang="scss" scoped>
 @import '../../src/scss/main.scss';
 @import '../../src/scss/components/_suits.scss';
+
+
+  // (768px)
+  @include media-breakpoint-down(md) {
+
+    #app .main {
+
+
+          padding: 9rem 0 0 0rem;
+    }
+  }
+
 </style>

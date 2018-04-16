@@ -6,6 +6,7 @@
                 :is993="is993"
                 :mobile="mobile"
                 :desktop="desktop"
+                :tablet="tablet"
                 :landscape="landscape"></header-bar>
     <section
              class="MainSection">
@@ -249,7 +250,7 @@ export default {
     })
     },
     islower993(){
-    var width = window.outerWidth;
+    var width = document.body.clientWidth
     var vm = this;
     if (width < 993) {
       vm.is993 = true
@@ -259,13 +260,36 @@ export default {
       window.addEventListener('resize', function(){
       console.log('resize event')
         // do stuff here
-      var width = window.outerWidth;
+      var width = document.body.clientWidth
       if (width < 993) {
       vm.is993 = true
       } else {
       vm.is993 = false
       }
     })
+      window.addEventListener('orientationchange', function(){
+      console.log('orientationchange event')
+        // do stuff here\
+
+      setTimeout(function(){
+      var width = document.body.clientWidth
+      if (width < 993) {
+      vm.is993 = true
+      } else {
+      vm.is993 = false
+      }
+      }, 300);
+
+
+    })
+//    window.addEventListener('orientationchange', function(){
+//      var width = window.outerWidth;
+//      if (width < 993) {
+//      vm.is993 = true
+//      } else {
+//      vm.is993 = false
+//      }
+//    })
     },
     elementChange() {
     this.$on('broll', (payload) => {

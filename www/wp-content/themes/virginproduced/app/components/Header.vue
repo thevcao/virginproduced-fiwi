@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-container" :is993="is993" :mobile="mobile">
+  <div class="nav-container" :is993="is993" :mobile="mobile" :tablet="tablet">
     <!-- Mobile Nav Wrap -->
   <div v-if="mobile === false || is993 === false">
   <div v-if="this.$parent.src">
@@ -102,7 +102,8 @@ export default {
     src: {},
     videotime: {},
     is993: {},
-    mobile: {}
+    mobile: {},
+    tablet: {}
   },
   watch: {
   },
@@ -169,7 +170,20 @@ export default {
       el.style.opacity = 0
     },
     enter: function (el, done) {
+
+      var vm = this;
+
+      if(vm.tablet === true) {
+
+      Velocity(el, { opacity: 1 }, { duration: 300 });
+
+
+      } else {
       Velocity(el, { opacity: .85 }, { duration: 300 });
+
+
+
+      }
         var toggle = document.querySelector('.toggle');
         var menu = document.querySelector('.menu-transition');
       Velocity(menu, {

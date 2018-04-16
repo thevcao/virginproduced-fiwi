@@ -11,39 +11,43 @@ $randomNumber3: random(3);
 $randomNumber4: random(4);
 // Portrait
 @mixin portrait() {
-    @media screen and (orientation:portrait) { @content; }
+  @media screen and (orientation: portrait) {
+    @content;
+  }
 }
 @mixin media-portrait-up($name) {
-    @include portrait {
-        @include media-breakpoint-up($name) {
-            @content;
-        }
+  @include portrait {
+    @include media-breakpoint-up($name) {
+      @content;
     }
+  }
 }
 @mixin media-portrait-down($name) {
-    @include portrait {
-        @include media-breakpoint-down($name) {
-            @content;
-        }
+  @include portrait {
+    @include media-breakpoint-down($name) {
+      @content;
     }
+  }
 }
 // Landscape
 @mixin landscape() {
-    @media screen and (orientation:landscape) { @content; }
+  @media screen and (orientation: landscape) {
+    @content;
+  }
 }
 @mixin media-landscape-up($name) {
-    @include landscape {
-        @include media-breakpoint-up($name) {
-            @content;
-        }
+  @include landscape {
+    @include media-breakpoint-up($name) {
+      @content;
     }
+  }
 }
 @mixin media-landscape-down($name) {
-    @include landscape {
-        @include media-breakpoint-down($name) {
-            @content;
-        }
+  @include landscape {
+    @include media-breakpoint-down($name) {
+      @content;
     }
+  }
 }
 :root {
   --animation-time: 2s;
@@ -207,19 +211,17 @@ $randomNumber4: random(4);
     &:before,
     &:after {
       // (768px)
-      @include media-breakpoint-up(sm) {
       padding: inherit;
       content: attr(title);
       position: absolute;
       margin: inherit;
       line-height: inherit;
       top: 0;
-//      left: 0;
+      //      left: 0;
       width: 100%;
       background: $background;
       clip: rect(0, 0, 0, 0);
       pointer-events: none;
-      }
       //    opacity: 0;
     }
   }
@@ -233,4 +235,22 @@ $randomNumber4: random(4);
     text-shadow: 2px 0 $highlightColor2;
     animation: #{$name}-anim-2 3s infinite linear alternate-reverse;
   }
+
 }
+  .mobile {
+
+
+
+
+
+
+    a:hover {
+    &:before,
+    &:after {
+      content: none !important;
+    }
+
+
+    }
+
+  }

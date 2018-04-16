@@ -146,7 +146,7 @@
                         data-center="transform: translate3d(0, -5%, 0);"
                        ></div>
                 </div>
-                <div class="col-lg-6" v-if="is993 === false">
+                <div class="col-lg-5 mr-auto" v-if="is993 === false">
                   <ul class="child-services" v-if="item && item.acf.links_or_images === 'links'">
                     <li
                         v-for="offering in serviceOfferings"
@@ -172,7 +172,7 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col-lg-6 pr-0 pl-0" v-else>
+                <div class="col-lg-5 mr-auto pr-0 pl-0" v-else>
                   <ul class="child-services" v-if="item && item.acf.links_or_images === 'links'">
                     <li
                         v-for="offering in serviceOfferings"

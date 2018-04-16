@@ -1,5 +1,5 @@
 <template>
-    <div class="home-vue loading" :ie="ie" :is993="is993" :mobile="mobile">
+    <div class="home-vue loading" :ie="ie" :is993="is993" :mobile="mobile" :desktop="desktop" :tablet="tablet">
       <vue-headful
           title="Home"
           description="Virgin Produced"
@@ -71,6 +71,7 @@
               v-if="player && item && item.acf"
               :src = "item.acf.main_reel"
               :mobile="mobile"
+              :desktop="desktop"
               @closeModal="closeModal">
       </Player>
       </transition>
@@ -192,7 +193,9 @@ export default {
   props: {
     ie: {},
     is993: {},
-    mobile: {}
+    mobile: {},
+    desktop: {},
+    tablet: {}
   },
   created() {
     const slug = 'home';
@@ -227,10 +230,10 @@ export default {
     console.log('setting cookie for first visit complete')
     this.$cookie.set('first', 'false', 1);
     }
-    if(this.is993 === true) {
-    document.querySelector('body').style.position='initial'
+//    if(this.is993 === true) {
+    document.querySelector('body').style.position=''
     document.querySelector('body').style.width='auto'
-    }
+//    }
   },
   computed: {
     ...mapGetters({
@@ -263,7 +266,38 @@ export default {
       }, 4000);
       document.querySelector('#footer').style.display='none'
   //    document.querySelector('.toggle').classList.remove('footer-in-view');
-      if(this.is993 === true || this.mobile === true) {
+//      if(this.is993 === true || this.mobile === true) {
+//      document.querySelector('body').style.position='fixed'
+//      document.querySelector('body').style.width='100%'
+//      if (window.navigator.standalone == true) {
+//      var heroHeight = window.innerHeight - 80 + 'px'
+//      } else {
+//      var heroHeight = window.innerHeight - 65 + 'px'
+//      }
+//      document.querySelector('.main').style.height=heroHeight
+//      }
+      if(vm.tablet === true && vm.is993 === false){
+      console.log('greater than 993')
+      document.querySelector('body').style.position='fixed'
+      document.querySelector('body').style.width='100%'
+      var el = document.querySelector('html');
+      var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+      var fontSize = parseFloat(style);
+      var padding = (4 * fontSize);
+      var heroHeight = window.innerHeight - padding + 'px';
+      document.querySelector('.main').style.height=heroHeight
+      window.addEventListener('orientationchange', function(){
+        setTimeout(function(){
+          if (window.navigator.standalone == true) {
+          var heroHeight = window.innerHeight - 80 + 'px'
+          } else {
+          var heroHeight = window.innerHeight - 65 + 'px'
+          }
+          document.querySelector('.main').style.height=heroHeight
+        }, 500);
+      })
+      } else if(vm.tablet === true && vm.is993 === true){
+      console.log('lower than 993 not mobile')
       document.querySelector('body').style.position='fixed'
       document.querySelector('body').style.width='100%'
       if (window.navigator.standalone == true) {
@@ -272,22 +306,29 @@ export default {
       var heroHeight = window.innerHeight - 65 + 'px'
       }
       document.querySelector('.main').style.height=heroHeight
-      }
-      if(this.mobile === false && this.is993 === true){
-      window.addEventListener('resize', function(){
+      window.addEventListener('orientationchange', function(){
+      setTimeout(function(){
+      var el = document.querySelector('html');
+      var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+      var fontSize = parseFloat(style);
+      var padding = (4 * fontSize);
+      var heroHeight = window.innerHeight - padding + 'px';
+      document.querySelector('.main').style.height=heroHeight
+      var video = document.querySelector('.main-video');
+      video.play()
+        }, 500);
+      })
+      } else if(vm.mobile === true) {
+      console.log('mobile true')
+      document.querySelector('body').style.position='fixed'
+      document.querySelector('body').style.width='100%'
       if (window.navigator.standalone == true) {
       var heroHeight = window.innerHeight - 80 + 'px'
       } else {
       var heroHeight = window.innerHeight - 65 + 'px'
       }
-      console.log('redraw main...from home?')
       document.querySelector('.main').style.height=heroHeight
-      var video = document.querySelector('.main-video');
-      video.play()
-      })
-      } else if(this.mobile === true) {
       window.addEventListener('orientationchange', function(){
-        console.log('hello mcfly?')
         setTimeout(function(){
           if (window.navigator.standalone == true) {
           var heroHeight = window.innerHeight - 80 + 'px'
@@ -373,7 +414,7 @@ export default {
       home.classList.add('video-play');
       header.style.pointerEvents="none";
       homeMenu.style.pointerEvents="none";
-      if(window.innerWidth > 993) {
+      if(this.desktop === true) {
       toggle.style.pointerEvents="none";
       float.style.pointerEvents="none";
       Velocity(home, {
@@ -421,7 +462,7 @@ export default {
         delay: 0
       });
       }
-      if(this.mobile === true ) {
+      if(this.desktop === false ) {
           setTimeout(function(){
           const getID = document.querySelector('#home-modal .video-js').id;
           var player = videojs(getID);

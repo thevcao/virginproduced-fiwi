@@ -138,7 +138,7 @@ export default {
   updated: function () {
 
         this.$nextTick(function () {
-        var element =  document.querySelector('.contextual-menu ul');
+        var element =  document.querySelector('.contextual-menu');
 
         if( element != 'undefined' && element != null) {
 
@@ -189,7 +189,7 @@ export default {
       this.$nextTick(function () {
         var vm = this;
 
-        var element =  vm.$el.querySelector('.contextual-menu ul');
+        var element =  vm.$el.querySelector('.contextual-menu');
 
         if( element != 'undefined' && element != null) {
 
