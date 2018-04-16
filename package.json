@@ -111,6 +111,8 @@
     "rellax": "^1.6.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "three": "^0.91.0",
+    "three-effectcomposer-es6": "^0.0.4",
     "url-loader": "^0.5.9",
     "video.js": "^6.7.3",
     "vue": "^2.4.4",
