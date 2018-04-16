@@ -5,3 +5,6 @@ wp-content/plugins
 dist
 .env
 !.env.example
+*.sql*
+www
+!www/themes/virginproduced
