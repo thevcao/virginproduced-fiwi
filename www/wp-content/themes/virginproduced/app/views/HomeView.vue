@@ -223,9 +223,11 @@ export default {
     this.$store.dispatch('FETCH_PAGE', slug);
     this.fetchItems()
     this.fetchItem()
-    this.calcWindow()
+
   },
   mounted() {
+
+    this.calcWindow()
     var firstVisit = this.$cookie.get('first');
     if(firstVisit === 'false' || firstVisit === null) {
     console.log('This is a first visit')
@@ -259,10 +261,10 @@ export default {
 //    }
   },
   computed: {
-    ...mapGetters({
-      items: 'allPosts',
-      filteredItems: 'filteredPosts'
-    }),
+//    ...mapGetters({
+//      items: 'allPosts',
+//      filteredItems: 'filteredPosts'
+//    }),
   },
   computed: {
     orderedPages() {
@@ -516,24 +518,37 @@ export default {
     },
     calcWindow(){
     var vm = this;
-        if(vm.desktop === true) {
-            if(window.innerWidth < 993){
+    if(vm.desktop === true) {
+        if(window.innerWidth < 993){
+      vm.height = window.innerHeight - 65 + 'px'
+        }
+      window.addEventListener('resize', function(){
+        console.log('resizing hero')
+        if(window.innerWidth < 993){
+      vm.height = window.innerHeight - 65 + 'px'
+        } else {
+      vm.height = ''
+        }
+      })
+    } else
+    if(vm.mobile === true) {
+        if (window.navigator.standalone == true) {
+        var heroHeight = window.innerHeight - 80 + 'px'
+        } else {
+        var heroHeight = window.innerHeight - 65 + 'px'
+        }
+        vm.height = heroHeight
+        window.addEventListener('orientationchange', function(){
+          vm.height = heroHeight
+        })
+    } else if((vm.tablet === true && vm.landscape === false)) {
           vm.height = window.innerHeight - 65 + 'px'
-            }
-          window.addEventListener('resize', function(){
-            console.log('resizing hero')
-            if(window.innerWidth < 993){
-          vm.height = window.innerHeight - 65 + 'px'
-            } else {
-          vm.height = ''
-            }
-          })
-    } else if(vm.mobile === true || (vm.tablet === true && vm.landscape === false)) {
-          vm.height = window.innerHeight - 65 + 'px'
+
     window.addEventListener('orientationchange', function(){
           vm.height = window.innerHeight - 65 + 'px'
     })
-    }else if((vm.tablet === true && vm.landscape === true)) {
+
+    } else if((vm.tablet === true && vm.landscape === true)) {
     var el = document.querySelector('html');
     var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
     var fontSize = parseFloat(style);
