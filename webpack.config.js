@@ -18,7 +18,7 @@ module.exports = {
     path: path.resolve('./www/wp-content/themes/virginproduced/dist/js'),
     filename: '[name].min.js',
     chunkFilename: '[name].min.js',
-    publicPath: './js/', // relative to dist
+    publicPath: '/wp-content/themes/' + process.env.WP_THEME + '/dist/js/',
   },
 
   module: {
@@ -49,10 +49,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-                    'style-loader',
-                    'css-loader',
-                    'postcss-loader'
-                    ]
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
       },
       {
           test: /\.scss$/,
@@ -78,8 +78,11 @@ module.exports = {
             ]
           }
         }
+      },
+      {
+        test: /\.glsl$/,
+        use: 'raw-loader'
       }
-
 
 
     ]
@@ -110,6 +113,7 @@ module.exports = {
 
       // Accessible as a global in VueJS
       WP_HOME: `'${process.env.WP_HOME}'`,
+      WP_THEME: `'${process.env.WP_THEME}'`,
     }),
 
     // Generate new index.html file with script tags

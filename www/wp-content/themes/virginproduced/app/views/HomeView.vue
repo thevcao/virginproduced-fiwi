@@ -19,7 +19,7 @@
       v-bind:css="false"
       >
       <div v-if="first === true && intro === false && is993 === false" class="notice">
-      <video src="/wp-content/themes/virginproduced/src/img/404.mp4" autoplay muted loop preload="auto" class="video-404"></video>
+        <video src="/wp-content/themes/virginproduced/src/img/404.mp4" autoplay muted loop preload="auto" class="video-404"></video>
         <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
@@ -79,40 +79,39 @@
       </transition>
       <div v-if="item && item.acf">
       <video
-             autoplay
-             loop
-             muted
-             playsinline
-             preload="auto"
-             class="main-video"
-             id="main-roll"
-             v-if="desktop === true"
-             :src="item.acf.bg_video">
-      </video>
-      <video
-             autoplay
-             loop
-             muted
-             playsinline
-             preload="auto"
-             class="main-video"
-             id="main-roll"
-             v-else
-             :src="item.acf.bg_video_mobile">
+        ref="mainVid"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        class="main-video"
+        id="main-roll"
+        :src="desktop === true ? item.acf.bg_video : item.acf.bg_video_mobile">
       </video>
       </div>
       <div class="crop-bg"><div></div></div>
       <div class="float-video ie" v-if="ie">
       </div>
       <div class="float-video" v-if="!ie && is993 === false">
-        <video
-             autoplay
-             loop
-             muted
-             preload="auto"
-             v-if="item && item.acf"
-             :src="item.acf.bg_video">
-      </video>
+        <glitch video
+          v-if="item && item.acf"
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+          v-on:playing="onGlitchPlay"
+        >
+          <video
+            autoplay
+            loop
+            muted
+            preload="auto"
+            crossorigin="anonymous"
+            :src="item.acf.bg_video">
+          </video>
+        </glitch>
       </div>
       <div class="home-menu">
         <ul
@@ -177,11 +176,22 @@ import inViewportDirective from 'vue-in-viewport-directive'
 import videojs from 'video.js'
 import Logo from '../components/Logo.vue'
 import LogoHor from '../components/LogoHorizonal.vue'
-//const Post = () => import(
-//  /* webpackChunkName: "below-fold" */ '../components/Post.vue'
-//);
+const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
+// const Post = () => import(/* webpackChunkName: "below-fold" */ '../components/Post.vue');
+
 export default {
-  components: { OfferingsMenu, PlayIcon, Player, Intro, PlayIconMobile, VolumeIcon, Logo, LogoHor },
+  components: {
+    // Post,
+    Glitch,
+    OfferingsMenu,
+    PlayIcon,
+    Player,
+    Intro,
+    PlayIconMobile,
+    VolumeIcon,
+    Logo,
+    LogoHor
+  },
   data() {
     return {
       item: {},
@@ -191,7 +201,14 @@ export default {
       player: false,
       first: {},
       intro: false,
-      height: ''
+      height: '',
+      glitch: {
+        disabled: false,
+        amount: 4,
+        scale: 5,
+        tuning: -0.75,
+        batshit: true,
+      },
     }
   },
   props: {
@@ -527,6 +544,10 @@ export default {
       vm.height = heroHeight
     })
     }
+  },
+  onGlitchPlay(event) {
+    const time = event.timeStamp;
+    this.$refs.mainVid.currentTime = time;
   },
 //    ...mapActions([
 //      'getAllPosts'

@@ -1,0 +1,44 @@
+# WordPress
+www/*.*
+www/wp-admin
+www/wp-includes
+www/.htaccess
+
+# Application
+www/wp-content/plugins/*
+!www/wp-content/plugins/.gitkeep
+www/wp-content/mu-plugins/*/
+www/wp-content/upgrade
+www/wp-content/uploads/*
+!www/wp-content/uploads/.gitkeep
+www/wp-content/themes/*
+
+# Dotenv
+.env
+.env.*
+!.env.example
+
+# Vendor (e.g. Composer)
+vendor/*
+!vendor/.gitkeep
+
+# Node Package Manager
+node_modules
+
+# Docker
+db
+
+# Wordmove
+*.sql*
+
+# Etc.
+.DS_Store
+
+# Theme
+!www/wp-content/themes/vi*
+www/wp-content/themes/vi*/.sass-cache/*
+www/wp-content/themes/vi*/css/custom.css
+www/wp-content/themes/vi*/js/main.min.js
+www/wp-content/themes/vi*/js/vendor.min.js
+www/wp-content/themes/vi*/dist
+.sass-cache/*
