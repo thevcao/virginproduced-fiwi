@@ -85,7 +85,11 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+
+      test: /\.js($|\?)/i,
+      comments: false
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.LoaderOptionsPlugin({
      // test: /\.xxx$/, // may apply this only for some modules

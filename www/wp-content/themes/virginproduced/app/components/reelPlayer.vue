@@ -1,7 +1,7 @@
 <template>
-  <div class="" :is993="is993" :mobile="mobile" :ie="ie">
+  <div class="" :is993="is993" :mobile="mobile" :ie="ie" :desktop="desktop">
     <video-player id="reel-player"
-                  v-if="mobile === false"
+                  v-if="desktop === true"
                   class="video-js vjs-big-play-centered vjs-volume-vertical"
                   controls
                   playsinline
@@ -13,6 +13,7 @@
                   v-else
                   class="video-js vjs-big-play-centered vjs-volume-vertical"
                   controls
+                  autoplay
                   preload="auto"
                   :options="options"
                   >
@@ -35,6 +36,7 @@ import { videoPlayer } from 'vue-video-player'
       ie: {},
       mobile: {},
       is993: {},
+      desktop: {}
     },
     data() {
       return {
@@ -86,8 +88,7 @@ import { videoPlayer } from 'vue-video-player'
           }, 300);
          }
       }, 300);
-      objectFitImages()
-      objectFitVideos()
+
       },
     computed: {
       options() {

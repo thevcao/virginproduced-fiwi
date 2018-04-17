@@ -68,7 +68,7 @@
     </div>
     <div
          v-if="main === 'our-suits' || main === 'suits'"
-         class="contextual-menu">
+         class="contextual-menu has-overflow">
       <ul>
         <li></li>
         <li v-for="item in posts" v-bind:key="item.slug" v-if="item.better_featured_image">
@@ -81,7 +81,7 @@
     </div>
     <div
          v-else-if="this.$parent.contextual_menu_links"
-         class="contextual-menu">
+         v-bind:class="[activeClass, errorClass]">
       <ul>
         <li></li>
         <li v-for="item in this.$parent.contextual_menu_links">
@@ -113,7 +113,10 @@ export default {
 //      infoData: [],
       navigation: false,
       target: null,
-      posts: []
+      posts: [],
+      activeClass: '',
+      errorClass: ''
+
     }
   },
   props: {
@@ -131,6 +134,7 @@ export default {
 //    this.fetchItems()
 //    this.fetchInfoData()
       this.fetchPosts();
+    this.getItems()
   },
   computed: {
       main(){
@@ -138,48 +142,13 @@ export default {
       }
   },
   updated: function () {
-        function hasClass(element, className) {
-            return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
-        }
 
-        this.$nextTick(function () {
-        var li =  document.querySelector('.contextual-menu ul');
-        var element =  document.querySelector('.contextual-menu');
-
-        if( li != 'undefined' && li != null) {
-
-        if((this.is993 === true && this.contextual_menu_links !='') || (this.is993 === true && this.main === 'our-suits' || this.main === 'suits')){
-        setTimeout(function(){
-
-        var menu = document.querySelector('.contextual-menu ul').getElementsByTagName("li");
-        var menuHeight = menu.length;
-          console.log(menuHeight);
-        if(menuHeight > 5) {
-          document.querySelector('.contextual-menu').classList.add('has-overflow');
-        } else {
-
-          if(hasClass('.contextual-menu', 'has-overflow')){
-
-          document.querySelector('.contextual-menu').classList.remove('has-overflow');
-
-
-          }
-
-        }
-        }, 3000);
-        }
-
-
-        }
-
-
-        })
   },
   mounted: function () {
-
-     function hasClass(element, className) {
-            return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
-        }
+//
+//     function hasClass(element, className) {
+//            return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
+//        }
 
       if(this.mobile === true){
 
@@ -202,33 +171,33 @@ export default {
         }
       })
       }
-      this.$nextTick(function () {
-        var vm = this;
-
-        var element =  vm.$el.querySelector('.contextual-menu');
-
-        if( element != 'undefined' && element != null) {
-
-        if((vm.is993 === true && vm.contextual_menu_links !='') || (vm.is993 === true && vm.main === 'our-suits' || vm.main === 'suits')){
-        setTimeout(function(){
-        var menu = vm.$el.querySelector('.contextual-menu ul').getElementsByTagName("li");
-        var menuHeight = menu.length;
-          console.log(menuHeight);
-        if(menuHeight > 5) {
-          document.querySelector('.contextual-menu').classList.add('has-overflow');
-        } else {
-
-          if(hasClass('.contextual-menu', 'has-overflow')){
-
-          document.querySelector('.contextual-menu').classList.remove('has-overflow');
-
-
-          }
-        }
-        }, 2000);
-        }
-        }
-      })
+//      this.$nextTick(function () {
+//        var vm = this;
+//
+//        var element =  vm.$el.querySelector('.contextual-menu');
+//
+//        if( element != 'undefined' && element != null) {
+//
+//        if((vm.is993 === true && vm.contextual_menu_links !='') || (vm.is993 === true && vm.main === 'our-suits' || vm.main === 'suits')){
+//        setTimeout(function(){
+//        var menu = vm.$el.querySelector('.contextual-menu ul').getElementsByTagName("li");
+//        var menuHeight = menu.length;
+//          console.log(menuHeight);
+//        if(menuHeight > 5) {
+//          document.querySelector('.contextual-menu').classList.add('has-overflow');
+//        } else {
+//
+//          if(hasClass('.contextual-menu', 'has-overflow')){
+//
+//          document.querySelector('.contextual-menu').classList.remove('has-overflow');
+//
+//
+//          }
+//        }
+//        }, 2000);
+//        }
+//        }
+//      })
   },
   methods: {
    click (e) {
@@ -274,6 +243,54 @@ export default {
       primary.classList.remove('primary-open');
       back.classList.remove('back-open');
       }
+    },
+    getItems() {
+//        function hasClass(element, className) {
+//            return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
+//        }
+//
+//        var li =  document.querySelector('.contextual-menu ul');
+//        var element =  document.querySelector('.contextual-menu');
+//
+//        if( li != 'undefined' && li != null) {
+//
+//        if((this.is993 === true && this.contextual_menu_links !='') || (this.is993 === true && this.main === 'our-suits' || this.main === 'suits')){
+//        setTimeout(function(){
+//
+//        var menu = document.querySelector('.contextual-menu ul').getElementsByTagName("li");
+//        var menuHeight = menu.length;
+//          console.log(menuHeight);
+//        if(menuHeight > 5) {
+//          document.querySelector('.contextual-menu').classList.add('has-overflow');
+//        } else {
+//
+//          if(hasClass('.contextual-menu', 'has-overflow')){
+//
+//          document.querySelector('.contextual-menu').classList.remove('has-overflow');
+//
+//
+//          }
+//
+//        }
+//        }, 3000);
+//        }
+//
+//
+//        }
+
+      var menuHeight = this.contextual_menu_links.length;
+
+      if(menuHeight > 5) {
+
+        this.activeClass = 'contextual-menu has-overflow'
+
+      } else {
+
+        this.errorClass = 'contextual-menu'
+
+      }
+
+
     },
     getVideotime() {
 //    this.$on('videotime', (payload) => {

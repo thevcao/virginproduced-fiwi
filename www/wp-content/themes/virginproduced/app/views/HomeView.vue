@@ -39,17 +39,19 @@
         </div>
       </div>
   </transition>
-    <div class="main">
+    <div class="main" v-bind:style="{height: height}">
       <div class="lines">
         <div class="hero-text">
           <h1>Creative<br>Collaborative<br>Provocative<br>Disruptive</h1>
-          <p><a
-                                        href="#"
-                                        v-on:click="videoPlay()"
-                                        v-if="is993 === true"
-                                        >
-                                                <PlayIconMobile></PlayIconMobile>
-                                       </a>This is Virgin Produced
+          <a
+          href="#"
+          v-on:click="videoPlay()"
+         class="home-play-mobile"
+          v-if="is993 === true"
+          >
+                  <PlayIconMobile></PlayIconMobile>
+         </a>
+          <p v-if="is993 === false">This is Virgin Produced
                                       </p>
        </div>
       </div>
@@ -175,11 +177,11 @@ import inViewportDirective from 'vue-in-viewport-directive'
 import videojs from 'video.js'
 import Logo from '../components/Logo.vue'
 import LogoHor from '../components/LogoHorizonal.vue'
-const Post = () => import(
-  /* webpackChunkName: "below-fold" */ '../components/Post.vue'
-);
+//const Post = () => import(
+//  /* webpackChunkName: "below-fold" */ '../components/Post.vue'
+//);
 export default {
-  components: { Post, OfferingsMenu, PlayIcon, Player, Intro, PlayIconMobile, VolumeIcon, Logo, LogoHor },
+  components: { OfferingsMenu, PlayIcon, Player, Intro, PlayIconMobile, VolumeIcon, Logo, LogoHor },
   data() {
     return {
       item: {},
@@ -188,7 +190,8 @@ export default {
       backgroundImage: '',
       player: false,
       first: {},
-      intro: false
+      intro: false,
+      height: ''
     }
   },
   props: {
@@ -203,11 +206,7 @@ export default {
     this.$store.dispatch('FETCH_PAGE', slug);
     this.fetchItems()
     this.fetchItem()
-//      .then(([noop, image]) => {
-//        this.backgroundImage = image.data[0].source_url
-//        this.isLoading = false
-//      })
-//      this.updateValue()
+    this.calcWindow()
   },
   mounted() {
     var firstVisit = this.$cookie.get('first');
@@ -224,15 +223,10 @@ export default {
       this.initiView();
     })
       window.addEventListener('resize', function(){
-
       var player = document.querySelector('#main-roll');
-
         if (player.paused) {
             player.play();
-        } else {
-//            player.pause();
         }
-
       });
   },
   beforeDestroy: function(){
@@ -263,12 +257,6 @@ export default {
   },
     updated: function(){
     this.$nextTick(function () {
-//        this.updateValue()
-
-
-
-
-
     })
     },
   methods: {
@@ -282,78 +270,10 @@ export default {
       vm.$el.classList.remove('loaded')
       }, 4000);
       document.querySelector('#footer').style.display='none'
-  //    document.querySelector('.toggle').classList.remove('footer-in-view');
-//      if(this.is993 === true || this.mobile === true) {
-//      document.querySelector('body').style.position='fixed'
-//      document.querySelector('body').style.width='100%'
-//      if (window.navigator.standalone == true) {
-//      var heroHeight = window.innerHeight - 80 + 'px'
-//      } else {
-//      var heroHeight = window.innerHeight - 65 + 'px'
-//      }
-//      document.querySelector('.main').style.height=heroHeight
-//      }
-      if(vm.tablet === true && vm.is993 === false){
-      console.log('greater than 993')
+      document.querySelector('.toggle').classList.remove('footer-in-view');
+      if(this.is993 === true || this.mobile === true || this.tablet === true) {
       document.querySelector('body').style.position='fixed'
       document.querySelector('body').style.width='100%'
-      var el = document.querySelector('html');
-      var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
-      var fontSize = parseFloat(style);
-      var padding = (4 * fontSize);
-      var heroHeight = window.innerHeight - padding + 'px';
-      document.querySelector('.main').style.height=heroHeight
-      window.addEventListener('orientationchange', function(){
-        setTimeout(function(){
-          if (window.navigator.standalone == true) {
-          var heroHeight = window.innerHeight - 80 + 'px'
-          } else {
-          var heroHeight = window.innerHeight - 65 + 'px'
-          }
-          document.querySelector('.main').style.height=heroHeight
-        }, 500);
-      })
-      } else if(vm.tablet === true && vm.is993 === true){
-      console.log('lower than 993 not mobile')
-      document.querySelector('body').style.position='fixed'
-      document.querySelector('body').style.width='100%'
-      if (window.navigator.standalone == true) {
-      var heroHeight = window.innerHeight - 80 + 'px'
-      } else {
-      var heroHeight = window.innerHeight - 65 + 'px'
-      }
-      document.querySelector('.main').style.height=heroHeight
-      window.addEventListener('orientationchange', function(){
-      setTimeout(function(){
-      var el = document.querySelector('html');
-      var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
-      var fontSize = parseFloat(style);
-      var padding = (4 * fontSize);
-      var heroHeight = window.innerHeight - padding + 'px';
-      document.querySelector('.main').style.height=heroHeight
-        }, 500);
-      })
-      } else if(vm.mobile === true) {
-      console.log('mobile true')
-      document.querySelector('body').style.position='fixed'
-      document.querySelector('body').style.width='100%'
-      if (window.navigator.standalone == true) {
-      var heroHeight = window.innerHeight - 80 + 'px'
-      } else {
-      var heroHeight = window.innerHeight - 65 + 'px'
-      }
-      document.querySelector('.main').style.height=heroHeight
-      window.addEventListener('orientationchange', function(){
-        setTimeout(function(){
-          if (window.navigator.standalone == true) {
-          var heroHeight = window.innerHeight - 80 + 'px'
-          } else {
-          var heroHeight = window.innerHeight - 65 + 'px'
-          }
-          document.querySelector('.main').style.height=heroHeight
-        }, 300);
-      })
-//      document.querySelector('.main').style.height=''
       }
     },
     closeIntro(){
@@ -377,9 +297,6 @@ export default {
         .then(result => {
           this.item = result.data[0]
             console.log(result.data[0])
-//            this.$nextTick(function() {
-//              this.fetchNestedAcf();
-//            });
         }).then(result => {
         this.$parent.$emit('broll', {
         src : this.item.acf.bg_video
@@ -402,13 +319,6 @@ export default {
     },
     submenu(){
       this.offerings = !this.offerings;
-    },
-    firstTime() {
-      // check if users visited your page, you can use cookie
-//      if (this.first != false){
-//        this.first = false
-//        console.log('setting first to false?')
-//      }
     },
     onupdateFirst() {
     },
@@ -587,9 +497,40 @@ export default {
     },
     playMe() {
     },
-    ...mapActions([
-      'getAllPosts'
-    ])
+    calcWindow(){
+    var vm = this;
+        if(vm.desktop === true) {
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            }
+          window.addEventListener('resize', function(){
+            console.log('resizing hero')
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            } else {
+          vm.height = ''
+            }
+          })
+    } else if(vm.mobile === true || (vm.tablet === true && vm.landscape === false)) {
+          vm.height = window.innerHeight - 65 + 'px'
+    window.addEventListener('orientationchange', function(){
+          vm.height = window.innerHeight - 65 + 'px'
+    })
+    }else if((vm.tablet === true && vm.landscape === true)) {
+    var el = document.querySelector('html');
+    var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+    var fontSize = parseFloat(style);
+    var padding = (4 * fontSize);
+    var heroHeight = window.innerHeight - padding + 'px';
+    vm.height = heroHeight
+    window.addEventListener('orientationchange', function(){
+      vm.height = heroHeight
+    })
+    }
+  },
+//    ...mapActions([
+//      'getAllPosts'
+//    ])
   }
 }
 </script>

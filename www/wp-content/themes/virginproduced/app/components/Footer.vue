@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer" :ie="ie" :is993="is993" :mobile="mobile" :tablet="tablet" :desktop="desktop" v-in-viewport>
+  <footer id="footer" :ie="ie" :is993="is993" :mobile="mobile" :tablet="tablet" :desktop="desktop" :landscape="landscape" v-in-viewport>
     <div class="bg"><div></div></div>
       <div class="container max-margin ml-xl-0">
         <div class="row align-items-center">
@@ -27,7 +27,7 @@
                                    :pages="this.$parent.offerings.items"
                                    ></OfferingsMenu>
 
-                    <div class="main-nav" v-if="mobile === false">
+                    <div class="main-nav" v-if="tablet === true && landscape === false">
                     <MainNav
                     :pages="this.$parent.items.items"
                     ></MainNav>
@@ -37,7 +37,7 @@
 
 
                   </div>
-                    <div v-if="mobile === false">
+                    <div v-if="tablet === true && landscape === false">
                     <p>© Virgin Produced {{ new Date().getFullYear() }}.</p>
                     <SocialLinks></SocialLinks>
 
@@ -103,7 +103,8 @@ export default {
     is993: {},
     mobile: {},
     tablet: {},
-    desktop: {}
+    desktop: {},
+    landscape: {}
   },
    mixins: [ inViewport ],
    watch: {

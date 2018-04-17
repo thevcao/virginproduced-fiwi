@@ -62,7 +62,11 @@
           v-on:leave="reelLeave"
           v-bind:css="false"
           >
-          <reelPlayer :src="item.acf.main_roll" v-if="reel" @closeReel="closeReel"></reelPlayer>
+          <reelPlayer
+                      :src="item.acf.main_roll"
+                      v-if="reel"
+                      @closeReel="closeReel"
+                      ></reelPlayer>
           </transition>
         </div>
           <video
@@ -74,12 +78,14 @@
                  v-if="item.acf.bg_video"
                  :src="item.acf.bg_video"
                  preload="auto"
+                 v-bind:style="{height: height}"
                  >
           </video>
             <img
                  v-else="item.acf.bg_image.url"
                  class="crop-image transition-2"
                  :src="item.acf.bg_image.url"
+                 v-bind:style="{height: height}"
                  >
               <figure class="gallery-title transition-3"
                       v-if="is993 === false"
@@ -110,7 +116,10 @@
                   <div>
                   </div>
             </div>
-          <div class="main post-content above-fold">
+          <div
+               class="main post-content above-fold"
+               v-bind:style="{height: height}"
+               >
            <div class="anchor"
                 data-bottom="transform:translate3d(0%,0%,0)"
                 data-top="transform:translate3d(0%,-25%,0)"
@@ -226,7 +235,8 @@ export default {
       title: 'The Platform',
       galleryPlayer: false,
       reel: false,
-      currentPlayer: null
+      currentPlayer: null,
+      height: ''
     }
   },
   props: {
@@ -239,6 +249,7 @@ export default {
     created() {
       const slug = this.$route.params.slug;
       this.$store.dispatch('FETCH_PAGE', slug);
+      this.calcWindow()
       return Promise.all([
         this.fetchItem(),
 //        this.updateValue()
@@ -253,20 +264,20 @@ export default {
       if(this.is993 === true){
       var vm = this;
       vm.$el.classList.remove('loading');
-      setTimeout(function(){
-      if (window.navigator.standalone == true) {
-      var heroHeight = window.innerHeight - 80 + 'px'
-      } else {
-      var heroHeight = window.innerHeight - 65 + 'px'
-      }
-      vm.$el.querySelector('.above-fold').style.height=heroHeight
-      if(vm.acf.bg_video){
-      vm.$el.querySelector('#main-roll').style.height=heroHeight
-      }
-      if(vm.acf.main_image){
-      vm.$el.querySelector('.crop-image').style.height=heroHeight
-      }
-       }, 500);
+//      setTimeout(function(){
+//      if (window.navigator.standalone == true) {
+//      var heroHeight = window.innerHeight - 80 + 'px'
+//      } else {
+//      var heroHeight = window.innerHeight - 65 + 'px'
+//      }
+//      vm.$el.querySelector('.above-fold').style.height=heroHeight
+//      if(vm.acf.bg_video){
+//      vm.$el.querySelector('#main-roll').style.height=heroHeight
+//      }
+//      if(vm.acf.main_image){
+//      vm.$el.querySelector('.crop-image').style.height=heroHeight
+//      }
+//       }, 500);
       }
     },
     mixins: [ inViewport ],
@@ -343,38 +354,6 @@ export default {
             }
             } else {
             vm.$el.classList.remove('loading');
-            setTimeout(function(){
-            if (window.navigator.standalone == true) {
-            var heroHeight = window.innerHeight - 80 + 'px'
-            } else {
-            var heroHeight = window.innerHeight - 65 + 'px'
-            }
-            vm.$el.querySelector('.above-fold').style.height=heroHeight
-            if(vm.acf.bg_video){
-            vm.$el.querySelector('#main-roll').style.height=heroHeight
-            }
-            if(vm.acf.main_image){
-            vm.$el.querySelector('.crop-image').style.height=heroHeight
-            }
-             }, 500);
-                if(this.mobile === true) {
-                      window.addEventListener('orientationchange', function(){
-                        setTimeout(function(){
-                          if (window.navigator.standalone == true) {
-                          var heroHeight = window.innerHeight - 80 + 'px'
-                          } else {
-                          var heroHeight = window.innerHeight - 65 + 'px'
-                          }
-                          document.querySelector('.above-fold').style.height=heroHeight
-                          if(vm.acf.bg_video){
-                          vm.$el.querySelector('#main-roll').style.height=heroHeight
-                          }
-                          if(vm.acf.main_image){
-                          vm.$el.querySelector('.crop-image').style.height=heroHeight
-                          }
-                        }, 300);
-                      })
-                }
             }
           },
           fetchItem(slug) {
@@ -502,6 +481,32 @@ export default {
           closeReel() {
               this.reel = !this.reel;
           },
+      calcWindow(){
+        var vm = this;
+        if(vm.desktop === true) {
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            }
+          window.addEventListener('resize', function(){
+            console.log('resizing hero')
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            } else {
+          vm.height = ''
+            }
+          })
+        } else if(vm.mobile === true || (vm.tablet === true && vm.landscape === false)) {
+        if (window.navigator.standalone == true) {
+        var heroHeight = window.innerHeight - 80 + 'px'
+        } else {
+        var heroHeight = window.innerHeight - 65 + 'px'
+        }
+        vm.height = heroHeight
+        window.addEventListener('orientationchange', function(){
+          vm.height = heroHeight
+        })
+        }
+      },
     }
 }
 </script>

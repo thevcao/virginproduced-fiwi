@@ -29,14 +29,18 @@
                  :src="item.acf.background_video"
                  autoplay
                  loop
-                 muted></video>
+                 muted
+                 v-bind:style="{ height: height }"
+                 ></video>
         </div>
         <div class="img">
           <img
-               :src="item.better_featured_image.media_details.sizes.large.source_url">
+               :src="item.better_featured_image.media_details.sizes.large.source_url"
+               v-bind:style="{ height: height }"
+               >
           <div class="mask"></div>
         </div>
-        <header class="BlogPostSingle__header">
+        <header class="BlogPostSingle__header" v-bind:style="{ height: height }">
           <div class="hero-text">
             <h1 class="rellax" data-rellax-speed="2">{{ item.title.rendered }}</h1>
             <ul v-if="is993 === false">
@@ -121,6 +125,7 @@ export default {
       item: [],
       posts: [],
       error: false,
+      height: ''
     }
   },
   props: {
@@ -137,82 +142,15 @@ export default {
       this.fetchPosts()
     },
     mounted: function(){
-
       var vm = this;
-
-      if(vm.mobile === true || (vm.tablet === true && vm.landscape === true)){
-
-      window.addEventListener('orientationchange', function(){
-
-      setTimeout(function(){
-
-      console.log('hello?')
-      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-
-      }, 300);
-
-
-      })
-
-
-
-      }
-
+      this.calcWindow()
       this.$nextTick(function () {
      if(this.desktop === true){
       this.initView()
       }
-      var vm = this;
-
-//      setTimeout(function(){
-//      vm.$el.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-//      vm.$el.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-//      }, 2000);
-
-
-
-      if( vm.tablet === true) {
-      setTimeout(function(){
-      vm.$el.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      vm.$el.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-      }, 2000);
-      window.addEventListener('orientationchange', function(){
-        setTimeout(function(){
-
-      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-        }, 300);
-      })
-      }else if( vm.desktop === true) {
-      window.addEventListener('resize', function(){
-        setTimeout(function(){
-      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-          }, 300);
-      })
-      } else if(vm.mobile === true) {
-      setTimeout(function(){
-      vm.$el.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      vm.$el.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-      }, 2000);
-      window.addEventListener('orientationchange', function(){
-        setTimeout(function(){
-
-      document.querySelector('.BlogPostSingle__header').style.height=window.innerHeight - 65 + 'px'
-      document.querySelector('figure .img img').style.height=window.innerHeight - 65 + 'px'
-        }, 300);
-      })
-
-
-      }
-//      setTimeout(function(){
-//      document.querySelector('.main').style.height='auto'
-//      }, 1000);
       });
     },
     updated: function(){
-
     },
     computed: {
       slug() { return this.$route.params.slug },
@@ -231,27 +169,18 @@ export default {
       this.$parent.$emit('contextual_menu', {
       contextual_menu : ''
       })
-
       this.$parent.$emit('contextual_menu_links', {
       contextual_menu_links : ''
       })
     },
     methods: {
       initView: function(){
-
-
         console.log('mounting...')
         document.querySelector('body').style.pointerevents="hidden";
         setTimeout(function(){
           skrollr.init({});
           document.querySelector('body').style.overflow="";
-
         }, 3000);
-
-
-
-
-
       },
       fetchItem() {
         return AboutService.get(this.$route.params.slug)
@@ -277,6 +206,32 @@ export default {
           .then(result => {
             this.posts = result.data
           })
+      },
+      calcWindow(){
+        var vm = this;
+        if(vm.desktop === true) {
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            }
+          window.addEventListener('resize', function(){
+            console.log('resizing hero')
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            } else {
+          vm.height = ''
+            }
+          })
+        } else if(vm.mobile === true || (vm.tablet === true && vm.landscape === false)) {
+        if (window.navigator.standalone == true) {
+        var heroHeight = window.innerHeight - 80 + 'px'
+        } else {
+        var heroHeight = window.innerHeight - 65 + 'px'
+        }
+        vm.height = heroHeight
+        window.addEventListener('orientationchange', function(){
+          vm.height = heroHeight
+        })
+        }
       },
       scroll() {
       var el = document.querySelector('.news-sidebar').scrollIntoView({

@@ -421,9 +421,9 @@ $half: $cropwidth / 2;
   }
   .main.above-fold {
     min-height: 100vh;
-    @include media-breakpoint-down(sm) {
-      min-height: calc(100vh - 175px);
-      height: calc(100vh - 175px);
+    @include media-breakpoint-down(md) {
+      min-height: calc(100vh - 65px);
+      height: calc(100vh - 65px);
       padding: 0;
       &:before {
         content: '';
@@ -449,7 +449,7 @@ $half: $cropwidth / 2;
             margin: 0 .5rem 1rem;
 
 
-            @include landscape(){
+      @include media-landscape-down(md) {
 
 
               text-align: right;
@@ -465,11 +465,11 @@ $half: $cropwidth / 2;
       display: block;
 
 
-      @include landscape() {
+      @include media-landscape-down(md) {
 
 
         width: 150px;
-        margin-left: auto;
+//        margin-left: auto;
       }
     }
     .anchor {
@@ -489,7 +489,7 @@ $half: $cropwidth / 2;
       padding: 5rem 0 5rem 0;
 
       // (768px)
-      @include media-landscape-down(sm) {
+      @include media-landscape-down(md) {
 
         .container {
 

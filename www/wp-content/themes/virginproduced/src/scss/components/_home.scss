@@ -206,7 +206,7 @@ $half: $cropwidth / 2.35;
             right: 0;
             background: url(#{$theme}/img/red-triangle-bottom-right.svg);
             background-repeat: no-repeat;
-            padding: 15rem 15px 10px 10rem;
+            padding: 17rem 15px 10px 15rem;
             text-align: right;
             background-position: 0% 100%;
             background-size: 100%;
@@ -219,7 +219,7 @@ $half: $cropwidth / 2.35;
             margin-bottom: 0;
             // (768px)
             @include media-breakpoint-down(md) {
-              font-size: 7rem;
+              font-size: 6rem;
             }
             @include media-breakpoint-down(sm) {
               font-size: 2.5rem;
@@ -259,8 +259,17 @@ $half: $cropwidth / 2.35;
         z-index: 2;
         //        width: calc((100vh - 2rem) / 2.15);
         text-align: right;
+        @include media-breakpoint-down(lg) {
+
+          @include landscape(){
+
+
+            right: 2rem;
+          }
+        }
         @include media-breakpoint-down(md) {
           display: none;
+
         }
         ul {
           list-style: none;
@@ -291,6 +300,17 @@ $half: $cropwidth / 2.35;
               line-height: 1;
               padding: 0;
               @include textGlitch("homemenu", 17, $red, white, $purple, $green, 450, 18);
+
+
+              @include media-breakpoint-down(lg) {
+
+                @include landscape(){
+
+
+                  font-size: 2.5rem;
+                }
+              }
+
             }
           }
         }
@@ -403,5 +423,22 @@ $half: $cropwidth / 2.35;
       //          min-width: 100vw;
       //        }
     }
+  }
+}
+.home-play-mobile {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin-left: auto;
+  // (768px)
+  @include media-breakpoint-down(sm) {
+    width: 64px;
+    height: 64px;
+  }
+  div,
+  svg {
+    width: inherit !important;
+    height: inherit !important;
+    display: block;
   }
 }

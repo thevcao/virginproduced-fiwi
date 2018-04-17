@@ -451,8 +451,8 @@ $half: $cropwidth / 2;
             //            font-size: 3rem;
             margin: 0 .5rem 1rem;
             @include landscape() {
-              text-align: right;
-              margin-left: auto;
+//              text-align: right;
+//              margin-left: auto;
             }
           }
         }
@@ -485,8 +485,8 @@ $half: $cropwidth / 2;
             font-size: 3rem;
             margin: 0 .5rem 1rem;
             @include landscape() {
-              text-align: right;
-              margin-left: auto;
+//              text-align: right;
+//              margin-left: auto;
             }
           }
         }
@@ -726,8 +726,8 @@ $half: $cropwidth / 2;
     display: block;
     outline: none;
     @include landscape() {
-      text-align: right;
-      margin-left: auto;
+//      text-align: right;
+//      margin-left: auto;
     }
     div {
       width: 6rem !important;

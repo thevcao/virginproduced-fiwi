@@ -27,6 +27,7 @@
                   :mobile="mobile"
                   v-if="is993 === true"
                   :desktop="desktop"
+                  :tablet="tablet"
                   :landscape="landscape"></footer-bar>
     </section>
     <footer-bar
@@ -34,6 +35,8 @@
                 :is993="is993"
                 :mobile="mobile"
                 :desktop="desktop"
+                :tablet="tablet"
+                :landscape="landscape"
                 v-if="is993 === false"></footer-bar>
     <mobileBar
                v-if="is993 === true"
@@ -242,11 +245,16 @@ export default {
       }
     }
     window.addEventListener('orientationchange', function(){
+
+      setTimeout(function(){
       if(vm.landscape === false) {
       vm.landscape = true
       } else {
       vm.landscape = false
       }
+      }, 300);
+
+
     })
     },
     islower993(){

@@ -36,7 +36,7 @@
                 loop
                 muted
                 preload="auto"
-               v-on:click="playReel()"
+                v-on:click="playReel()"
                 v-if="item.acf.bg_video"
                 >
                <source :src="item.acf.bg_video" type="video/mp4" >
@@ -45,6 +45,7 @@
             <img
                  v-if="item.acf.bg_img"
                  :src="item.acf.bg_img"
+                 v-bind:style="{height: height}"
                  >
           <transition
           v-on:before-enter="reelEnter"
@@ -52,7 +53,7 @@
           v-on:leave="reelLeave"
           v-bind:css="false"
           >
-          <reelPlayer :src="item.acf.main_roll" v-if="reel" :is993="is993" :mobile="mobile" :ie="ie" @closeReel="closeReel"></reelPlayer>
+          <reelPlayer :src="item.acf.main_roll" v-if="reel" :is993="is993" :mobile="mobile" :ie="ie" :desktop="desktop" @closeReel="closeReel"></reelPlayer>
           </transition>
         </div>
         <transition
@@ -88,6 +89,7 @@
                  :src="item.acf.bg_video"
                  preload="auto"
                  v-if="item.acf.bg_video && mobile === false"
+                 v-bind:style="{height: height}"
                  >
           </video>
           <video
@@ -99,6 +101,7 @@
                  :src="item.acf.bg_video_mobile"
                  preload="none"
                  v-else
+                 v-bind:style="{height: height}"
                  >
           </video>
             <img
@@ -129,7 +132,7 @@
           </figure>
         </div>
       <div class="main">
-        <div class="container ml-xl-0 above-fold">
+        <div class="container ml-xl-0 above-fold" v-bind:style="{height: height}">
               <div class="row">
                 <div class="col-lg-6 col-md-10">
                   <div class="intro-in" v-html="item.acf.content"></div>
@@ -231,6 +234,7 @@ export default {
       posts: [],
       error: false,
       reel: false,
+      height: ''
     }
   },
   props: {
@@ -245,6 +249,7 @@ export default {
       const slug = this.$route.params.slug;
       this.$store.dispatch('FETCH_PAGE', slug);
       this.fetchItem()
+      this.calcWindow()
 //      this.fetchPosts()
     },
     mounted: function(){
@@ -262,14 +267,14 @@ export default {
       if(this.is993 === true){
       var vm = this;
       vm.$el.classList.remove('loading');
-      setTimeout(function(){
-      if (window.navigator.standalone == true) {
-      var heroHeight = window.innerHeight - 80 + 'px'
-      } else {
-      var heroHeight = window.innerHeight - 65 + 'px'
-      }
-      vm.$el.querySelector('.above-fold').style.height=heroHeight
-       }, 500);
+//      setTimeout(function(){
+//      if (window.navigator.standalone == true) {
+//      var heroHeight = window.innerHeight - 80 + 'px'
+//      } else {
+//      var heroHeight = window.innerHeight - 65 + 'px'
+//      }
+//      vm.$el.querySelector('.above-fold').style.height=heroHeight
+//       }, 500);
       }
     },
   computed: {
@@ -367,61 +372,61 @@ export default {
       }
       } else {
       vm.$el.classList.remove('loading');
-      setTimeout(function(){
-      if (window.navigator.standalone == true) {
-      var heroHeight = window.innerHeight - 80 + 'px'
-      } else {
-      var heroHeight = window.innerHeight - 65 + 'px'
-      }
-      vm.$el.querySelector('.above-fold').style.height=heroHeight
-       }, 500);
-        if(this.mobile === true) {
-              window.addEventListener('orientationchange', function(){
-
-                setTimeout(function(){
-                  if (window.navigator.standalone == true) {
-                  var heroHeight = window.innerHeight - 80 + 'px'
-                  } else {
-                  var heroHeight = window.innerHeight - 65 + 'px'
-                  }
-                  document.querySelector('.above-fold').style.height=heroHeight
-                }, 300);
-              })
-        }
-        if(vm.tablet === true){
-
-
-
-              window.addEventListener('orientationchange', function(){
-
-
-                if (vm.landscape === false) {
-                console.log('resizing for landscape tablet')
-
-                setTimeout(function(){
-
-                  vm.$el.querySelector('.above-fold').style.height=''
-                }, 300);
-              } else {
-
-              setTimeout(function(){
-                if (window.navigator.standalone == true) {
-                var heroHeight = window.innerHeight - 80 + 'px'
-                } else {
-                var heroHeight = window.innerHeight - 65 + 'px'
-                }
-                vm.$el.querySelector('.above-fold').style.height=heroHeight
-
-              }, 300);
-
-
-              }
-
-
-              })
-
-
-      }
+//      setTimeout(function(){
+//      if (window.navigator.standalone == true) {
+//      var heroHeight = window.innerHeight - 80 + 'px'
+//      } else {
+//      var heroHeight = window.innerHeight - 65 + 'px'
+//      }
+//      vm.$el.querySelector('.above-fold').style.height=heroHeight
+//       }, 500);
+//        if(this.mobile === true) {
+//              window.addEventListener('orientationchange', function(){
+//
+//                setTimeout(function(){
+//                  if (window.navigator.standalone == true) {
+//                  var heroHeight = window.innerHeight - 80 + 'px'
+//                  } else {
+//                  var heroHeight = window.innerHeight - 65 + 'px'
+//                  }
+//                  document.querySelector('.above-fold').style.height=heroHeight
+//                }, 300);
+//              })
+//        }
+//        if(vm.tablet === true){
+//
+//
+//
+//              window.addEventListener('orientationchange', function(){
+//
+//
+//                if (vm.landscape === false) {
+//                console.log('resizing for landscape tablet')
+//
+//                setTimeout(function(){
+//
+//                  vm.$el.querySelector('.above-fold').style.height=''
+//                }, 300);
+//              } else {
+//
+//              setTimeout(function(){
+//                if (window.navigator.standalone == true) {
+//                var heroHeight = window.innerHeight - 80 + 'px'
+//                } else {
+//                var heroHeight = window.innerHeight - 65 + 'px'
+//                }
+//                vm.$el.querySelector('.above-fold').style.height=heroHeight
+//
+//              }, 300);
+//
+//
+//              }
+//
+//
+//              })
+//
+//
+//      }
       }
     },
     fetchItem(slug) {
@@ -469,7 +474,7 @@ export default {
     },
     reelEntered: function (el, done) {
       skrollr.init().destroy();
-      if(this.is993 === false) {
+      if(this.desktop === true) {
       var container = document.querySelector('.video-hover');
       container.style.transition='all .3s ease'
       container.classList.add('clipping');
@@ -510,7 +515,7 @@ export default {
         complete: done,
         delay: 1000
       });
-      if(this.is993 === false) {
+      if(this.desktop === true) {
       var container = document.querySelector('.video-hover');
       Velocity(container, "reverse", {
         delay: 0,
@@ -540,7 +545,7 @@ export default {
     },
     playReel() {
     this.reel = !this.reel;
-      if(this.mobile === true ) {
+      if(this.desktop === false ) {
           setTimeout(function(){
           const getID = document.querySelector('#reel-player .video-js').id;
           var player = videojs(getID);
@@ -550,6 +555,32 @@ export default {
 //        this.$parent.$emit('reelPlay');
        }
     },
+      calcWindow(){
+        var vm = this;
+        if(vm.desktop === true) {
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            }
+          window.addEventListener('resize', function(){
+            console.log('resizing hero')
+            if(window.innerWidth < 993){
+          vm.height = window.innerHeight - 65 + 'px'
+            } else {
+          vm.height = ''
+            }
+          })
+        } else if(vm.mobile === true || (vm.tablet === true && vm.landscape === false)) {
+        if (window.navigator.standalone == true) {
+        var heroHeight = window.innerHeight - 80 + 'px'
+        } else {
+        var heroHeight = window.innerHeight - 65 + 'px'
+        }
+        vm.height = heroHeight
+        window.addEventListener('orientationchange', function(){
+          vm.height = heroHeight
+        })
+        }
+      },
   }
 }
 </script>
