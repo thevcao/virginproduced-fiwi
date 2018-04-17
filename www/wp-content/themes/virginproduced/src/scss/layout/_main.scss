@@ -124,6 +124,14 @@ body[style="position: fixed;"] {
   position: absolute;
   .media_canvas {
     filter: blur(4px);
+
+    // (768px)
+    @include media-breakpoint-down(sm) {
+
+
+      filter: none;
+    }
+
   }
   .media_slot video {
     position: absolute;

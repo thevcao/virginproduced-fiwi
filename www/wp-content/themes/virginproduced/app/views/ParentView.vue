@@ -82,7 +82,7 @@
               data-center="transform: translate3d(25%, 25%, 0) scale(3);"
                ></div>
           <glitch video
-            v-if="item && item.acf.bg_video"
+            v-if="item.acf.bg_video && mobile === false"
             :disabled="glitch.disabled"
             :amount="glitch.amount"
             :scale="glitch.scale"
@@ -99,12 +99,21 @@
                  id="main-roll"
                  :src="item.acf.bg_video"
                  preload="auto"
-                 v-if="item.acf.bg_video && mobile === false"
+
                  v-bind:style="{height: height}"
                  crossorigin="anonymous"
                  >
           </video>
           </glitch>
+          <glitch video
+            v-else
+            :disabled="glitch.disabled"
+          amount=".15"
+          scale=".15"
+          tuning="0.17"
+          batshit="true"
+            v-bind:style="{height: height}"
+          >
           <video
                  autoplay
                  loop
@@ -113,10 +122,12 @@
                  id="main-roll"
                  :src="item.acf.bg_video_mobile"
                  preload="none"
-                 v-else
+
+                 crossorigin="anonymous"
                  v-bind:style="{height: height}"
                  >
           </video>
+          </glitch>
             <img
                  v-if="item.acf.bg_img"
                  :src="item.acf.bg_img"

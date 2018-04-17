@@ -82,7 +82,8 @@
                    data-top="transform: translateY(-0%); opacity: 1">
                 <h2>Virgin News</h2>
                 <div v-for="post in limitedPosts" class="news-item">
-                  <img v-if="post.better_featured_image" :src="post.better_featured_image.media_details.sizes.medium.source_url">
+                  <img v-if="post.better_featured_image.media_details.sizes.medium" :src="post.better_featured_image.media_details.sizes.medium.source_url">
+                  <img v-else :src="post.better_featured_image.source_url">
                   <div class="title">
                       <h3>{{ post.title.rendered }}</h3>
                   </div>

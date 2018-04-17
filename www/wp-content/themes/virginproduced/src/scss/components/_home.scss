@@ -110,15 +110,15 @@ $half: $cropwidth / 2.35;
       overflow: hidden;
       padding: 0;
       &.video-play {
-        //        @include media-breakpoint-up(lg) {
-        //          max-width: calc(100% - 4rem);
-        //          min-width: calc(100% - 4rem);
-        //        }
+
+        max-width: calc(100% - 4rem);
+        min-width: calc(100% - 4rem);
+
         //        // (768px)
-        //        @include media-breakpoint-down(md) {
-        //          max-width: 100vw;
-        //          min-width: 100vw;
-        //        }
+        @include media-breakpoint-down(md) {
+          max-width: 100vw;
+          min-width: 100vw;
+        }
       }
       .play-toggle {
         position: absolute;

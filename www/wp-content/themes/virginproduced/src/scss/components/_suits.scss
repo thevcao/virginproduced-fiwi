@@ -318,7 +318,7 @@ $half: $cropwidth / 2.35;
 }
 .title-holder {
   .title-only {
-    .notice {
+    .suits-notice {
       position: absolute;
       width: 100px;
       font-size: 1.5rem;
@@ -336,7 +336,7 @@ $half: $cropwidth / 2.35;
     }
   }
   &:hover {
-    .notice {
+    .suits-notice {
       opacity: 1;
     }
   }

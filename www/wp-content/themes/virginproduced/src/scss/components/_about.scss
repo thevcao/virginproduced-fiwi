@@ -377,7 +377,7 @@ $half: $cropwidth / 2;
               }
               &:after {
                 position: absolute;
-                left: -3.1rem;
+                left: -100%;
                 right: 0;
                 top: 0;
                 bottom: 0;
@@ -387,7 +387,7 @@ $half: $cropwidth / 2;
                 background: url(#{$theme}/img/red-triangle-reversedleft.svg);
                 background-size: contain;
                 background-repeat: no-repeat;
-                background-position: 0%;
+                background-position: 100%;
               }
             }
           }

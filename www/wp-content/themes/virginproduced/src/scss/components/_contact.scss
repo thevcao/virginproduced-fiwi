@@ -138,13 +138,18 @@ $half: $cropwidth / 2.35;
       bottom: calc(100vh / 6);
       z-index: 1;
       transform: rotate(-45deg);
-      transform-origin: 0vw 4vw 0;
+      transform-origin: 0vw -7vw 0;
       // @media (max-width: 1439px)
       @include media-breakpoint-down(xl) {
         //    transform-origin: 6vw -3vw 0;
       }
       @include media-breakpoint-down(lg) {
-        transform-origin: 6vw -3vw 0;
+        @include portrait() {
+          transform-origin: 6vw -3vw 0;
+        }
+        @include landscape() {
+          transform-origin: 1vw -3vw 0;
+        }
       }
       overflow: visible;
       width: 100%;

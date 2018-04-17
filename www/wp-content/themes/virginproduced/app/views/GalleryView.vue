@@ -56,6 +56,7 @@
         data-anchor-target=".anchor"
         data-bottom="left:40%"
         data-center="left:0%">
+
           <glitch video
           v-if="mobile === false"
           :disabled="glitch.disabled"
@@ -73,7 +74,6 @@
                  id="main-roll"
                  class=""
                  :src="item.acf.bg_video"
-
                  preload="auto"
                  v-bind:style="{height: height}"
                  crossorigin="anonymous"
@@ -83,11 +83,11 @@
         <glitch video
           v-else
           :disabled="glitch.disabled"
-          :amount="glitch.amount"
-          :scale="glitch.scale"
-          :tuning="glitch.tuning"
-          :batshit="glitch.batshit"
-          v-on:playing="onGlitchPlay"
+          amount=".15"
+          scale=".15"
+          tuning="0.17"
+          batshit="true"
+          v-bind:style="{height: height}"
         >
           <video
                  autoplay

@@ -130,6 +130,7 @@
             <a
                :href="page.url"
                class="white ttu"
+               target="_blank"
                :title="page.title">{{ page.title }}</a>
           </li>
           <li
@@ -348,7 +349,7 @@ export default {
       var el = document.querySelector('html');
       var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
       var fontSize = parseFloat(style);
-      var width = playerWidth - (4 * fontSize);
+      var width = window.outerWidth - (2 * fontSize);
       var crop = document.querySelector('#app .home-vue .crop-bg');
       var lines = document.querySelector('#app .home-vue .lines');
       var header = document.querySelector('header');
