@@ -46,6 +46,7 @@ export default {
   props: {
     controls: Boolean,
     video: Boolean,
+    img: Boolean,
     dom: Boolean,
     tuning: Number,
     amount: Number,
@@ -207,11 +208,10 @@ export default {
       if (this.$props.video) {
         material = new MeshBasicMaterial(this.videoParams);
       } else if (this.$props.img) {
-        // console.log(this.imgTexture);
         material = new MeshBasicMaterial({
           color: 0xffffff,
+          side: DoubleSide,
           map: this.imgTexture,
-          side: DoubleSide
         });
       }
 
