@@ -422,3 +422,15 @@ $half: $cropwidth / 2;
     }
   }
 }
+html:not(.ie) {
+  #app .about-vue .main .suits-cta .title-holder .over h2.glitching {
+    background: url(/wp-content/uploads/2018/03/richard-1.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 50%;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+//    padding-top: 2rem;
+//    margin-top: -2rem;
+  }
+}

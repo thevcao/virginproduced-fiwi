@@ -74,7 +74,7 @@ h1 {
   font-size: 4rem;
 }
 .glitching {
-  @include textGlitch("glitching", 17, $green, white, $red, $purple, 450, 66);
+  @include textGlitch("glitching", 17, $green, white, $red, $green, 450, 66);
   &:before,
   &:after {
     padding: inherit;
@@ -103,7 +103,7 @@ h1 {
     line-height: .75;
     margin-bottom: 0;
     letter-spacing: -.025em;
-    @include textGlitch("glitching", 17, $green, white, $red, $purple, 800, 100);
+    @include textGlitch("glitching", 17, $green, white, $red, $green, 800, 200);
     &:before,
     &:after {
       padding: inherit;
@@ -127,6 +127,39 @@ h1 {
       top: -5%;
       left: 2%;
     }
+  }
+}
+html:not(.ie) {
+  .glitching.large {
+    //    background: url(/wp-content/uploads/2018/03/VirginAmerica-Interior-Courtesy.jpg);
+    background: url(/wp-content/uploads/2018/03/richard-1.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 50%;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    margin-bottom: -2rem;
+    line-height: 1;
+    @include media-breakpoint-down(md) {
+
+    margin-bottom: 0;
+    line-height: 1;
+
+
+    }
+    //    padding-top: 2rem;
+    //    margin-top: -2rem;
+  }
+  .glitching {
+    //    background: url(/wp-content/uploads/2018/03/VirginAmerica-Interior-Courtesy.jpg);
+    background: url(/wp-content/uploads/2018/03/richard-1.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 50%;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    //    padding-top: 2rem;
+    //    margin-top: -2rem;
   }
 }
 a {

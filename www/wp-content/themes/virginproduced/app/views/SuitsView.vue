@@ -19,7 +19,7 @@
      v-if="item.content">
     <figure
             class="team-headshot"
-            v-if="(item && item.better_featured_image) && ((tablet === true) || (mobile === true && landscape === false))">
+            v-if="(item && item.better_featured_image) && ((tablet === true) || (mobile === true && landscape === false) || desktop === true)">
       <img
            :src="item.better_featured_image.media_details.sizes.medium.source_url"
            v-if="item.better_featured_image.media_details.sizes.medium">
