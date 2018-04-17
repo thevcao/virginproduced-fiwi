@@ -30,8 +30,9 @@
                           <li v-for="post in limitedPosts" v-bind:key="post.slug" v-if="post.better_featured_image">
                             <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
                           </li>
-                          <li v-else>
-                            <a href="" class="title-only" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span></a>
+                          <li v-else class="title-holder">
+
+                            <a href="" class="title-only" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span><div class="notice">No Bio</div></a>
                           </li>
                         </ul>
                       </aside>
