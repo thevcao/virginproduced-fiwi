@@ -151,7 +151,7 @@ $half: $cropwidth / 2.35;
         @include media-breakpoint-down(md) {
           display: none;
         }
-        video {
+        video, .media {
           position: absolute;
           bottom: 0;
           right: 0;

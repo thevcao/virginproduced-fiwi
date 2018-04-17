@@ -51,11 +51,10 @@ const GlitchPass = function(onRender) {
   //   noiseTexture.needsUpdate = true;
   // };TextureLoader
   // noiseImg.src = "";
-
-  this.noiseTexture = new TextureLoader().load(
-    "https://i.imgur.com/d0jVXIP.png"
-  );
-
+  TextureLoader.prototype.crossOrigin = '';
+  var loader = new TextureLoader()
+  loader.crossOrigin = '';
+  this.noiseTexture = loader.load(WP_HOME + "/wp-content/themes/" + WP_THEME + '/dist/img/glitch.png');
   this.uniforms["iChannel1"].value = this.noiseTexture;
   // this.noiseImg = noiseImg;
 };

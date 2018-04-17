@@ -122,8 +122,12 @@ export default {
     const slot = this.$slots.default;
     if (slot.length) {
       if (this.$props.video) {
+        const context = this;
         const video = slot[0].elm;
+
         video.addEventListener("loadedmetadata", this.resize, { once: true });
+        video.addEventListener("playing", event => context.$emit('playing', event));
+
         this.createVideoTexture(video);
       } else if (this.$props.img) {
         const context = this;

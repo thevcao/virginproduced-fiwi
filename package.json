@@ -108,6 +108,7 @@
     "poly-fluid-sizing": "^1.1.0",
     "postcss-preset-env": "^3.5.0",
     "prerender-spa-plugin": "^2.1.0",
+    "raw-loader": "^0.5.1",
     "rellax": "^1.6.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
