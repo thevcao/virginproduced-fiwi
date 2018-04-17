@@ -118,3 +118,21 @@ body[style="position: fixed;"] {
     }
   }
 }
+#app .media {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  .media_canvas {
+    filter: blur(4px);
+  }
+  .media_slot video {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    object-fit: cover;
+    font-family: 'object-fit: cover;';
+  }
+}

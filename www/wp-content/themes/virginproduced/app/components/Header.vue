@@ -3,6 +3,14 @@
     <!-- Mobile Nav Wrap -->
   <div v-if="mobile === false || is993 === false">
   <div v-if="this.$parent.src">
+    <glitch video
+      :disabled="glitch.disabled"
+      :amount="glitch.amount"
+      :scale="glitch.scale"
+      :tuning="glitch.tuning"
+      :batshit="glitch.batshit"
+            v-if="navigation"
+    >
       <video
           :src="this.$parent.src"
           :videotime="videotime"
@@ -11,8 +19,10 @@
           autoplay
           loop
           muted
-          v-if="navigation">
+         crossorigin="anonymous"
+          >
       </video>
+    </glitch>
   </div>
     <div v-else>
       <video
@@ -88,14 +98,24 @@ import MenuIcon from './MenuIcon.vue'
 import CloseIcon from './CloseIcon.vue'
 import OfferingsMenu from './OfferingsMenu.vue'
 import SocialLinks from './SocialLinks.vue'
+const Glitch = () => import(/* webpackChunkName: "glitch" */ './Glitch.vue');
+
+
 export default {
-  components: { MainNav, OfferingsMenu, SocialLinks, Logo, MenuIcon, CloseIcon },
+  components: { Glitch, MainNav, OfferingsMenu, SocialLinks, Logo, MenuIcon, CloseIcon },
   data() {
     return {
 //      items: [],
 //      infoData: [],
       navigation: false,
       target: null,
+      glitch: {
+        disabled: false,
+        amount: 0,
+        scale: 1.21,
+        tuning: -0.5,
+        batshit: true,
+      },
     }
   },
   props: {
@@ -103,7 +123,9 @@ export default {
     videotime: {},
     is993: {},
     mobile: {},
-    tablet: {}
+    tablet: {},
+
+
   },
   watch: {
   },
@@ -216,4 +238,13 @@ export default {
 <style lang="scss">
 @import '../../src/scss/main.scss';
 @import '../../src/scss/layout/_header.scss';
+
+
+  #app .nav-container .media {
+
+      position: fixed;
+    width: 100%;
+    height: 100%;
+
+  }
 </style>

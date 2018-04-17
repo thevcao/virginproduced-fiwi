@@ -204,9 +204,9 @@ export default {
       height: '',
       glitch: {
         disabled: false,
-        amount: 4,
-        scale: 5,
-        tuning: -0.75,
+        amount: 0,
+        scale: 1.21,
+        tuning: -1.5,
         batshit: true,
       },
     }

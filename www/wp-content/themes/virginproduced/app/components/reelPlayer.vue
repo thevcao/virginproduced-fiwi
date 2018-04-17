@@ -5,6 +5,7 @@
                   class="video-js vjs-big-play-centered vjs-volume-vertical"
                   controls
                   playsinline
+                  autoplay
                   preload="auto"
                   :options="options"
                   >
@@ -75,18 +76,18 @@ import { videoPlayer } from 'vue-video-player'
         videojs.registerComponent('closeModal', MyButton);
         var player = videojs(getID);
         player.getChild('controlBar').addChild('closeModal', {});
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+//        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+////          setTimeout(function(){
+////
+////          player.play();
+//////          player.requestFullscreen();
+////
+////          }, 1000);
+//         } else {
 //          setTimeout(function(){
-//
 //          player.play();
-////          player.requestFullscreen();
-//
-//          }, 1000);
-         } else {
-          setTimeout(function(){
-          player.play();
-          }, 300);
-         }
+//          }, 300);
+//         }
       }, 300);
 
       },
@@ -111,15 +112,15 @@ import { videoPlayer } from 'vue-video-player'
 <style lang="scss">
 @import '../../src/scss/main.scss';
 @import '../../src/scss/components/videojs.scss';
-  .mobile {
-    #app #reel-player {
-      display: none;
-    }
+.mobile {
+  #app #reel-player {
+    display: none;
   }
+}
 #app #reel-player {
     position: fixed;
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
     padding-bottom: 0;
     bottom: 0;
     top: 0;

@@ -1,4 +1,4 @@
-<template v-if="item && item.acf.bg_video">
+<template v-if="item">
   <div
        :is993="is993"
        :mobile="mobile"
@@ -41,6 +41,7 @@
             <video
                 :id="item.id"
                 class=""
+                 ref="mainVid"
                 v-if="item.acf.bg_video"
                 autoplay
                 loop
@@ -69,24 +70,47 @@
                       ></reelPlayer>
           </transition>
         </div>
+
+
+        <glitch video
+          v-if="item.acf.bg_video"
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+          v-on:playing="onGlitchPlay"
+                v-bind:style="{height: height}"
+        >
           <video
                  autoplay
                  loop
                  muted
                  id="main-roll"
                  class="transition-2"
-                 v-if="item.acf.bg_video"
+                 crossorigin="anonymous"
                  :src="item.acf.bg_video"
                  preload="auto"
                  v-bind:style="{height: height}"
                  >
           </video>
+          </glitch>
+        <glitch img
+          v-else="item.acf.bg_image.url"
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+          v-bind:style="{height: height}"
+        >
             <img
-                 v-else="item.acf.bg_image.url"
                  class="crop-image transition-2"
                  :src="item.acf.bg_image.url"
                  v-bind:style="{height: height}"
+                 crossorigin="anonymous"
                  >
+          </glitch>
               <figure class="gallery-title transition-3"
                       v-if="is993 === false"
                       >
@@ -225,8 +249,11 @@ import inViewportDirective from 'vue-in-viewport-directive'
 import inViewport from 'vue-in-viewport-mixin'
 import PlayIcon from '../components/Play.vue'
 import Play from '../components/PlayIcon.vue'
+const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
+
+
 export default {
-  components: {galleryPlayer, PlayIcon, reelPlayer, Play},
+  components: {Glitch, galleryPlayer, PlayIcon, reelPlayer, Play},
   data() {
     return {
       item: [],
@@ -236,7 +263,14 @@ export default {
       galleryPlayer: false,
       reel: false,
       currentPlayer: null,
-      height: ''
+      height: '',
+      glitch: {
+        disabled: false,
+        amount: 0,
+        scale: 1.21,
+        tuning: -1.5,
+        batshit: true,
+      },
     }
   },
   props: {
@@ -506,6 +540,10 @@ export default {
           vm.height = heroHeight
         })
         }
+      },
+      onGlitchPlay(event) {
+        const time = event.timeStamp;
+        this.$refs.mainVid.currentTime = time;
       },
     }
 }

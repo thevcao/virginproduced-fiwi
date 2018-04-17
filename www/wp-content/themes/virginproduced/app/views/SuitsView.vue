@@ -20,11 +20,24 @@
     <figure
             class="team-headshot"
             v-if="(item && item.better_featured_image) && ((tablet === true) || (mobile === true && landscape === false) || desktop === true)">
+
+        <glitch img
+          v-if="item && item.better_featured_image"
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+        >
+
       <img
            :src="item.better_featured_image.media_details.sizes.medium.source_url"
-           v-if="item.better_featured_image.media_details.sizes.medium">
+           v-if="item.better_featured_image.media_details.sizes.medium"
+           crossorigin="anonymous"
+           >
       <img
-           :src="item.better_featured_image.source_url" v-else>
+           :src="item.better_featured_image.source_url" crossorigin="anonymous" v-else>
+      </glitch>
       <div
            v-if="is993 === true"
            class="crop-bg"><div></div></div>
@@ -55,7 +68,7 @@
               <li v-for="post in limitedPosts" v-bind:key="post.slug" v-if="post.better_featured_image">
                 <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
               </li>
-              <li v-else>
+              <li v-else class="title-holder">
                 <a href="" class="title-only" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span><div class="notice">No Bio</div></a>
               </li>
             </ul>
@@ -80,13 +93,27 @@
 </template>
 <script>
 import SuitsService from '../services/SuitsService'
+const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
+
 //import Glitch from '../../src/js/_Glitch.js'
 export default {
+
+  components: {
+
+    Glitch
+  },
   data() {
     return {
       item: {},
       posts: [],
       error: false,
+      glitch: {
+        disabled: false,
+        amount: 0,
+        scale: 1.21,
+        tuning: -1.5,
+        batshit: true,
+      },
     }
   },
   props: {

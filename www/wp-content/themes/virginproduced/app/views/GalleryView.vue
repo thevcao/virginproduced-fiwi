@@ -32,6 +32,7 @@
              v-if="is993 === false && ie === null">
             <video
                 :id="item.id"
+                ref="mainVid"
                 class=""
                 autoplay
                 loop
@@ -51,26 +52,49 @@
           <reelPlayer :src="item.acf.main_roll" v-if="reel" @closeReel="closeReel"></reelPlayer>
           </transition>
         </div>
+        <div class="transition-2 roll-holder"
+        data-anchor-target=".anchor"
+        data-bottom="left:40%"
+        data-center="left:0%">
+          <glitch video
+          v-if="mobile === false"
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+          v-on:playing="onGlitchPlay"
+        >
+
           <video
                  autoplay
                  loop
                  muted
                  id="main-roll"
-                 class="transition-2"
+                 class=""
                  :src="item.acf.bg_video"
-                 data-anchor-target=".anchor"
-                 data-bottom="left:40%"
-                 data-center="left:0%"
+
                  preload="auto"
-                 v-if="mobile === false"
                  v-bind:style="{height: height}"
+                 crossorigin="anonymous"
                  >
           </video>
+        </glitch>
+        <glitch video
+          v-else
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+          v-on:playing="onGlitchPlay"
+        >
           <video
                  autoplay
                  loop
                  muted
                  playsinline
+
                  id="main-roll"
                  class="transition-2"
                  :src="item.acf.bg_video_mobile"
@@ -78,10 +102,12 @@
                  data-bottom="left:40%"
                  data-center="left:0%"
                  preload="none"
-                 v-else
                  v-bind:style="{height: height}"
+                 crossorigin="anonymous"
                  >
           </video>
+          </glitch>
+          </div>
               <figure class="gallery-title transition-3" v-if="is993 === false"
                       >
                 <div class="overlay"
@@ -213,8 +239,15 @@ import inViewportDirective from 'vue-in-viewport-directive'
 import inViewport from 'vue-in-viewport-mixin'
 import PlayIcon from '../components/Play.vue'
 import Play from '../components/PlayIcon.vue'
+const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
+
 export default {
-  components: {galleryPlayer, PlayIcon, reelPlayer, Play},
+  components: {
+    Glitch,
+    galleryPlayer,
+    PlayIcon,
+    reelPlayer,
+    Play},
   props: {
       ie: {},
       mobile: {},
@@ -232,7 +265,15 @@ export default {
       reel: false,
       currentPlayer: null,
       title: '',
-      height: ''
+      height: '',
+      glitch: {
+        disabled: false,
+        amount: 0,
+        scale: 1.21,
+        tuning: -1.5,
+        batshit: true,
+      },
+
     }
   },
     created() {
@@ -384,15 +425,17 @@ export default {
           },
           playReel() {
           this.reel = !this.reel;
-          if(this.desktop === false ) {
+//          if(this.desktop === false ) {
               setTimeout(function(){
               const getID = document.querySelector('#reel-player .video-js').id;
               var player = videojs(getID);
               player.play();
+              if(this.desktop === false ) {
               player.requestFullscreen();
+              }
               }, 1000);
     //        this.$parent.$emit('reelPlay');
-           }
+//           }
           },
           beforeEnter: function (el) {
             el.style.opacity = 0
@@ -509,6 +552,11 @@ export default {
           closeReel() {
               this.reel = !this.reel;
           },
+      onGlitchPlay(event) {
+//        const time = event.timeStamp;
+//        this.$refs.mainVid.currentTime = time;
+      },
+
     }
 }
 </script>

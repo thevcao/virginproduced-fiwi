@@ -38,6 +38,7 @@
                 preload="auto"
                 v-on:click="playReel()"
                 v-if="item.acf.bg_video"
+                   ref="mainVid"
                 >
                <source :src="item.acf.bg_video" type="video/mp4" >
           </video>
@@ -80,6 +81,16 @@
               data-bottom-top="transform: translate3d(-0%, -0%, 0) scale(1);"
               data-center="transform: translate3d(25%, 25%, 0) scale(3);"
                ></div>
+          <glitch video
+            v-if="item && item.acf.bg_video"
+            :disabled="glitch.disabled"
+            :amount="glitch.amount"
+            :scale="glitch.scale"
+            :tuning="glitch.tuning"
+            :batshit="glitch.batshit"
+            v-on:playing="onGlitchPlay"
+            v-bind:style="{height: height}"
+          >
           <video
                  autoplay
                  loop
@@ -90,8 +101,10 @@
                  preload="auto"
                  v-if="item.acf.bg_video && mobile === false"
                  v-bind:style="{height: height}"
+                 crossorigin="anonymous"
                  >
           </video>
+          </glitch>
           <video
                  autoplay
                  loop
@@ -226,15 +239,24 @@ import inViewportDirective from 'vue-in-viewport-directive'
 import inViewport from 'vue-in-viewport-mixin'
 import PlayIcon from '../components/Play.vue'
 import Play from '../components/PlayIcon.vue'
+const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
+
 export default {
-  components: {PlayIcon, reelPlayer, Play},
+  components: {Glitch, PlayIcon, reelPlayer, Play},
   data() {
     return {
       item: {},
       posts: [],
       error: false,
       reel: false,
-      height: ''
+      height: '',
+      glitch: {
+        disabled: false,
+        amount: 0,
+        scale: 1.21,
+        tuning: -1.5,
+        batshit: true,
+      },
     }
   },
   props: {
@@ -545,15 +567,14 @@ export default {
     },
     playReel() {
     this.reel = !this.reel;
-      if(this.desktop === false ) {
-          setTimeout(function(){
-          const getID = document.querySelector('#reel-player .video-js').id;
-          var player = videojs(getID);
-          player.play();
-          player.requestFullscreen();
-          }, 1000);
-//        this.$parent.$emit('reelPlay');
-       }
+              setTimeout(function(){
+              const getID = document.querySelector('#reel-player .video-js').id;
+              var player = videojs(getID);
+              player.play();
+              if(this.desktop === false ) {
+              player.requestFullscreen();
+              }
+              }, 1000);
     },
       calcWindow(){
         var vm = this;
@@ -580,6 +601,10 @@ export default {
           vm.height = heroHeight
         })
         }
+      },
+      onGlitchPlay(event) {
+        const time = event.timeStamp;
+        this.$refs.mainVid.currentTime = time;
       },
   }
 }

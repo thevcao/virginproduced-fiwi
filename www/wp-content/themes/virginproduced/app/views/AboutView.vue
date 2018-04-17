@@ -25,13 +25,25 @@
               data-rellax-speed="2"
               v-if="item.better_featured_image">
         <div class="bg-video" v-if="is993 === false">
+
+        <glitch video
+          v-if="item && item.acf.background_video"
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+          v-on:playing="onGlitchPlay"
+        >
           <video
                  :src="item.acf.background_video"
                  autoplay
                  loop
                  muted
+                 crossorigin="anonymous"
                  v-bind:style="{ height: height }"
                  ></video>
+          </glitch>
         </div>
         <div class="img">
           <img
@@ -85,7 +97,7 @@
               <h2>Meet<br>Our Suits</h2>
               <div class="over">
                 <div class="tag">
-                  <h3>We are against type casting<br>Our suits are creative</h3>
+                  <h3>We are against typecasting<br>Our suits are creative</h3>
                 </div>
                 <h2>Meet</h2>
                 <h2 class="glitching" title="Our Suits">Our Suits</h2>
@@ -99,7 +111,7 @@
                 <h2>Meet</h2>
                 <h2 class="glitching" title="Our Suits">Our Suits</h2>
                 <div class="tag">
-                  <h3>We are against type casting<br>Our suits are creative</h3>
+                  <h3>We are against typecasting<br>Our suits are creative</h3>
                 </div>
             </div>
           </div>
@@ -119,13 +131,26 @@
 <script>
 import AboutService from '../services/AboutService'
 import PostService from '../services/PostService'
+const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
+
 export default {
+  components: {
+    Glitch
+
+  },
   data() {
     return {
       item: [],
       posts: [],
       error: false,
-      height: ''
+      height: '',
+      glitch: {
+        disabled: false,
+        amount: 0,
+        scale: 1.21,
+        tuning: -1.5,
+        batshit: true,
+      },
     }
   },
   props: {
@@ -237,7 +262,13 @@ export default {
       var el = document.querySelector('.news-sidebar').scrollIntoView({
         behavior: 'smooth'
       });
-    }
+    },
+
+    onGlitchPlay(event) {
+//      const time = event.timeStamp;
+//      this.$refs.mainVid.currentTime = time;
+    },
+
     }
 }
 </script>
