@@ -521,7 +521,7 @@ $half: $cropwidth / 2;
   .below-fold {
     // (768px)
     @include media-breakpoint-down(md) {
-      padding: 0 !important;
+      padding: 0 15px !important;
     }
     .content {
       //      position: fixed;
@@ -739,16 +739,17 @@ $half: $cropwidth / 2;
     margin-bottom: 2rem;
     display: block;
     outline: none;
+    position: relative;
     @include landscape() {
       //      text-align: right;
       //      margin-left: auto;
     }
     div {
-      width: 6rem !important;
-      height: 6rem !important;
+      width: 8rem !important;
+      height: 8rem !important;
       svg {
-        width: 6rem !important;
-        height: 6rem !important;
+        width: 8rem !important;
+        height: 8rem !important;
       }
     }
   }

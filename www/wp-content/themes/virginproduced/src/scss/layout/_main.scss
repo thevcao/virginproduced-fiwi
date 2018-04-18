@@ -123,15 +123,24 @@ body[style="position: fixed;"] {
   height: 100%;
   position: absolute;
   .media_canvas {
-    filter: blur(4px);
-
+    filter: blur(1px) contrast(1.25);
+    object-fit: cover;
+    font-family: 'object-fit: cover;';
     // (768px)
     @include media-breakpoint-down(sm) {
-
-
       filter: none;
     }
-
+  }
+  &:after {
+    position: absolute;
+    //    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(45deg, rgba($green, 0.4) 0%, rgba($purple, 0.8) 100%);
+    mix-blend-mode: multiply;
   }
   .media_slot video {
     position: absolute;
@@ -142,5 +151,74 @@ body[style="position: fixed;"] {
     z-index: 0;
     object-fit: cover;
     font-family: 'object-fit: cover;';
+  }
+}
+@keyframes donut-spin {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+#app .play-toggle.mobile {
+  width: 8rem;
+  height: 8rem;
+  svg {
+    transition: .3s ease;
+  }
+  &.play {
+    svg {
+      opacity: 0;
+    }
+    div:before {
+      content: '' !important;
+      display: inline-block;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: $red;
+      border-radius: 50%;
+      width: inherit;
+      height: inherit;
+      -webkit-animation: donut-spin 1.2s linear infinite;
+      animation: donut-spin 1.2s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate3d(-50%, -50%, 0);
+      transform: translate3d(-50%, -50%, 0);
+      z-index: 1001;
+      pointer-events: none;
+
+    }
+  }
+}
+#app .home-play-mobile {
+  position: relative;
+  svg {
+    transition: .3s ease;
+  }
+
+  &.play {
+    svg {
+      opacity: 0;
+    }
+    div:before {
+      content: '' !important;
+      display: inline-block;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: white;
+      border-radius: 50%;
+      width: inherit;
+      height: inherit;
+      -webkit-animation: donut-spin 1.2s linear infinite;
+      animation: donut-spin 1.2s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate3d(-50%, -50%, 0);
+      transform: translate3d(-50%, -50%, 0);
+      z-index: 1001;
+      pointer-events: none;
+    }
   }
 }

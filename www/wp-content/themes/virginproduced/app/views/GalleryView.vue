@@ -58,7 +58,7 @@
         data-center="left:0%">
 
           <glitch video
-          v-if="mobile === false"
+          v-if="item.acf.bg_video"
           :disabled="glitch.disabled"
           :amount="glitch.amount"
           :scale="glitch.scale"
@@ -71,6 +71,7 @@
                  autoplay
                  loop
                  muted
+                 v-if="mobile === false"
                  id="main-roll"
                  class=""
                  :src="item.acf.bg_video"
@@ -79,22 +80,12 @@
                  crossorigin="anonymous"
                  >
           </video>
-        </glitch>
-        <glitch video
-          v-else
-          :disabled="glitch.disabled"
-          amount=".15"
-          scale=".15"
-          tuning="0.17"
-          batshit="true"
-          v-bind:style="{height: height}"
-        >
           <video
                  autoplay
                  loop
                  muted
                  playsinline
-
+                v-else
                  id="main-roll"
                  class="transition-2"
                  :src="item.acf.bg_video_mobile"
@@ -268,9 +259,9 @@ export default {
       height: '',
       glitch: {
         disabled: false,
-        amount: 0,
-        scale: 1.21,
-        tuning: -1.5,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
         batshit: true,
       },
 
@@ -333,9 +324,30 @@ export default {
        }
        }
      },
-    $route (to, from){
-//        this.show = false;
-    }
+      $route (to, from){
+
+        var vm = this;
+        vm.show = false;
+        vm.fetchItem()
+        vm.$el.classList.add('loading');
+
+//        location.reload()
+//        setTimeout(function(){
+//        vm.$el.classList.add('loaded');
+//        }, 4000);
+//        setTimeout(function(){
+//                vm.$el.classList.remove('loading');
+//                vm.$el.classList.remove('loaded');
+//
+//        }, 10000);
+        vm.initView()
+        vm.calcWindow()
+
+
+
+        vm.show = true;
+
+      }
     },
     computed: {
     slug() { return this.$route.params.slug },
@@ -414,7 +426,17 @@ export default {
                 this.$parent.$emit('title', {
                 title : this.item.title.rendered
                 })
-                })
+                }).then(result => {
+            this.$parent.$emit('contextual_menu', {
+            contextual_menu : this.item.acf.contextual_menu.menu_label
+            })
+            console.log(this.item.acf.contextual_menu.menu_label);
+          }).then(result => {
+            this.$parent.$emit('contextual_menu_links', {
+            contextual_menu_links : this.item.acf.contextual_menu.links
+            })
+            console.log(this.item.acf.contextual_menu.links);
+          })
               .catch(err => {
                 this.error = true
               })
@@ -424,18 +446,56 @@ export default {
             this.galleryPlayer = !this.galleryPlayer
           },
           playReel() {
+
+
+            if(this.desktop === false && this.reel === false) {
+            document.querySelector('.play-toggle.mobile').classList.add('play');
+
+      //        document.querySelector('.home-play-mobile').classList.add('play');
+
+            setTimeout(function(){
+            const getID = document.querySelector('#reel-player .video-js').id;
+            var player = videojs(getID);
+            player.play();
+            player.requestFullscreen();
+            }, 1000);
+            setTimeout(function(){
+            document.querySelector('.play-toggle.mobile').classList.remove('play');
+
+            }, 1500);
+           } else if(this.desktop === false && this.reel === true){
+            document.querySelector('.play-toggle.mobile').classList.add('play');
+
+
+            this.reel = false
+
+
+            setTimeout(function(){
+            const getID = document.querySelector('#reel-player .video-js').id;
+            var player = videojs(getID);
+            player.play();
+            player.requestFullscreen();
+            }, 1000);
+
+            setTimeout(function(){
+            document.querySelector('.play-toggle.mobile').classList.remove('play');
+
+            }, 1500);
+
+           } else {
+
+            setTimeout(function(){
+            const getID = document.querySelector('#reel-player .video-js').id;
+            var player = videojs(getID);
+            player.play();
+            }, 500);
+
+           }
+
+
           this.reel = !this.reel;
-//          if(this.desktop === false ) {
-              setTimeout(function(){
-              const getID = document.querySelector('#reel-player .video-js').id;
-              var player = videojs(getID);
-              player.play();
-              if(this.desktop === false ) {
-              player.requestFullscreen();
-              }
-              }, 1000);
-    //        this.$parent.$emit('reelPlay');
-//           }
+
+
           },
           beforeEnter: function (el) {
             el.style.opacity = 0

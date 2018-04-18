@@ -80,7 +80,7 @@
           :tuning="glitch.tuning"
           :batshit="glitch.batshit"
           v-on:playing="onGlitchPlay"
-                v-bind:style="{height: height}"
+          v-bind:style="{height: height}"
         >
           <video
                  autoplay
@@ -186,8 +186,8 @@
           </div>
           <div class="main post-content below-fold">
               <div class="container">
-              <div class="row" v-if="is993 === true">
-                <div class="col-12 mx-auto">
+              <div class="" v-if="is993 === true">
+                <div class="col-11 mx-auto">
                 <div v-html="item.acf.content">
                 </div>
                 </div>
@@ -229,7 +229,7 @@
                   </div>
                 </div>
             <div class="container mt-5" v-if="is993 === true && item.acf.gallery_content">
-                  <div class="col-12 mx-auto">
+                  <div class="col-11 mx-auto">
                     <div
                          v-html="item.acf.gallery_content"
                          ></div>
@@ -266,9 +266,9 @@ export default {
       height: '',
       glitch: {
         disabled: false,
-        amount: 0,
-        scale: 1.21,
-        tuning: -1.5,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
         batshit: true,
       },
     }
@@ -283,7 +283,7 @@ export default {
     created() {
       const slug = this.$route.params.slug;
       this.$store.dispatch('FETCH_PAGE', slug);
-      this.calcWindow()
+
       return Promise.all([
         this.fetchItem(),
 //        this.updateValue()
@@ -291,7 +291,8 @@ export default {
     },
     mounted: function(){
       this.$nextTick(function () {
-           this.initView()
+          this.initView()
+          this.calcWindow()
       })
     },
     updated: function() {
@@ -331,9 +332,29 @@ export default {
        }
 },
       $route (to, from){
-        this.show = false;
-        location.reload()
-    }
+
+        var vm = this;
+        vm.show = false;
+        vm.fetchItem()
+        vm.$el.classList.add('loading');
+
+//        location.reload()
+//        setTimeout(function(){
+//        vm.$el.classList.add('loaded');
+//        }, 4000);
+//        setTimeout(function(){
+//                vm.$el.classList.remove('loading');
+//                vm.$el.classList.remove('loaded');
+//
+//        }, 10000);
+        vm.initView()
+        vm.calcWindow()
+
+
+
+        vm.show = true;
+
+      }
     },
     computed: {
     slug() { return this.$route.params.slug },
@@ -408,7 +429,17 @@ export default {
                 this.$parent.$emit('title', {
                 title : this.item.title.rendered
                 })
-                })
+                }).then(result => {
+            this.$parent.$emit('contextual_menu', {
+            contextual_menu : this.item.acf.contextual_menu.menu_label
+            })
+            console.log(this.item.acf.contextual_menu.menu_label);
+          }).then(result => {
+            this.$parent.$emit('contextual_menu_links', {
+            contextual_menu_links : this.item.acf.contextual_menu.links
+            })
+            console.log(this.item.acf.contextual_menu.links);
+          })
               .catch(err => {
                 this.error = true
               })
@@ -418,7 +449,57 @@ export default {
             this.galleryPlayer = !this.galleryPlayer
           },
           playReel() {
+
+
+
+            if(this.desktop === false && this.reel === false) {
+            document.querySelector('.play-toggle.mobile').classList.add('play');
+
+      //        document.querySelector('.home-play-mobile').classList.add('play');
+
+            setTimeout(function(){
+            const getID = document.querySelector('#reel-player .video-js').id;
+            var player = videojs(getID);
+            player.play();
+            player.requestFullscreen();
+            }, 1000);
+            setTimeout(function(){
+            document.querySelector('.play-toggle.mobile').classList.remove('play');
+
+            }, 1500);
+           } else if(this.desktop === false && this.reel === true){
+            document.querySelector('.play-toggle.mobile').classList.add('play');
+
+
+            this.reel = false
+
+
+            setTimeout(function(){
+            const getID = document.querySelector('#reel-player .video-js').id;
+            var player = videojs(getID);
+            player.play();
+            player.requestFullscreen();
+            }, 1000);
+
+            setTimeout(function(){
+            document.querySelector('.play-toggle.mobile').classList.remove('play');
+
+            }, 1500);
+
+           } else {
+
+            setTimeout(function(){
+            const getID = document.querySelector('#reel-player .video-js').id;
+            var player = videojs(getID);
+            player.play();
+            }, 500);
+
+           }
+
+
           this.reel = !this.reel;
+
+
           },
           beforeEnter: function (el) {
             el.style.opacity = 0
@@ -542,8 +623,15 @@ export default {
         }
       },
       onGlitchPlay(event) {
+
+        var vm = this;
+        if(vm.is993 === false){
+
         const time = event.timeStamp;
         this.$refs.mainVid.currentTime = time;
+
+        }
+
       },
     }
 }

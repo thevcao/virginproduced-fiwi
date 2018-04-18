@@ -1,19 +1,19 @@
 <template>
               <ul class="social">
                 <li>
-                <a href="https://www.facebook.com/VIRGINproduced" target="_blank" title=""><i class="fa fa-facebook-square"></i></a>
+                <a href="#" onclick="window.open('https://www.facebook.com/VIRGINproduced','socialPop','height=800,width=1200,left=10,top=10,,scrollbars=yes,menubar=no'); return false;" title=""><i class="fa fa-facebook-square"></i></a>
                 </li>
                 <li>
-                <a href="https://www.instagram.com/virginproduced" target="_blank" title=""><i class="fa fa-instagram square"></i></a>
+                <a href="#" onclick="window.open('https://www.instagram.com/virginproduced','socialPop','height=800,width=1200,left=10,top=10,,scrollbars=yes,menubar=no'); return false;" title=""><i class="fa fa-instagram square"></i></a>
                 </li>
                 <li>
-                <a href="https://twitter.com/virginproduced?lang=en" target="_blank" title=""><i class="fa fa-twitter-square"></i></a>
+                <a href="#" onclick="window.open('https://twitter.com/virginproduced?lang=en','socialPop','height=800,width=1200,left=10,top=10,,scrollbars=yes,menubar=no'); return false;" title=""><i class="fa fa-twitter-square"></i></a>
                 </li>
                 <li>
-                <a href="https://www.youtube.com/user/VirginProducedOnlin" target="_blank" title=""><i class="fa fa-youtube-square"></i></a>
+                <a href="#" onclick="window.open('https://www.youtube.com/user/VirginProducedOnline','socialPop','height=800,width=1200,left=10,top=10,,scrollbars=yes,menubar=no'); return false;" title=""><i class="fa fa-youtube-square"></i></a>
                 </li>
                 <li>
-                <a href="https://www.linkedin.com/company/virgin-produced" target="_blank" title=""><i class="fa fa-linkedin-square"></i></a>
+                <a href="#" onclick="window.open('https://www.linkedin.com/company/virgin-produced','socialPop','height=800,width=1200,left=10,top=10,,scrollbars=yes,menubar=no'); return false;" title=""><i class="fa fa-linkedin-square"></i></a>
                 </li>
 
               </ul>

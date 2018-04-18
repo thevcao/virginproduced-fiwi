@@ -82,11 +82,14 @@
                    data-top="transform: translateY(-0%); opacity: 1">
                 <h2>Virgin News</h2>
                 <div v-for="post in limitedPosts" class="news-item">
-                  <img v-if="post.better_featured_image.media_details.sizes.medium" :src="post.better_featured_image.media_details.sizes.medium.source_url">
-                  <img v-else :src="post.better_featured_image.source_url">
+                  <a :href="post.acf.link" target="_blank">
+
+                  <img :src="post.acf.post_image">
                   <div class="title">
                       <h3>{{ post.title.rendered }}</h3>
                   </div>
+                  </a>
+
                 </div>
               </div>
             </div>
@@ -147,9 +150,9 @@ export default {
       height: '',
       glitch: {
         disabled: false,
-        amount: 0,
-        scale: 1.21,
-        tuning: -1.5,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
         batshit: true,
       },
     }
@@ -169,10 +172,11 @@ export default {
     },
     mounted: function(){
       var vm = this;
-      this.calcWindow()
+
       this.$nextTick(function () {
      if(this.desktop === true){
       this.initView()
+       this.calcWindow()
       }
       });
     },

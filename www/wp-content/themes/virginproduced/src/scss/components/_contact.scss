@@ -139,29 +139,78 @@ $half: $cropwidth / 2.35;
       z-index: 1;
       transform: rotate(-45deg);
       transform-origin: 0vw -7vw 0;
-      // @media (max-width: 1439px)
-      @include media-breakpoint-down(xl) {
-        //    transform-origin: 6vw -3vw 0;
+      @media (min-aspect-ratio: 8/5) {
+        transform-origin: 0vw 3vw 0;
       }
+      @media (min-aspect-ratio: 16/9) {
+        transform-origin: 0 2vw 0;
+      }
+      @media (min-aspect-ratio: 5/3) {
+        transform-origin: -4vw -7vw 0;
+      }
+      //      @include media-breakpoint-down(xl) {
+      //        //    transform-origin: 6vw -3vw 0;
+      //      }
       @include media-breakpoint-down(lg) {
         @include portrait() {
           transform-origin: 6vw -3vw 0;
         }
         @include landscape() {
-          transform-origin: 1vw -3vw 0;
+          transform-origin: 5vw -3vw 0;
         }
+      }
+      @include media-breakpoint-down(md) {
+        transform-origin: 0% 0% 0;
+      }
+      @include media-breakpoint-down(xs) {
+        transform-origin: 0% -50% 0;
+        left: 0;
+        bottom: 0;
+        top: auto;
+        overflow: visible;
+        //        background: white;
+        //        padding: 10px;
       }
       overflow: visible;
       width: 100%;
+      // (768px)
+      @include media-breakpoint-down(sm) {
+        z-index: 2
+      }
       h2 {
         font-size: 7rem;
         color: white;
         margin: 0;
-        line-height: .8;
-        @include textGlitch("title", 17, white, $green, $green, $red, 400, 100);
-        &:before,
-        &:after {
-          opacity: 1;
+        line-height: 1;
+        //        @include textGlitch("title", 17, white, $green, $green, $red, 400, 100);
+        //        &:before,
+        //        &:after {
+        //          opacity: 0;
+        //        }
+        // (768px)
+        @include media-breakpoint-down(md) {
+          //          font-size: 2rem;
+          color: $red;
+          line-height: 1;
+          //           background: white;
+          top: 2rem;
+          position: relative;
+        }
+        @include media-breakpoint-down(sm) {
+          font-size: 5rem;
+          color: $red;
+          line-height: 1;
+          //           background: white;
+          top: 2.5rem;
+          position: relative;
+        }
+        @include media-breakpoint-down(xs) {
+          font-size: 4rem;
+          color: $red;
+          line-height: 1;
+          //           background: white;
+          top: -.5rem;
+          position: relative;
         }
         span {
           margin: 0;
@@ -172,6 +221,16 @@ $half: $cropwidth / 2.35;
           color: $red;
           font-weight: 900;
           line-height: 0;
+          @include media-breakpoint-down(md) {
+            top: -.5rem;
+            position: relative;
+            color: white;
+            font-size: 1rem;
+            //            left: 15%;
+            //            padding-right: 15%;
+            white-space: normal;
+            line-height: 1.25;
+          }
         }
       }
     }

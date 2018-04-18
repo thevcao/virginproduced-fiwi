@@ -74,6 +74,8 @@ h1 {
   font-size: 4rem;
 }
 .glitching {
+
+
   @include textGlitch("glitching", 17, $green, white, $red, $green, 450, 66);
   &:before,
   &:after {
@@ -85,7 +87,7 @@ h1 {
     top: 0;
     //      left: 0;
     width: 100%;
-    background: white;
+    background: rgba(0,0,0,0);
     clip: rect(0, 0, 0, 0);
   }
   &:before {
@@ -114,7 +116,7 @@ h1 {
       top: 0;
       //      left: 0;
       width: 100%;
-      background: white;
+      background: rgba(0,0,0,0);
       clip: rect(0, 0, 0, 0);
     }
     &:before {
@@ -164,6 +166,7 @@ html:not(.ie) {
 }
 a {
   text-decoration: none;
+  color: $red;
   &:hover {
     text-decoration: none;
   }

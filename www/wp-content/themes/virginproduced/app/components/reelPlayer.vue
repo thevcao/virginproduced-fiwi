@@ -119,7 +119,7 @@ import { videoPlayer } from 'vue-video-player'
 }
 #app #reel-player {
     position: fixed;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     padding-bottom: 0;
     bottom: 0;

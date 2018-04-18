@@ -142,7 +142,10 @@ export default {
       }
   },
   updated: function () {
-
+     if(this.mobile === true){
+      var bar = document.querySelector('.mobile-bar');
+      bar.classList.remove('down')
+     }
   },
   mounted: function () {
 //
@@ -151,6 +154,8 @@ export default {
 //        }
 
       if(this.mobile === true){
+      var bar = document.querySelector('.mobile-bar');
+      bar.classList.remove('down')
 
       const viewportInitial = window.innerHeight;
       console.log('viewport:' + viewportInitial)

@@ -433,7 +433,7 @@ $half: $cropwidth / 2;
     min-height: 100vh;
     overflow: hidden;
     @include media-breakpoint-down(md) {
-      min-height: calc(100vh - 65px);
+      min-height: 0;
       height: calc(100vh - 65px);
       padding: 0;
       &:before {

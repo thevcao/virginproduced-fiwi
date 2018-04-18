@@ -43,6 +43,9 @@
 </script>
 <style lang="scss" scoped>
 @import '../../src/scss/main.scss';
+
+  html:not(.mobile){
+
   div {
     position: relative;
     width: 32px;
@@ -96,5 +99,17 @@
       }
     }
     @include textGlitch("playicon", 17, white, $red, $purple, $green, 1, 1);
+  }
+
+
+  }
+
+  .mobile {
+
+    .glitch-1, .glitch-2 {
+
+      display: none;
+
+}
   }
 </style>

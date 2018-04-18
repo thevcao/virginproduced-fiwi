@@ -1,11 +1,28 @@
 <template>
   <div class="contact-vue" :is993="is993" :mobile="mobile" :ie="ie">
     <div v-if="item">
-        <figure class="team-headshot" v-if="item && item.better_featured_image && is993 === false">
-          <img :src="item.better_featured_image.media_details.sizes.medium.source_url" v-if="item.better_featured_image.media_details.sizes.medium">
-          <img :src="item.better_featured_image.source_url" v-else>
+        <figure class="team-headshot" v-show="item && item.better_featured_image && is993 === false">
+
+        <glitch img
+          v-if="item && item.better_featured_image"
+          :disabled="glitch.disabled"
+          :amount="glitch.amount"
+          :scale="glitch.scale"
+          :tuning="glitch.tuning"
+          :batshit="glitch.batshit"
+        >
+
+          <img
+               :src="item.better_featured_image.media_details.sizes.medium.source_url"
+               crossorigin="anonymous"
+               v-if="item.better_featured_image.media_details.sizes.medium">
+          <img
+               :src="item.better_featured_image.source_url"
+               crossorigin="anonymous"
+               v-else>
+        </glitch>
           <header class="float-title">
-          <h2 :title="item.title.rendered">{{ item.title.rendered }}</h2>
+          <h2 title="Contact Us">Contact Us</h2>
           </header>
         </figure>
         <div class="crop-bg"><div></div></div>
@@ -41,7 +58,7 @@
                   <SocialLinks></SocialLinks>
                   <div class="address">
                       <h4>PR/MEDIA INQUIRIES</h4>
-                      <h4><a href="mailto:media@virginproduced.com">media@virginproduced.com</a></h4>
+                      <h3 class="mt-2"><a href="mailto:media@virginproduced.com">media@virginproduced.com</a></h3>
                   </div>
                 </aside>
                 </article>
@@ -56,15 +73,25 @@
 import PageService from '../services/PageService'
 //import Glitch from '../../src/js/_Glitch.js'
 import SocialLinks from '../components/SocialLinks.vue'
+const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
+
 export default {
   components: {
-    SocialLinks
+    SocialLinks,
+    Glitch
   },
   data() {
     return {
       item: {},
       posts: [],
-      error: false
+      error: false,
+      glitch: {
+        disabled: false,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
+        batshit: true,
+      },
     }
   },
   props: {
@@ -112,7 +139,17 @@ export default {
 //            this.$nextTick(function() {
 //              this.fetchNestedAcf();
 //            });
-        })
+        }).then(result => {
+            this.$parent.$emit('contextual_menu', {
+            contextual_menu : this.item.acf.contextual_menu.menu_label
+            })
+            console.log(this.item.acf.contextual_menu.menu_label);
+          }).then(result => {
+            this.$parent.$emit('contextual_menu_links', {
+            contextual_menu_links : this.item.acf.contextual_menu.links
+            })
+            console.log(this.item.acf.contextual_menu.links);
+          })
         .catch(err => {
           this.error = true
         })

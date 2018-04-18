@@ -46,7 +46,8 @@
           <a
           href="#"
           v-on:click="videoPlay()"
-         class="home-play-mobile"
+           @click.prevent
+          class="home-play-mobile"
           v-if="is993 === true"
           >
                   <PlayIconMobile></PlayIconMobile>
@@ -129,7 +130,9 @@
               v-if="page.target">
             <a
                :href="page.url"
-               class="white ttu"
+               class="white ttu poplink"
+               v-on:click="popLink()"
+               @click.default
                target="_blank"
                :title="page.title">{{ page.title }}</a>
           </li>
@@ -205,9 +208,9 @@ export default {
       height: '',
       glitch: {
         disabled: false,
-        amount: 0,
-        scale: 1.21,
-        tuning: -1.5,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
         batshit: true,
       },
     }
@@ -228,7 +231,6 @@ export default {
   },
   mounted() {
 
-    this.calcWindow()
     var firstVisit = this.$cookie.get('first');
     if(firstVisit === 'false' || firstVisit === null) {
     console.log('This is a first visit')
@@ -241,6 +243,8 @@ export default {
     }
     this.$nextTick(function () {
       this.initiView();
+      this.calcWindow()
+
     })
       window.addEventListener('resize', function(){
       var player = document.querySelector('#main-roll');
@@ -277,6 +281,7 @@ export default {
   },
     updated: function(){
     this.$nextTick(function () {
+      this.calcWindow()
     })
     },
   methods: {
@@ -343,7 +348,46 @@ export default {
     onupdateFirst() {
     },
     videoPlay(){
+
+
+
+      if(this.desktop === false && this.player === false) {
+      document.querySelector('.home-play-mobile').classList.add('play');
+
+//        document.querySelector('.home-play-mobile').classList.add('play');
+
+      setTimeout(function(){
+      const getID = document.querySelector('#home-modal .video-js').id;
+      var player = videojs(getID);
+      player.play();
+      player.requestFullscreen();
+      }, 1000);
+      setTimeout(function(){
+      document.querySelector('.home-play-mobile').classList.remove('play');
+
+      }, 1500);
+     } else if(this.desktop === false && this.player === true){
+      document.querySelector('.home-play-mobile').classList.add('play');
+
+
+      this.player = false
+
+
+      setTimeout(function(){
+      const getID = document.querySelector('#home-modal .video-js').id;
+      var player = videojs(getID);
+      player.play();
+      player.requestFullscreen();
+      }, 1000);
+
+      setTimeout(function(){
+      document.querySelector('.home-play-mobile').classList.remove('play');
+
+      }, 1500);
+
+     }
       this.player = !this.player;
+
       var home = document.querySelector('.home-vue .main');
       var playerWidth = document.querySelector('.home-vue').offsetWidth;
       var el = document.querySelector('html');
@@ -407,14 +451,7 @@ export default {
         delay: 0
       });
       }
-      if(this.desktop === false ) {
-          setTimeout(function(){
-          const getID = document.querySelector('#home-modal .video-js').id;
-          var player = videojs(getID);
-          player.play();
-          player.requestFullscreen();
-          }, 1000);
-       }
+
     },
     closeModal(){
       this.player = !this.player;
@@ -565,6 +602,24 @@ export default {
     const time = event.timeStamp;
     this.$refs.mainVid.currentTime = time;
   },
+    popLink(){
+
+      var e = document.querySelector(".poplink")
+
+      e.onclick = window.open(e.getAttribute("href"),'popUpWindow','height=800,width=1200,left=10,top=10,,scrollbars=yes,menubar=no'); return false;
+
+
+    },
+    onFullScreenChange() {
+      var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+
+      if(fullscreenElement == null){
+
+        console.log('exited full screen');
+      }
+
+      // if in fullscreen mode fullscreenElement won't be null
+    }
 //    ...mapActions([
 //      'getAllPosts'
 //    ])

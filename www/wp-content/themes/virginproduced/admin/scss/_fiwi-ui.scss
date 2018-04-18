@@ -2493,6 +2493,7 @@ body:not(.mce-content-body) {
   &.login h1 {
     a {
       background-image: url(../../admin/img/fiwi-login-white.svg) !important;
+      background-image: url(#{$theme}/img/logo-horizontal-white.svg) !important;
       background-size: auto 100% !important;
     }
     &:after {

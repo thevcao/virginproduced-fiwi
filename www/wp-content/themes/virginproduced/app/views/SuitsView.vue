@@ -19,7 +19,7 @@
      v-if="item.content">
     <figure
             class="team-headshot"
-            v-if="(item && item.better_featured_image) && ((tablet === true) || (mobile === true && landscape === false) || desktop === true)">
+            v-show="(item && item.better_featured_image) && ((tablet === true) || (mobile === true && landscape === false) || desktop === true)">
 
         <glitch img
           v-if="item && item.better_featured_image"
@@ -69,7 +69,7 @@
                 <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
               </li>
               <li v-else class="title-holder">
-                <a href="" class="title-only" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span><div class="suits-notice">No Bio</div></a>
+                <a href="#" @click.prevent class="title-only" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span><div class="suits-notice">No Bio</div></a>
               </li>
             </ul>
           </aside>
@@ -109,9 +109,9 @@ export default {
       error: false,
       glitch: {
         disabled: false,
-        amount: 0,
-        scale: 1.21,
-        tuning: -1.5,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
         batshit: true,
       },
     }

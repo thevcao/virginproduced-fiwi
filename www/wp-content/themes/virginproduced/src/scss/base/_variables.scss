@@ -219,7 +219,7 @@ $randomNumber4: random(4);
       top: 0;
       //      left: 0;
       width: 100%;
-      background: $background;
+      background: rgba(0,0,0,0);
       clip: rect(0, 0, 0, 0);
       pointer-events: none;
       //    opacity: 0;
@@ -244,7 +244,7 @@ $randomNumber4: random(4);
 
 
 
-    a:hover {
+    a:hover, .glitching {
     &:before,
     &:after {
       content: none !important;

@@ -25,6 +25,8 @@
     </glitch>
   </div>
     <div v-else>
+      <div class="media" v-if="navigation">
+
       <video
           src="/wp-content/themes/virginproduced/src/img/virgin-glitched.mp4"
           :videotime="videotime"
@@ -33,8 +35,10 @@
           autoplay
           loop
           muted
-          v-if="navigation">
+          >
       </video>
+        </div>
+
     </div>
   </div>
   <transition
@@ -111,9 +115,9 @@ export default {
       target: null,
       glitch: {
         disabled: false,
-        amount: 0,
-        scale: 1.21,
-        tuning: -0.5,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
         batshit: true,
       },
     }
@@ -201,7 +205,7 @@ export default {
 
 
       } else {
-      Velocity(el, { opacity: .85 }, { duration: 300 });
+      Velocity(el, { opacity: 1 }, { duration: 300 });
 
 
 

@@ -38,9 +38,9 @@
                 preload="auto"
                 v-on:click="playReel()"
                 v-if="item.acf.bg_video"
-                   ref="mainVid"
+                ref="mainVid"
+                :src="item.acf.bg_video"
                 >
-               <source :src="item.acf.bg_video" type="video/mp4" >
           </video>
           <h2 class="glitching toggle-text" title="Play">Play</h2>
             <img
@@ -82,7 +82,7 @@
               data-center="transform: translate3d(25%, 25%, 0) scale(3);"
                ></div>
           <glitch video
-            v-if="item.acf.bg_video && mobile === false"
+            v-if="item.acf.bg_video"
             :disabled="glitch.disabled"
             :amount="glitch.amount"
             :scale="glitch.scale"
@@ -99,21 +99,11 @@
                  id="main-roll"
                  :src="item.acf.bg_video"
                  preload="auto"
-
+                  v-if="item.acf.bg_video && mobile === false"
                  v-bind:style="{height: height}"
                  crossorigin="anonymous"
                  >
           </video>
-          </glitch>
-          <glitch video
-            v-else
-            :disabled="glitch.disabled"
-          amount=".15"
-          scale=".15"
-          tuning="0.17"
-          batshit="true"
-            v-bind:style="{height: height}"
-          >
           <video
                  autoplay
                  loop
@@ -122,7 +112,7 @@
                  id="main-roll"
                  :src="item.acf.bg_video_mobile"
                  preload="none"
-
+                v-else
                  crossorigin="anonymous"
                  v-bind:style="{height: height}"
                  >
@@ -165,7 +155,7 @@
         </div>
         <div class="container below-fold">
               <div class="row align-items-center">
-                <div class="col-lg-5 col-md-10 col-11 mx-auto content">
+                <div class="col-lg-5 col-md-10 col-10 mx-auto content">
                   <div
                        v-html="item.acf.page_content"
                        data-anchor-target=".below-fold"
@@ -189,7 +179,7 @@
                         data-bottom-top="transform: translate3d(0, 15%, 0); opacity: 0;"
                         data-center="transform: translate3d(0, 0%, 0); opacity: 1;"
                         >
-                      <router-link
+                      <router-link :key="$route.fullPath"
                        :to="image.link"
                        >
                       <img
@@ -225,7 +215,7 @@
                         data-bottom-top="transform: translate3d(0, 15%, 0); opacity: 0;"
                         data-center="transform: translate3d(0, 0%, 0); opacity: 1;"
                         >
-                      <router-link
+                      <router-link :key="$route.fullPath"
                        :to="image.link"
                        >
                       <img
@@ -263,12 +253,18 @@ export default {
       height: '',
       glitch: {
         disabled: false,
-        amount: 0,
-        scale: 1.21,
-        tuning: -1.5,
+//       amount: 1.45,
+//        scale: 0.09,
+//        tuning: -2,
+       amount: 0,
+        scale: 0.06,
+        tuning: 1.66,
         batshit: true,
       },
     }
+  },
+  beforeRouteUpdate(to) {
+
   },
   props: {
     ie: {},
@@ -337,9 +333,29 @@ export default {
 //      this.fetchItem();
 //    }
       $route (to, from){
-        this.show = false;
-        location.reload()
-    }
+
+        var vm = this;
+        vm.show = false;
+        vm.fetchItem()
+        vm.$el.classList.add('loading');
+
+//        location.reload()
+//        setTimeout(function(){
+//        vm.$el.classList.add('loaded');
+//        }, 4000);
+//        setTimeout(function(){
+//                vm.$el.classList.remove('loading');
+//                vm.$el.classList.remove('loaded');
+//
+//        }, 10000);
+        vm.initView()
+        vm.calcWindow()
+
+
+
+        vm.show = true;
+
+      }
   },
 //    updated: function(){
 //
@@ -577,15 +593,55 @@ export default {
       console.log(parent);
     },
     playReel() {
+
+      if(this.desktop === false && this.reel === false) {
+      document.querySelector('.play-toggle.mobile').classList.add('play');
+
+//        document.querySelector('.home-play-mobile').classList.add('play');
+
+      setTimeout(function(){
+      const getID = document.querySelector('#reel-player .video-js').id;
+      var player = videojs(getID);
+      player.play();
+      player.requestFullscreen();
+      }, 1000);
+      setTimeout(function(){
+      document.querySelector('.play-toggle.mobile').classList.remove('play');
+
+      }, 1500);
+     } else if(this.desktop === false && this.reel === true){
+
+      document.querySelector('.play-toggle.mobile').classList.add('play');
+
+      this.reel = false
+
+
+      setTimeout(function(){
+      const getID = document.querySelector('#reel-player .video-js').id;
+      var player = videojs(getID);
+      player.play();
+      player.requestFullscreen();
+      }, 1000);
+
+      setTimeout(function(){
+      document.querySelector('.play-toggle.mobile').classList.remove('play');
+
+      }, 1500);
+
+     } else {
+
+            setTimeout(function(){
+            const getID = document.querySelector('#reel-player .video-js').id;
+            var player = videojs(getID);
+            player.play();
+            }, 500);
+
+           }
+
+
     this.reel = !this.reel;
-              setTimeout(function(){
-              const getID = document.querySelector('#reel-player .video-js').id;
-              var player = videojs(getID);
-              player.play();
-              if(this.desktop === false ) {
-              player.requestFullscreen();
-              }
-              }, 1000);
+
+
     },
       calcWindow(){
         var vm = this;
@@ -614,8 +670,15 @@ export default {
         }
       },
       onGlitchPlay(event) {
+
+        var vm = this;
+        if(vm.is993 === false){
+
         const time = event.timeStamp;
         this.$refs.mainVid.currentTime = time;
+
+        }
+
       },
   }
 }

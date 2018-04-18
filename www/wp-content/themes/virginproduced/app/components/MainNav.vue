@@ -1,7 +1,11 @@
 <template>
   <ul class="list pa2 tc main-menu" :mobile="mobile">
     <li v-for="page in pages" v-bind:key="page.url" class="pa2 f3 f1-ns" v-if="page.target">
-      <a :href="page.url" target="_blank" class="white ttu" :title="page.title">{{ page.title }}</a>
+      <a :href="page.url" class="white ttu poplink"
+         v-on:click="popLink()"
+         @click.default
+         target="_blank"
+         :title="page.title">{{ page.title }}</a>
     </li>
     <li v-bind:key="page.url" class="pa2 f3 f1-ns"  v-else>
       <router-link :to="page.url" @click.native="toggleNavigation" :title="page.title" class="white ttu">{{ page.title }}</router-link>
@@ -57,6 +61,14 @@ export default {
 //        toggle.classList.toggle('active');
 //      }, 300);
     },
+    popLink(){
+
+      var e = document.querySelector(".poplink")
+
+      e.onclick = window.open(e.getAttribute("href"),'popUpWindow','height=800,width=1200,left=10,top=10,,scrollbars=yes,menubar=no'); return false;
+
+
+    }
   }
 }
 </script>
