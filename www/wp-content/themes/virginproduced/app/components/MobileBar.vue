@@ -152,58 +152,32 @@ export default {
 //     function hasClass(element, className) {
 //            return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
 //        }
-    function debounce(func, wait, immediate) {
-        var timeout;
-        return function() {
-            var context = this, args = arguments;
-            var later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            var callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
-    };
-    const viewportInitial = window.innerHeight;
-    console.log('viewport:' + viewportInitial)
-    const screenSize = screen.height;
-    const footer = document.querySelector('footer');
-    console.log('screen:' + screenSize)
-
-    var myEfficientFn = debounce(function() {
-
-      var viewportScroll = window.innerHeight;
-      console.log('viewport full UI:' + viewportInitial)
-      console.log('viewport updated:' + viewportScroll)
-      var bar = document.querySelector('.mobile-bar');
-        if(viewportInitial < viewportScroll) {
-        bar.classList.add('down')
-        footer.classList.remove('down')
-        } else {
-        bar.classList.remove('down')
-        footer.classList.add('down')
-        }
-
-
-    }, 250);
-
-      if(this.mobile === true){
-      var bar = document.querySelector('.mobile-bar');
-      bar.classList.remove('down')
-
-
-
-      window.addEventListener('scroll', myEfficientFn);
-
-
-
-//      window.addEventListener('scroll', function(){
+//    function debounce(func, wait, immediate) {
+//        var timeout;
+//        return function() {
+//            var context = this, args = arguments;
+//            var later = function() {
+//                timeout = null;
+//                if (!immediate) func.apply(context, args);
+//            };
+//            var callNow = immediate && !timeout;
+//            clearTimeout(timeout);
+//            timeout = setTimeout(later, wait);
+//            if (callNow) func.apply(context, args);
+//        };
+//    };
+//    const viewportInitial = window.innerHeight;
+//    console.log('viewport:' + viewportInitial)
+//    const screenSize = screen.height;
+//    const footer = document.querySelector('footer');
+//    console.log('screen:' + screenSize)
+//
+//    var myEfficientFn = debounce(function() {
+//
 //      var viewportScroll = window.innerHeight;
 //      console.log('viewport full UI:' + viewportInitial)
 //      console.log('viewport updated:' + viewportScroll)
-//        var bar = document.querySelector('.mobile-bar');
+//      var bar = document.querySelector('.mobile-bar');
 //        if(viewportInitial < viewportScroll) {
 //        bar.classList.add('down')
 //        footer.classList.remove('down')
@@ -211,7 +185,37 @@ export default {
 //        bar.classList.remove('down')
 //        footer.classList.add('down')
 //        }
-//      })
+//
+//
+//    }, 0);
+
+      if(this.mobile === true){
+      var bar = document.querySelector('.mobile-bar');
+      bar.classList.remove('down')
+
+      const viewportInitial = window.innerHeight;
+      console.log('viewport:' + viewportInitial)
+      const screenSize = screen.height;
+      const footer = document.querySelector('footer');
+      console.log('screen:' + screenSize)
+
+//      window.addEventListener('scroll', myEfficientFn);
+
+
+
+      window.addEventListener('scroll', function(){
+      var viewportScroll = window.innerHeight;
+      console.log('viewport full UI:' + viewportInitial)
+      console.log('viewport updated:' + viewportScroll)
+        var bar = document.querySelector('.mobile-bar');
+        if(viewportInitial < viewportScroll) {
+        bar.classList.add('down')
+        footer.classList.remove('down')
+        } else {
+        bar.classList.remove('down')
+        footer.classList.add('down')
+        }
+      })
       }
 //      this.$nextTick(function () {
 //        var vm = this;

@@ -4,14 +4,14 @@
            class="video-js vjs-big-play-centered vjs-volume-vertical"
             controls
             autoplay
-            preload="none"
+            preload="auto"
             v-if="mobile === true"
            :options="options">
   </video-player>
     <video-player id="gallery-player"
            class="video-js vjs-big-play-centered vjs-volume-vertical"
             autoplay
-            preload="none"
+            preload="auto"
             v-else
            :options="options">
   </video-player>

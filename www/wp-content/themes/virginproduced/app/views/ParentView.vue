@@ -112,7 +112,7 @@
                  playsinline
                  id="main-roll"
                  :src="item.acf.bg_video_mobile"
-                 preload="none"
+                 preload="auto"
                   v-else
                  crossorigin="anonymous"
                  >
@@ -202,7 +202,7 @@
                             loop
                             muted
                             playsinline
-                            preload="none"
+                            preload="auto"
                             >
                            <source :src="offering.acf.bg_video_mobile" type="video/mp4" >
                       </video>

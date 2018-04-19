@@ -92,7 +92,7 @@
                  data-anchor-target=".anchor"
                  data-bottom="left:40%"
                  data-center="left:0%"
-                 preload="none"
+                 preload="auto"
                  v-bind:style="{height: height}"
                  crossorigin="anonymous"
                  >
