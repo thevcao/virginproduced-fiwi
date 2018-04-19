@@ -161,10 +161,12 @@ $half: $cropwidth / 2;
               padding: 30rem 1rem 1rem 22rem;
               background: url(#{$theme}/img/red-triangle-bottom-right.svg);
               background-size: cover;
-              background-position: 0% 100%;
+              background-position: 0% 0%;
+
             }
             @include media-breakpoint-down(sm) {
-              padding: 21rem 1rem 1rem 14rem;
+              padding: 21rem 1rem 1rem 15rem;
+
             }
             h1 {
               //            color: white;

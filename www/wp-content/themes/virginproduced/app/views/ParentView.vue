@@ -82,7 +82,7 @@
               data-center="transform: translate3d(25%, 25%, 0) scale(3);"
                ></div>
           <glitch video
-            v-if="item.acf.bg_video"
+            v-if="item.acf.bg_video && mobile === false"
             :disabled="glitch.disabled"
             :amount="glitch.amount"
             :scale="glitch.scale"
@@ -91,6 +91,7 @@
             v-on:playing="onGlitchPlay"
             v-bind:style="{height: height}"
           >
+
           <video
                  autoplay
                  loop
@@ -99,11 +100,11 @@
                  id="main-roll"
                  :src="item.acf.bg_video"
                  preload="auto"
-                  v-if="item.acf.bg_video && mobile === false"
                  v-bind:style="{height: height}"
                  crossorigin="anonymous"
                  >
           </video>
+          </glitch>
           <video
                  autoplay
                  loop
@@ -112,9 +113,8 @@
                  id="main-roll"
                  :src="item.acf.bg_video_mobile"
                  preload="none"
-                v-else
+                  v-else
                  crossorigin="anonymous"
-                 v-bind:style="{height: height}"
                  >
           </video>
           </glitch>
@@ -338,21 +338,8 @@ export default {
         vm.show = false;
         vm.fetchItem()
         vm.$el.classList.add('loading');
-
-//        location.reload()
-//        setTimeout(function(){
-//        vm.$el.classList.add('loaded');
-//        }, 4000);
-//        setTimeout(function(){
-//                vm.$el.classList.remove('loading');
-//                vm.$el.classList.remove('loaded');
-//
-//        }, 10000);
         vm.initView()
         vm.calcWindow()
-
-
-
         vm.show = true;
 
       }
@@ -370,12 +357,7 @@ export default {
       var body = document.querySelector('body');
       body.classList.remove('no-header-bg')
     }
-    this.$parent.$emit('contextual_menu', {
-    contextual_menu : ''
-    })
-    this.$parent.$emit('contextual_menu_links', {
-    contextual_menu_links : ''
-    })
+
   },
   methods: {
 //    fetchNestedAcf(slug) {
@@ -643,31 +625,64 @@ export default {
 
 
     },
-      calcWindow(){
-        var vm = this;
-        if(vm.desktop === true) {
-            if(window.innerWidth < 993){
-          vm.height = window.innerHeight - 65 + 'px'
-            }
-          window.addEventListener('resize', function(){
-            console.log('resizing hero')
-            if(window.innerWidth < 993){
-          vm.height = window.innerHeight - 65 + 'px'
+      calcWindow: function(){
+      var vm = this;
+
+      function debounce(func, wait, immediate) {
+          var timeout;
+          return function() {
+              var context = this, args = arguments;
+              var later = function() {
+                  timeout = null;
+                  if (!immediate) func.apply(context, args);
+              };
+              var callNow = immediate && !timeout;
+              clearTimeout(timeout);
+              timeout = setTimeout(later, wait);
+              if (callNow) func.apply(context, args);
+          };
+      };
+
+        var myEfficientFn = debounce(function() {
+
+            if(document.body.clientWidth < 993){
+            console.log('this is lower than 993')
+
+            vm.height = window.innerHeight - 65 + 'px';
+
             } else {
-          vm.height = ''
+            console.log('this isnt lower than 993')
+
+            vm.height = ''
+
             }
-          })
-        } else if(vm.mobile === true || (vm.tablet === true && vm.landscape === false)) {
-        if (window.navigator.standalone == true) {
-        var heroHeight = window.innerHeight - 80 + 'px'
+
+            }, 250);
+
+        if(document.body.clientWidth < 993){
+        console.log('this is lower than 993')
+
+            vm.height = window.innerHeight - 65 + 'px';
+
+          } else {
+        console.log('this isnt lower than 993')
+
+          vm.height = ''
+
+
+          }
+
+        if(vm.desktop === true){
+
+        window.addEventListener('resize', myEfficientFn);
+
         } else {
-        var heroHeight = window.innerHeight - 65 + 'px'
+
+        window.addEventListener('orientationchange', myEfficientFn);
+
+
         }
-        vm.height = heroHeight
-        window.addEventListener('orientationchange', function(){
-          vm.height = heroHeight
-        })
-        }
+
       },
       onGlitchPlay(event) {
 

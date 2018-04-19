@@ -58,7 +58,7 @@
         data-center="left:0%">
 
           <glitch video
-          v-if="item.acf.bg_video"
+          v-if="item.acf.bg_video && mobile === false"
           :disabled="glitch.disabled"
           :amount="glitch.amount"
           :scale="glitch.scale"
@@ -71,7 +71,6 @@
                  autoplay
                  loop
                  muted
-                 v-if="mobile === false"
                  id="main-roll"
                  class=""
                  :src="item.acf.bg_video"
@@ -80,6 +79,7 @@
                  crossorigin="anonymous"
                  >
           </video>
+          </glitch>
           <video
                  autoplay
                  loop
@@ -97,7 +97,7 @@
                  crossorigin="anonymous"
                  >
           </video>
-          </glitch>
+
           </div>
               <figure class="gallery-title transition-3" v-if="is993 === false"
                       >
@@ -589,25 +589,64 @@ export default {
             })
             }
           },
-      calcWindow(){
-        var vm = this;
-        if(vm.is993 === true && vm.desktop === true) {
-          vm.height = window.innerHeight - 65 + 'px'
-          window.addEventListener('resize', function(){
-            console.log('resizing hero')
-          vm.height = window.innerHeight - 65 + 'px'
-          })
-        } else if(vm.mobile === true || (vm.tablet === true && vm.landscape === false)) {
-        if (window.navigator.standalone == true) {
-        var heroHeight = window.innerHeight - 80 + 'px'
+      calcWindow: function(){
+      var vm = this;
+
+      function debounce(func, wait, immediate) {
+          var timeout;
+          return function() {
+              var context = this, args = arguments;
+              var later = function() {
+                  timeout = null;
+                  if (!immediate) func.apply(context, args);
+              };
+              var callNow = immediate && !timeout;
+              clearTimeout(timeout);
+              timeout = setTimeout(later, wait);
+              if (callNow) func.apply(context, args);
+          };
+      };
+
+        var myEfficientFn = debounce(function() {
+
+            if(document.body.clientWidth < 993){
+            console.log('this is lower than 993')
+
+            vm.height = window.innerHeight + 'px';
+
+            } else {
+            console.log('this isnt lower than 993')
+
+            vm.height = ''
+
+            }
+
+            }, 250);
+
+        if(document.body.clientWidth < 993){
+        console.log('this is lower than 993')
+
+          vm.height = window.innerHeight + 'px';
+
+          } else {
+        console.log('this isnt lower than 993')
+
+          vm.height = ''
+
+
+          }
+
+        if(vm.desktop === true){
+
+        window.addEventListener('resize', myEfficientFn);
+
         } else {
-        var heroHeight = window.innerHeight - 65 + 'px'
+
+        window.addEventListener('orientationchange', myEfficientFn);
+
+
         }
-        vm.height = heroHeight
-        window.addEventListener('orientationchange', function(){
-          vm.height = heroHeight
-        })
-        }
+
       },
           closeReel() {
               this.reel = !this.reel;

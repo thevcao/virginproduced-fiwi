@@ -82,13 +82,13 @@ $center-big-play-button: true; // true default
   /* Opacity: 1.0 = 100%, 0.0 = 0% */
   background-color: rgba($primary-background-color, 0);
 }
-.mobile {
-  .video-js .vjs-control-bar,
-  .video-js .vjs-big-play-button,
-  .video-js .vjs-menu-button .vjs-menu-content {
-    background: black;
-  }
-}
+//.mobile {
+//  .video-js .vjs-control-bar,
+//  .video-js .vjs-big-play-button,
+//  .video-js .vjs-menu-button .vjs-menu-content {
+//    background: black;
+//  }
+//}
 .video-js .vjs-control-bar {
   left: 2.5px;
   right: 2.5px;

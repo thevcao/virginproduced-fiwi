@@ -34,7 +34,8 @@
       width: 100%;
       background: $red;
       mix-blend-mode: normal;
-      opacity: .75 //
+      opacity: .75;
+      z-index: 10;
     }
   }
 

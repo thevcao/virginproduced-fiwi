@@ -258,15 +258,25 @@ export default {
     })
     },
     islower993(){
-    var width = document.body.clientWidth
-    var vm = this;
-    if (width < 993) {
-      vm.is993 = true
-      } else {
-      vm.is993 = false
-      }
-      window.addEventListener('resize', function(){
-      console.log('resize event')
+
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+    var myEfficientFn = debounce(function() {
+
+      console.log('resize - debounced - event')
         // do stuff here
       var width = document.body.clientWidth
       if (width < 993) {
@@ -274,7 +284,20 @@ export default {
       } else {
       vm.is993 = false
       }
-    })
+
+
+    }, 250);
+
+    var width = document.body.clientWidth
+    var vm = this;
+    if (width < 993) {
+      vm.is993 = true
+      } else {
+      vm.is993 = false
+      }
+
+      window.addEventListener('resize', myEfficientFn);
+
       window.addEventListener('orientationchange', function(){
       console.log('orientationchange event')
         // do stuff here\

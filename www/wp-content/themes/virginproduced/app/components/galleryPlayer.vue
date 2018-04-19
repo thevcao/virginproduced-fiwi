@@ -5,6 +5,14 @@
             controls
             autoplay
             preload="none"
+            v-if="mobile === true"
+           :options="options">
+  </video-player>
+    <video-player id="gallery-player"
+           class="video-js vjs-big-play-centered vjs-volume-vertical"
+            autoplay
+            preload="none"
+            v-else
            :options="options">
   </video-player>
   </div>

@@ -555,48 +555,92 @@ export default {
     playMe() {
     },
     calcWindow(){
+
     var vm = this;
-    if(vm.desktop === true) {
-        if(window.innerWidth < 993){
-      vm.height = window.innerHeight - 65 + 'px'
-        }
-      window.addEventListener('resize', function(){
-        console.log('resizing hero')
-        if(window.innerWidth < 993){
-      vm.height = window.innerHeight - 65 + 'px'
+
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+    var myEfficientFn = debounce(function() {
+
+        if(document.body.clientWidth < 993){
+
+        vm.height = window.innerHeight + 'px';
+
         } else {
-      vm.height = ''
-        }
-      })
-    } else
-    if(vm.mobile === true) {
-        if (window.navigator.standalone == true) {
-        var heroHeight = window.innerHeight - 80 + 'px'
-        } else {
-        var heroHeight = window.innerHeight - 65 + 'px'
-        }
+
+        var el = document.querySelector('html');
+        var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style);
+        var padding = (4 * fontSize);
+        var heroHeight = window.innerHeight - padding + 'px';
         vm.height = heroHeight
-        window.addEventListener('orientationchange', function(){
-          vm.height = heroHeight
-        })
-    } else if((vm.tablet === true && vm.landscape === false)) {
-          vm.height = window.innerHeight - 65 + 'px'
 
-    window.addEventListener('orientationchange', function(){
-          vm.height = window.innerHeight - 65 + 'px'
-    })
 
-    } else if((vm.tablet === true && vm.landscape === true)) {
-    var el = document.querySelector('html');
-    var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
-    var fontSize = parseFloat(style);
-    var padding = (4 * fontSize);
-    var heroHeight = window.innerHeight - padding + 'px';
-    vm.height = heroHeight
-    window.addEventListener('orientationchange', function(){
-      vm.height = heroHeight
-    })
-    }
+        }
+
+
+    }, 250);
+
+//    if(vm.desktop === true) {
+        if(document.body.clientWidth < 993){
+
+        vm.height = window.innerHeight + 'px';
+
+        } else {
+
+        var el = document.querySelector('html');
+        var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style);
+        var padding = (4 * fontSize);
+        var heroHeight = window.innerHeight - padding + 'px';
+        vm.height = heroHeight
+
+
+        }
+        window.addEventListener('resize', myEfficientFn);
+
+//    } else
+//    if(vm.mobile === true) {
+//        if (window.navigator.standalone == true) {
+//        var heroHeight = window.innerHeight - 80 + 'px'
+//        } else {
+//        var heroHeight = window.innerHeight - 65 + 'px'
+//        }
+//        vm.height = heroHeight
+//        window.addEventListener('orientationchange', function(){
+//          vm.height = heroHeight
+//        })
+//    } else if((vm.tablet === true && vm.landscape === false)) {
+//          vm.height = window.innerHeight - 65 + 'px'
+//
+//    window.addEventListener('orientationchange', function(){
+//          vm.height = window.innerHeight - 65 + 'px'
+//    })
+//
+//    } else if((vm.tablet === true && vm.landscape === true)) {
+//    var el = document.querySelector('html');
+//    var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+//    var fontSize = parseFloat(style);
+//    var padding = (4 * fontSize);
+//    var heroHeight = window.innerHeight - padding + 'px';
+//    vm.height = heroHeight
+//    window.addEventListener('orientationchange', function(){
+//      vm.height = heroHeight
+//    })
+//    }
   },
   onGlitchPlay(event) {
     const time = event.timeStamp;

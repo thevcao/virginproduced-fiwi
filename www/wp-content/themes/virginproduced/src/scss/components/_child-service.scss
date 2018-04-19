@@ -436,6 +436,7 @@ $half: $cropwidth / 2;
       min-height: 0;
       height: calc(100vh - 65px);
       padding: 0;
+//      padding-bottom: 55px;
       &:before {
         content: '';
         position: absolute;
@@ -467,7 +468,7 @@ $half: $cropwidth / 2;
       }
     }
     .title-logo.mobile {
-      max-width: 55%;
+      max-width: 45%;
       margin: 1rem 0 2rem;
       display: block;
       @include media-landscape-down(md) {
@@ -581,9 +582,12 @@ $half: $cropwidth / 2;
     }
   }
   .play-toggle.mobile {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     display: block;
     outline: none;
+    width: 6rem !important;
+    height: 6rem !important;
+    position: relative;
     div {
       width: 6rem !important;
       height: 6rem !important;
