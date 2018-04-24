@@ -23,11 +23,7 @@
           </div>
         <div class="video-hover ie transition-1" v-if="ie">
             <h2 class="glitching toggle-text" title="Play"  v-if="(item.acf.main_roll)">Play</h2>
-            <img
-                 class="bg-image"
-                 v-else="item.acf.main_image.url"
-                 :src="item.acf.main_image.url"
-                 >
+
           <transition
           v-on:before-enter="reelEnter"
           v-on:enter="reelEntered"
@@ -54,7 +50,7 @@
             <h2 class="glitching toggle-text" title="Play"  v-if="(item.acf.main_roll)">Play</h2>
             <img
                  class="bg-image"
-                 v-else="item.acf.main_image.url"
+                 v-else="item.acf.main_image"
                  :src="item.acf.main_image.url"
                  >
           <transition
@@ -73,7 +69,7 @@
 
 
         <glitch video
-          v-if="item.acf.bg_video && desktop === true"
+          v-if="item.acf.bg_video && desktop === true && !ie"
           :disabled="glitch.disabled"
           :amount="glitch.amount"
           :scale="glitch.scale"
@@ -95,7 +91,19 @@
                  >
           </video>
           </glitch>
-
+          <video
+                 autoplay
+                 loop
+                 muted
+                 id="main-roll"
+                 class="transition-2"
+                 crossorigin="anonymous"
+                 :src="item.acf.bg_video"
+                 preload="auto"
+                 v-else-if="ie === true"
+                 v-bind:style="{height: height}"
+                 >
+          </video>
           <video
                  autoplay
                  loop
@@ -111,7 +119,7 @@
           </video>
 
         <glitch img
-          v-if="item.acf.bg_image.url && desktop === true"
+          v-if="item.acf.bg_image && desktop === true"
           :disabled="glitch.disabled"
           :amount="glitch.amount"
           :scale="glitch.scale"
@@ -397,14 +405,21 @@ export default {
     },
     methods: {
           initView: function(){
+
+
             var vm = this;
+            var first = vm.$cookie.get(vm.slug);
+
+
             console.log('mounting...')
             vm.$el.classList.add('loading')
             let footer = document.querySelector('footer')
             if(this.is993 === false){
             document.querySelector('header .router-link-active').classList.remove('white');
-            document.querySelector('body').style.overflow="hidden";
             if(vm.$el){
+
+            if(first != "true") {
+            document.querySelector('body').style.overflow="hidden";
             setTimeout(function(){
             vm.$el.classList.add('loaded')
             console.log('complete load...')
@@ -418,7 +433,27 @@ export default {
             });
             document.querySelector('body').style.overflow="";
             vm.$el.querySelector('.roll-down').style.opacity="1";
+            vm.$cookie.set(vm.slug, "true", 1);
+
             }, 9000);
+
+
+            } else {
+
+            vm.$el.classList.remove('loading');
+
+
+
+            setTimeout(function(){
+            vm.$el.querySelector('.roll-down').style.opacity="1";
+            vm.$cookie.set(vm.slug, "true", 1);
+            skrollr.init({
+              forceHeight: false
+            });
+
+            }, 2000);
+            }
+
             }
             } else {
             vm.$el.classList.remove('loading');

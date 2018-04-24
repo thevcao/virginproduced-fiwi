@@ -20,34 +20,20 @@
     </div>
     <!-- Main -->
     <div class="main" v-if="item.content">
+      <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:leave="leave"
+      v-bind:css="false"
+      >
       <figure
               class="BlogPostSingle__images rellax"
               data-rellax-speed="2"
-              v-if="item.better_featured_image">
-        <div class="bg-video" v-if="is993 === false">
+              >
 
-        <glitch video
-          v-if="item && item.acf.background_video"
-          :disabled="glitch.disabled"
-          :amount="glitch.amount"
-          :scale="glitch.scale"
-          :tuning="glitch.tuning"
-          :batshit="glitch.batshit"
-          v-on:playing="onGlitchPlay"
-        >
-          <video
-                 :src="item.acf.background_video"
-                 autoplay
-                 loop
-                 muted
-                 crossorigin="anonymous"
-                 v-bind:style="{ height: height }"
-                 ></video>
-          </glitch>
-        </div>
         <div class="img">
           <img
-               :src="item.better_featured_image.media_details.sizes.large.source_url"
+               :src="item.better_featured_image.media_details.sizes.banner ? item.better_featured_image.media_details.sizes.banner.source_url : item.better_featured_image.source_url"
                v-bind:style="{ height: height }"
                >
           <div class="mask"></div>
@@ -56,12 +42,15 @@
           <div class="hero-text">
             <h1 class="rellax" data-rellax-speed="2">{{ item.title.rendered }}</h1>
             <ul v-if="is993 === false">
-              <li><router-link to="/our-suits" title="Our Suits">Our Suits</router-link></li>
+              <li><router-link to="/our-suits/richard-branson" title="Our Suits">Our Suits</router-link></li>
               <li><a href="#" title="Virgin News" @click.prevent="scroll()">Virgin News</a></li>
             </ul>
           </div>
+
         </header>
+        <div class="roll-down"><span>More</span></div>
       </figure>
+  </transition>
       <vue-headful
         title="About Us"
         description="Virgin Produced"
@@ -309,7 +298,31 @@ export default {
 //      const time = event.timeStamp;
 //      this.$refs.mainVid.currentTime = time;
     },
-
+    beforeEnter: function (el) {
+      el.style.opacity = 0
+    },
+    enter: function (el, done) {
+      Velocity(el, {
+        opacity: 1
+      },{
+        duration: 300,
+        delay: 750
+          }
+              );
+    },
+    leave: function (el, done) {
+      Velocity(el, {
+        opacity: 0
+      }, {
+        duration: 300,
+      });
+      Velocity(el, {
+        display: 'none'
+      }, {
+        complete: done,
+        delay: 300
+      })
+    },
     }
 }
 </script>

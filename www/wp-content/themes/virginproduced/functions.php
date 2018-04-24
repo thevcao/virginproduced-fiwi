@@ -235,6 +235,7 @@ function override_mce_options($initArray) {
 
 
 add_image_size( 'news_image', 800, 999999 );
+add_image_size( 'banner', 1800, 999999 );
 
 
 

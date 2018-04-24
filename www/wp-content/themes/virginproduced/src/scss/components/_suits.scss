@@ -263,6 +263,15 @@ $half: $cropwidth / 2.35;
           font-weight: bold;
           text-decoration: none;
           text-transform: uppercase;
+
+              span {
+              display: block;
+              font-size: .75rem;
+              color: $purple;
+              line-height: 1;
+              pointer-events: none;
+            }
+
           @include textGlitch("suitsglitch", 17, black, white, $green, $red, 450, 16);
           &.router-link-exact-active.router-link-active {
             @include textGlitch("suitsglitchactive", 7, $red, white, $green, $purple, 450, 16);
@@ -270,6 +279,8 @@ $half: $cropwidth / 2.35;
             &:after {
               opacity: 1;
             }
+
+
           }
           &:hover {}
           &.title-only {

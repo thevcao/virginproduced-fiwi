@@ -64,7 +64,7 @@ footer {
     z-index: 0;
     > div {
       position: relative;
-      width: 400px;
+      width: 420px;
       left: 0;
       top: 0;
       background: $red;
@@ -144,10 +144,19 @@ footer {
     font-size: 1rem;
   }
   .address {
+
+
     p {
       text-transform: uppercase;
       letter-spacing: 0;
       font-size: 1rem;
+    a {
+
+      display: block;
+      color: white;
+      font-weight: bold;
+    }
+
       &.name {
         font-size: 1.5rem;
         font-weight: 900;

@@ -82,7 +82,7 @@
               data-center="transform: translate3d(25%, 25%, 0) scale(3);"
                ></div>
           <glitch video
-            v-if="item.acf.bg_video && mobile === false"
+            v-if="item.acf.bg_video && mobile === false && !ie"
             :disabled="glitch.disabled"
             :amount="glitch.amount"
             :scale="glitch.scale"
@@ -105,6 +105,19 @@
                  >
           </video>
           </glitch>
+          <video
+                 autoplay
+                 loop
+                 muted
+                 playsinline
+                 id="main-roll"
+                 :src="item.acf.bg_video"
+                 preload="auto"
+                 v-else-if="ie === true"
+                 v-bind:style="{height: height}"
+                 crossorigin="anonymous"
+                 >
+          </video>
           <video
                  autoplay
                  loop
@@ -150,6 +163,7 @@
               <div class="row">
                 <div class="col-lg-6 col-md-10">
                   <div class="intro-in" v-html="item.acf.content"></div>
+                  <div class="roll-down"><span>More</span></div>
                 </div>
               </div>
         </div>
@@ -178,7 +192,21 @@
                         v-for="image in imageLinks"
                         data-bottom-top="transform: translate3d(0, 15%, 0); opacity: 0;"
                         data-center="transform: translate3d(0, 0%, 0); opacity: 1;"
+                        v-if="image.type === 'external'"
                         >
+                      <a :href="image.link">
+                         <img
+                                                   :src="image.image.url"
+                                                   >
+                      </a>
+                      </li>
+
+                        <li
+                        data-bottom-top="transform: translate3d(0, 15%, 0); opacity: 0;"
+                        data-center="transform: translate3d(0, 0%, 0); opacity: 1;"
+                        v-else
+                        >
+
                       <router-link :key="$route.fullPath"
                        :to="image.link"
                        >
@@ -214,6 +242,19 @@
                         v-for="image in imageLinks"
                         data-bottom-top="transform: translate3d(0, 15%, 0); opacity: 0;"
                         data-center="transform: translate3d(0, 0%, 0); opacity: 1;"
+                        v-if="image.type === 'external'"
+                        >
+                      <a :href="image.link">
+                         <img
+                                                   :src="image.image.url"
+                                                   >
+                      </a>
+                      </li>
+
+                        <li
+                        data-bottom-top="transform: translate3d(0, 15%, 0); opacity: 0;"
+                        data-center="transform: translate3d(0, 0%, 0); opacity: 1;"
+                        v-else
                         >
                       <router-link :key="$route.fullPath"
                        :to="image.link"
@@ -378,13 +419,20 @@ export default {
 //    },
     initView: function(){
       var vm = this;
+      var first = vm.$cookie.get(vm.slug);
+
       console.log('mounting...')
       let footer = document.querySelector('footer')
-//      document.querySelector('header .router-link-active').classList.remove('white');
-//      footer.classList.remove('white');
       if(this.desktop === true){
-      document.querySelector('body').style.overflow="hidden";
+
+
+      if(first != "true") {
+
       if(vm){
+
+      document.querySelector('body').style.overflow="hidden";
+
+
       vm.$el.classList.add('loading')
       setTimeout(function(){
       vm.$el.classList.add('loaded')
@@ -397,68 +445,30 @@ export default {
       vm.$el.classList.remove('loading')
       vm.$el.classList.remove('loaded')
       document.querySelector('body').style.overflow="";
-//      vm.$el.querySelector('.roll-down').style.opacity="1";
-//      document.querySelector('body').style.overflow="";
+      vm.$cookie.set(vm.slug, "true", 1);
+
       }, 10000);
+
+      }
+
+      } else {
+
+      vm.$el.classList.remove('loading');
+
+      setTimeout(function(){
+
+      skrollr.init({
+        forceHeight: false
+      });
+      vm.$cookie.set(vm.slug, "true", 1);
+
+      }, 2000);
+
       }
       } else {
       vm.$el.classList.remove('loading');
-//      setTimeout(function(){
-//      if (window.navigator.standalone == true) {
-//      var heroHeight = window.innerHeight - 80 + 'px'
-//      } else {
-//      var heroHeight = window.innerHeight - 65 + 'px'
-//      }
-//      vm.$el.querySelector('.above-fold').style.height=heroHeight
-//       }, 500);
-//        if(this.mobile === true) {
-//              window.addEventListener('orientationchange', function(){
-//
-//                setTimeout(function(){
-//                  if (window.navigator.standalone == true) {
-//                  var heroHeight = window.innerHeight - 80 + 'px'
-//                  } else {
-//                  var heroHeight = window.innerHeight - 65 + 'px'
-//                  }
-//                  document.querySelector('.above-fold').style.height=heroHeight
-//                }, 300);
-//              })
-//        }
-//        if(vm.tablet === true){
-//
-//
-//
-//              window.addEventListener('orientationchange', function(){
-//
-//
-//                if (vm.landscape === false) {
-//                console.log('resizing for landscape tablet')
-//
-//                setTimeout(function(){
-//
-//                  vm.$el.querySelector('.above-fold').style.height=''
-//                }, 300);
-//              } else {
-//
-//              setTimeout(function(){
-//                if (window.navigator.standalone == true) {
-//                var heroHeight = window.innerHeight - 80 + 'px'
-//                } else {
-//                var heroHeight = window.innerHeight - 65 + 'px'
-//                }
-//                vm.$el.querySelector('.above-fold').style.height=heroHeight
-//
-//              }, 300);
-//
-//
-//              }
-//
-//
-//              })
-//
-//
-//      }
       }
+
     },
     fetchItem(slug) {
       const paramSlug = this.$route.fullPath.replace('/','').replace('/','') || '';

@@ -17,8 +17,8 @@
               </div>
               <div class="col-sm-8 address" v-if="is993 === false">
                 <p class="name">Virgin Produced</p>
-                <p>12575 Beatrice</p>
-                <p>Playa Vista, CA 90066</p>
+                <p><a href="tel:3109417300">310.941.7300</a></p>
+                <p><a href="mailto:media@virginproduced.com">media@virginproduced.com</a></p>
               </div>
               <div class="col-md-9 col-6 text-right" v-else>
                 <div class="footer-menu">
@@ -51,8 +51,8 @@
               <div class="col-12 text-sm-left text-center address" v-else-if="desktop === true || (tablet === true && landscape === true) || mobile === true">
                 <SocialLinks></SocialLinks>
                 <p class="name">Virgin Produced</p>
-                <p>12575 Beatrice</p>
-                <p>Playa Vista, CA 90066</p>
+                <p><a href="tel:3109417300">310.941.7300</a></p>
+                <p><a href="mailto:media@virginproduced.com">media@virginproduced.com</a></p>
               </div>
             </div>
           </div>

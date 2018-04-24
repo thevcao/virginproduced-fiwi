@@ -37,12 +37,12 @@ $half: $cropwidth / 2;
   //  margin-top: 20px;
   width: 25px;
   display: block;
-  margin-left: auto;
+  margin-right: auto;
+    margin-left: 0;
   border-radius: 22px;
   content: '';
-  //  background: $red;
-  border: 2px solid $red;
-  opacity: 0;
+  border: 2px solid #E01931;
+  opacity: 1;
   transition: opacity .5s ease;
   margin-top: 5rem;
   span {
@@ -346,6 +346,7 @@ $half: $cropwidth / 2;
     clip-path: polygon(50vw 0, 16vw 0, 16vw 34vw, 16vw 100%);
     height: 34vw;
     background: $red;
+    overflow: hidden;
     &:before {
       //      content: 'Play';
       //      position: absolute;
@@ -384,7 +385,7 @@ $half: $cropwidth / 2;
       top: 0;
       object-fit: cover;
       font-family: 'object-fit: cover;';
-      object-position: 50%;
+      object-position: 0% 50%;
     }
     > video {
       position: absolute;
@@ -396,6 +397,7 @@ $half: $cropwidth / 2;
       font-family: 'object-fit: cover;';
       //      transition: opacity .5s ease;
       cursor: pointer;
+
       &:hover {
         opacity: .5;
       }
@@ -436,7 +438,7 @@ $half: $cropwidth / 2;
       min-height: 0;
       height: calc(100vh - 65px);
       padding: 0;
-//      padding-bottom: 55px;
+      //      padding-bottom: 55px;
       &:before {
         content: '';
         position: absolute;
@@ -576,7 +578,8 @@ $half: $cropwidth / 2;
       left: -.25rem;
     }
     .title-logo {
-      width: 100%;
+      //      width: 100%;
+      max-width: 100%;
       height: auto;
       margin-bottom: 2rem;
     }

@@ -21,23 +21,12 @@
             class="team-headshot"
             v-show="(item && item.better_featured_image) && ((tablet === true) || (mobile === true && landscape === false) || desktop === true)">
 
-        <glitch img
-          v-if="item && item.better_featured_image"
-          :disabled="glitch.disabled"
-          :amount="glitch.amount"
-          :scale="glitch.scale"
-          :tuning="glitch.tuning"
-          :batshit="glitch.batshit"
-        >
-
       <img
-           :src="item.better_featured_image.media_details.sizes.medium.source_url"
-           v-if="item.better_featured_image.media_details.sizes.medium"
+           :src="item.better_featured_image.media_details.sizes.medium ? item.better_featured_image.media_details.sizes.medium.source_url : item.better_featured_image.source_url"
+           v-if="item.better_featured_image"
            crossorigin="anonymous"
            >
-      <img
-           :src="item.better_featured_image.source_url" crossorigin="anonymous" v-else>
-      </glitch>
+
       <div
            v-if="is993 === true"
            class="crop-bg"><div></div></div>
@@ -66,7 +55,7 @@
             <aside class="SidebarItem">
             <ul>
               <li v-for="post in limitedPosts" v-bind:key="post.slug" v-if="post.better_featured_image">
-                <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
+                <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span></router-link>
               </li>
               <li v-else class="title-holder">
                 <a href="#" @click.prevent class="title-only" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span><div class="suits-notice">No Bio</div></a>
@@ -175,7 +164,11 @@ export default {
     this.$parent.$emit('contextual_menu_links', {
     contextual_menu_links : ''
     })
-
+    if(this.is993 === true){
+    var body = document.querySelector('body');
+      body.style.position=''
+      body.classList.remove('no-header-bg')
+    }
   },
   mounted: function(){
     var body = document.querySelector('body');
@@ -200,15 +193,6 @@ export default {
 
 
     });
-  },
-  beforeDestroy: function(){
-    if(this.is993 === true){
-    var body = document.querySelector('body');
-      if(this.landscape === false){
-      body.style.position=''
-      }
-      body.classList.remove('no-header-bg')
-    }
   },
   methods: {
     fetchItem() {

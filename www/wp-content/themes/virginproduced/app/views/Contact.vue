@@ -39,15 +39,16 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-7">
+              <div class="col-md-5">
                 <aside class="SidebarItem">
+
                   <form accept-charset="UTF-8" action="https://formkeep.com/f/3580b3c5e6f4" method="POST">
                     <input type="hidden" name="utf8" value="✓">
                     <input type="text" id="name" name="name" placeholder="Name" required>
                     <input type="text" id="company" name="company" placeholder="Company" required>
                     <input type="email" id="email" name="email" placeholder="Email" required>
                     <textarea type="textarea" id="message" name="message" placeholder="Message"></textarea>
-                    <div class="g-recaptcha" data-sitekey="6LdLa1EUAAAAACtjZAfrdoFQbW8zzEJo7fqkbBdM"></div>
+                    <div class="g-recaptcha" data-sitekey="6LdlNVUUAAAAAPUE-rc4nOO9TYqJWjReOD_qQIjJ"></div>
                     <button class="btn" type="submit">Submit</button>
                   </form>
               </aside>

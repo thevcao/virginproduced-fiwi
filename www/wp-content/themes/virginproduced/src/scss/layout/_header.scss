@@ -19,9 +19,7 @@
     z-index: 10;
   }
 }
-
 #app .nav-container {
-
   .media {
     .media_canvas {}
     &:after {
@@ -38,7 +36,6 @@
       z-index: 10;
     }
   }
-
 }
 .full-nav {
   //  background: $red;
@@ -53,7 +50,6 @@
   position: absolute;
   width: 100vw;
   height: 100vh;
-
   .menu-transition {
     opacity: 0;
     transform: scale(1.1);
@@ -163,6 +159,13 @@
       text-transform: uppercase;
       letter-spacing: 0;
       font-size: 1rem;
+
+    a {
+
+      display: block;
+      color: white;
+      font-weight: bold;
+    }
       &.name {
         font-size: 1.5rem;
         font-weight: bold;
@@ -238,7 +241,7 @@
     cursor: pointer;
     position: absolute;
     bottom: 2rem;
-    height: 45px;
+    height: 58px;
     left: 2rem;
     width: 34px;
     #menu-icon {
@@ -307,6 +310,9 @@
           }
         }
       }
+      &:after {
+        color: white;
+      }
     }
     &:hover {
       #icon {
@@ -357,7 +363,20 @@
         }
       }
     }
+    &:after {
+      content: 'Menu';
+      font-family: 'Heroic Condensed';
+      text-transform: uppercase;
+      letter-spacing: .25rem;
+      color: $purple;
+      position: relative;
+    }
     &.active {
+      &:after {
+        content: 'Close';
+        color: white;
+        text-align: center;
+      }
       #close {
         opacity: 1;
         #center {

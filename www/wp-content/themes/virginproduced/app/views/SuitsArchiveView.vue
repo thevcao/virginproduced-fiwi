@@ -28,7 +28,7 @@
                       <aside class="SidebarItem">
                         <ul>
                           <li v-for="post in limitedPosts" v-bind:key="post.slug" v-if="post.better_featured_image">
-                            <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}</router-link>
+                            <router-link :to="{ name: 'suits', params: { slug: post.slug } }" :title="post.title.rendered">{{ post.title.rendered }}<span>{{ post.acf.position }}</span></router-link>
                           </li>
                           <li v-else class="title-holder">
 

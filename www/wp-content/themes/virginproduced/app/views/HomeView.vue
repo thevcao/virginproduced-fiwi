@@ -28,12 +28,12 @@
         </div>
         <div class="row">
           <div class="col-6 mx-auto">
-              <a href="#" v-on:click="enterIntro()" class="btn watch-btn" title="Enter Site">Enter Site</a>
+              <a href="#" v-on:click="enterIntro()" class="btn watch-btn" title="Enter">Enter</a>
           </div>
           </div>
         <div class="row">
           <div class="col-4 mx-auto">
-              <a href="#" v-on:click="closeIntro()" class="btn skip" title="Skip Intro">Skip Intro</a>
+              <a href="#" v-on:click="closeIntro()" class="btn skip" title="Skip">Skip</a>
           </div>
         </div>
         </div>
@@ -246,12 +246,7 @@ export default {
       this.calcWindow()
 
     })
-      window.addEventListener('resize', function(){
-      var player = document.querySelector('#main-roll');
-        if (player.paused) {
-            player.play();
-        }
-      });
+
   },
   beforeDestroy: function(){
     document.querySelector('footer').style.display=''
@@ -300,6 +295,13 @@ export default {
       document.querySelector('body').style.position='fixed'
       document.querySelector('body').style.width='100%'
       }
+
+//      window.addEventListener('resize', function(){
+//      var player = document.querySelector('#main-roll');
+//        if (player.paused) {
+//            player.play();
+//        }
+//      });
     },
     closeIntro(){
       this.intro=false

@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-container" :is993="is993" :mobile="mobile" :tablet="tablet">
+  <div class="nav-container" :is993="is993" :mobile="mobile" :tablet="tablet" :ie="ie">
     <!-- Mobile Nav Wrap -->
   <div v-if="mobile === false || is993 === false">
   <div v-if="this.$parent.src">
@@ -9,7 +9,7 @@
       :scale="glitch.scale"
       :tuning="glitch.tuning"
       :batshit="glitch.batshit"
-            v-if="navigation"
+      v-if="navigation && !ie"
     >
       <video
           :src="this.$parent.src"
@@ -59,8 +59,8 @@
               <SocialLinks></SocialLinks>
               <div class="address">
                 <p class="name">Virgin Produced</p>
-                <p>12575 Beatrice</p>
-                <p>Playa Vista, CA 90066</p>
+                <p><a href="tel:3109417300">310.941.7300</a></p>
+                <p><a href="mailto:media@virginproduced.com">media@virginproduced.com</a></p>
               </div>
             </div>
             <div class="col-sm-6 offerings">
@@ -128,6 +128,7 @@ export default {
     is993: {},
     mobile: {},
     tablet: {},
+    ie: {}
 
 
   },

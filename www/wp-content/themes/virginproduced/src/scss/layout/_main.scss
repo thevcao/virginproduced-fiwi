@@ -188,7 +188,6 @@ body[style="position: fixed;"] {
       transform: translate3d(-50%, -50%, 0);
       z-index: 1001;
       pointer-events: none;
-
     }
   }
 }
@@ -197,7 +196,6 @@ body[style="position: fixed;"] {
   svg {
     transition: .3s ease;
   }
-
   &.play {
     svg {
       opacity: 0;
@@ -219,6 +217,29 @@ body[style="position: fixed;"] {
       transform: translate3d(-50%, -50%, 0);
       z-index: 1001;
       pointer-events: none;
+    }
+  }
+}
+.ie,
+.edge {
+  .notice {
+    object-fit {
+      opacity: .15;
+    }
+  }
+  .nav-container {
+    .full-nav {
+      background: $red;
+    }
+  }
+}
+.mobile {
+  a {
+    &:hover {
+      &:before,
+      &:after {
+        content: none !important;
+      }
     }
   }
 }

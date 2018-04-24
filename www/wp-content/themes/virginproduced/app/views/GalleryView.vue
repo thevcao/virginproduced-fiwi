@@ -58,7 +58,7 @@
         data-center="left:0%">
 
           <glitch video
-          v-if="item.acf.bg_video && mobile === false"
+          v-if="item.acf.bg_video && mobile === false && !ie"
           :disabled="glitch.disabled"
           :amount="glitch.amount"
           :scale="glitch.scale"
@@ -80,6 +80,19 @@
                  >
           </video>
           </glitch>
+          <video
+                 autoplay
+                 loop
+                 muted
+                 id="main-roll"
+                 class=""
+                 :src="item.acf.bg_video"
+                 preload="auto"
+                 v-else-if="ie === true"
+                 v-bind:style="{height: height}"
+                 crossorigin="anonymous"
+                 >
+          </video>
           <video
                  autoplay
                  loop
@@ -186,11 +199,11 @@
                 <div class="col-xl-11 col-lg-12 p-md-0">
                   <h2
                       class="gotham glitching"
-                      title="The Goods"
+                      title="Our Work"
                       data-bottom-top="transform: scaleY(0);"
                       data-center="transform: scaleY(1);"
                       v-if="is993 === false"
-                      >The Goods</h2>
+                      >Our Work</h2>
                   <div class="row">
                         <div class="col-md-6 item"
                              v-for="work, i in acfWorks"
@@ -380,12 +393,22 @@ export default {
     methods: {
           initView: function(){
             var vm = this;
+            var first = vm.$cookie.get(vm.slug);
+
+
            if(vm.desktop === true){
+
+
+
             console.log('mounting...')
 //            vm.$el.classList.add('loading')
             let footer = document.querySelector('footer')
             document.querySelector('header .router-link-active').classList.remove('white');
             footer.classList.add('white');
+
+            if(first != "true") {
+
+
             document.querySelector('body').style.overflow="hidden";
             if(vm.$el){
             setTimeout(function(){
@@ -403,6 +426,34 @@ export default {
             }
             document.querySelector('body').style.overflow="";
             }, 9000);
+
+            vm.$cookie.set(vm.slug, "true", 1);
+
+            }
+
+            } else {
+
+
+
+            setTimeout(function(){
+            vm.$el.classList.add('loading-skip');
+
+
+            }, 1000);
+            setTimeout(function(){
+
+            vm.$el.classList.remove('loading');
+            vm.$el.classList.remove('loading-skip');
+            vm.$el.querySelector('.roll-down').style.opacity="1";
+
+            vm.$cookie.set(vm.slug, "true", 1);
+
+            skrollr.init({
+              forceHeight: false
+            });
+            }, 2000);
+
+
             }
             } else {
             vm.$el.classList.remove('loading');

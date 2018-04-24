@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-bar-container" :mobile="mobile" :is993="is993" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links">
+  <div class="mobile-bar-container" :device="device" :mobile="mobile" :is993="is993" :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links">
     <!-- Mobile Nav Wrap -->
   <transition
     v-on:before-enter="beforeEnter"
@@ -71,7 +71,7 @@
          class="contextual-menu has-overflow">
       <ul>
         <li></li>
-        <li v-for="item in posts" v-bind:key="item.slug" v-if="item.better_featured_image">
+        <li v-for="item in posts" v-bind:key="item.slug" v-if="item.content.rendered">
           <router-link :to="{name: 'suits', params: { slug: item.slug } }" @click.native="toggleContextmenu">{{ item.title.rendered }}</router-link>
         </li>
         <li v-else>
@@ -126,7 +126,8 @@ export default {
     contextual_menu: {},
     contextual_menu_links: {},
     mobile: {},
-    title: {}
+    title: {},
+    device: ''
   },
   watch: {
   },
@@ -189,7 +190,7 @@ export default {
 //
 //    }, 0);
 
-      if(this.mobile === true){
+      if(this.device === 'iPhone'){
       var bar = document.querySelector('.mobile-bar');
       bar.classList.remove('down')
 
@@ -246,9 +247,6 @@ export default {
 //      })
   },
   methods: {
-   click (e) {
-     e.preventDefault();
-    },
 //    fetchItems() {
 //      return MenuService.getAll()
 //        .then(result => {
@@ -266,9 +264,14 @@ export default {
       if(this.navigation) {
         var header = document.querySelector('.nav-bar');
         header.classList.add('menu-open');
+        document.querySelector('body').classList.add('menu-open');
+
+
       } else {
         var header = document.querySelector('.nav-bar');
         header.classList.remove('menu-open');
+        document.querySelector('body').classList.remove('menu-open');
+
       }
       function hasClass(element, className) {
           return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
@@ -288,6 +291,8 @@ export default {
       button.classList.remove("toggled");
       primary.classList.remove('primary-open');
       back.classList.remove('back-open');
+
+
       }
     },
     getItems() {

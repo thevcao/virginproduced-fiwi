@@ -135,11 +135,11 @@ html:not(.ie) {
   .glitching.large {
     //    background: url(/wp-content/uploads/2018/03/VirginAmerica-Interior-Courtesy.jpg);
     background: url(/wp-content/uploads/2018/03/richard-1.jpg);
-    background-attachment: fixed;
     background-size: cover;
     background-position: 50%;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+    background-clip: text;
     margin-bottom: -2rem;
     line-height: 1;
     @include media-breakpoint-down(md) {
@@ -155,7 +155,6 @@ html:not(.ie) {
   .glitching {
     //    background: url(/wp-content/uploads/2018/03/VirginAmerica-Interior-Courtesy.jpg);
     background: url(/wp-content/uploads/2018/03/richard-1.jpg);
-    background-attachment: fixed;
     background-size: cover;
     background-position: 50%;
     -webkit-text-fill-color: transparent;

@@ -7,7 +7,8 @@
                 :mobile="mobile"
                 :desktop="desktop"
                 :tablet="tablet"
-                :landscape="landscape"></header-bar>
+                :landscape="landscape"
+                :ie="ie"></header-bar>
     <section
              class="MainSection">
         <router-view
@@ -45,6 +46,7 @@
                :mobile="mobile"
                :desktop="desktop"
                :tablet="tablet"
+               :device="device"
                :contextual_menu="contextual_menu" :contextual_menu_links="contextual_menu_links"
                :title="title"></mobileBar>
   </div>
@@ -77,7 +79,8 @@ export default {
             tablet: false,
             desktop: false,
             title: '',
-            landscape: false
+            landscape: false,
+            device: ''
     }
   },
   props: {
@@ -111,6 +114,36 @@ export default {
       if (window.navigator.standalone == true) {
         document.querySelector('html').classList.add('app-mode')
       }
+
+      if(navigator.userAgent.match('CriOS')) {
+
+        document.querySelector('html').classList.add('ios-chrome')
+
+
+      }
+
+      var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      // Get the device pixel ratio
+      var ratio = window.devicePixelRatio || 1;
+
+      // Define the users device screen dimensions
+      var screen = {
+        width : window.screen.width * ratio,
+        height : window.screen.height * ratio
+      };
+
+      if (iOS && screen.width == 1125 && screen.height === 2436) {
+
+
+          document.querySelector('html').classList.add('iphoneX')
+
+
+      }
+
+
+
+
+
 //    this.$on('reelPlay', (payload) => {
 ////      console.log(payload.src);
 ////
@@ -214,6 +247,10 @@ export default {
     if (md.phone() != null) {
 
     this.mobile = true
+    }
+    if (md.phone() == 'iPhone') {
+
+    this.device = 'iPhone'
     }
     },
     isiPad() {

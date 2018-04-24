@@ -10,6 +10,85 @@ $half: $cropwidth / 2;
 }
 #app {
   .about-vue {
+    .roll-down {
+      position: absolute;
+      height: 45px;
+      //  margin-top: 20px;
+      width: 25px;
+      display: block;
+      margin-left: auto;
+      border-radius: 22px;
+      content: '';
+      //  background: $red;
+      border: 2px solid $white;
+      transition: opacity .5s ease;
+      margin-top: 5rem;
+      left: 2rem;
+      bottom: 4rem;
+      z-index: 10;
+      display: none;
+      // @media (max-width: 1439px)
+      @include media-breakpoint-up(lg) {
+        display: block;
+      }
+      span {
+        color: $white;
+        position: absolute;
+        top: -85%;
+        //    left: 0;
+        transform: rotate(-90deg);
+        z-index: 1;
+        font-family: 'Heroic Condensed';
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        margin: -2px;
+      }
+      // (768px)
+      //  &:before {
+      //    content: '';
+      //    position: absolute;
+      //    top: 2px;
+      //    left: 2px;
+      //    right: 2px;
+      //    bottom: 2px;
+      //    background-color: white;
+      //    border-radius: 22px;
+      //  }
+      &:after {
+        position: absolute;
+        top: 15px;
+        left: 45%;
+        width: 3px;
+        height: 3px;
+        margin-left: 0;
+        display: block;
+        border-radius: 50%;
+        content: ' ';
+        background: white;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: scrolling;
+        animation-name: scrolling;
+      }
+    }
+    @keyframes scrolling {
+      0% {
+        -webkit-transform: none;
+        transform: none;
+      }
+      50% {
+        -webkit-transform: translate3d(0, 400%, 0);
+        transform: translate3d(0, 400%, 0);
+      }
+      100% {
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
     .main {
       padding-top: 2rem;
       // (768px)
@@ -99,7 +178,8 @@ $half: $cropwidth / 2;
           // (768px)
           @include media-breakpoint-up(lg) {
             height: calc(100vh - 4rem);
-            clip-path: polygon(0 0, calc(100vw - 17rem - 4rem) 0, 33vw calc(100vh - 4rem), 0 calc(100vh - 4rem));
+            //            clip-path: polygon(0 0, calc(100vw - 17rem - 4rem) 0, 33vw calc(100vh - 4rem), 0 calc(100vh - 4rem));
+            border-right: 2rem solid white;
           }
         }
         header {
@@ -148,7 +228,7 @@ $half: $cropwidth / 2;
           }
           .hero-text {
             background: url(#{$theme}/img/white-triangle.svg);
-            background-size: cover;
+            background-size: 105% auto;
             padding: 3rem 25rem 25rem 2rem;
             background-position: calc(100%) calc(100% + 1px);
             z-index: 1;
@@ -162,17 +242,15 @@ $half: $cropwidth / 2;
               background: url(#{$theme}/img/red-triangle-bottom-right.svg);
               background-size: cover;
               background-position: 0% 0%;
-
             }
             @include media-breakpoint-down(sm) {
               padding: 21rem 1rem 1rem 15rem;
-
             }
             h1 {
               //            color: white;
               line-height: 1;
               font-weight: normal;
-              font-size: 4rem;
+              font-size: 6rem;
               margin-bottom: 0;
               color: $red;
               @include media-breakpoint-down(md) {
@@ -194,6 +272,7 @@ $half: $cropwidth / 2;
                   font-weight: bold;
                   text-decoration: none;
                   text-transform: uppercase;
+                  font-size: 1.25rem;
                   @include textGlitch("suitsglitch", 17, black, white, $green, $red, 450, 16);
                   &.router-link-exact-active.router-link-active {
                     @include textGlitch("suitsglitchactive", 7, $red, white, $green, $purple, 450, 16);
@@ -432,7 +511,7 @@ html:not(.ie) {
     background-position: 50%;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
-//    padding-top: 2rem;
-//    margin-top: -2rem;
+    //    padding-top: 2rem;
+    //    margin-top: -2rem;
   }
 }
