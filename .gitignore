@@ -74,3 +74,5 @@ www/wp-content/themes/virginproduced/app/\.DS_Store
 www/wp-content/themes/virginproduced/admin/img/\.DS_Store
 
 www/wp-content/themes/virginproduced/admin/css/\.DS_Store
+
+movefile\.yml

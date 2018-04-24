@@ -12,7 +12,7 @@
         'supports' => array(
            'title', 'thumbnail'
         ),
-        'public' => true,
+        'public' => false,
         'show_ui' => true,
         'taxonomies'          => array( 'category' ),
         'has_archive' => true,

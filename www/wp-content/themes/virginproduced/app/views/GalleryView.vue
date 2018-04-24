@@ -369,7 +369,7 @@ export default {
       return this.item.acf || { test: 'poop' }
     },
     acfWorks() {
-      return this.acf.work_samples.splice(0, 5) || {
+      return this.acf.work_samples.splice(0, 99) || {
           test: 'poo'
       }
     },
