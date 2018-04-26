@@ -1,12 +1,12 @@
 <template>
   <div
+       class="loading"
        :is993="is993"
        :mobile="mobile"
        :tablet="tablet"
        :desktop="desktop"
        :landscape="landscape"
        :ie="ie">
-      <!-- Main -->
       <div class="parent-vue" v-if="item && item.acf">
         <vue-headful
             :title="item.title.rendered"
@@ -163,7 +163,7 @@
               <div class="row">
                 <div class="col-lg-6 col-md-10">
                   <div class="intro-in" v-html="item.acf.content"></div>
-                  <div class="roll-down"><span>More</span></div>
+                  <div class="roll-down"></div>
                 </div>
               </div>
         </div>
@@ -329,14 +329,22 @@ export default {
         }
         if(this.is993 === true){
           var body = document.querySelector('body');
+          var vm = this;
+
           body.classList.add('no-header-bg')
+
+
+          setTimeout(function(){
+          vm.$el.classList.remove('loading');
+          }, 5000);
+
         }
       })
     },
     updated: function() {
       if(this.is993 === true){
       var vm = this;
-      vm.$el.classList.remove('loading');
+//      vm.$el.classList.remove('loading');
 //      setTimeout(function(){
 //      if (window.navigator.standalone == true) {
 //      var heroHeight = window.innerHeight - 80 + 'px'
@@ -466,7 +474,16 @@ export default {
 
       }
       } else {
+      vm.$el.classList.add('loading')
+
+      var body = document.querySelector('body');
+      body.classList.add('no-header-bg')
+
+
+      setTimeout(function(){
       vm.$el.classList.remove('loading');
+      }, 5000);
+
       }
 
     },

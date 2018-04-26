@@ -48,6 +48,8 @@
 <?php wp_head(); ?>
 
 
+
+  <link rel="prefetch" href="<?php echo get_template_directory_uri(); ?>/dist/img/white-triangle.svg" as="image">
 </head>
 
 <body <?php //body_class(); ?>>

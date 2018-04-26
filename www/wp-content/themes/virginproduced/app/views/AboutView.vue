@@ -6,7 +6,6 @@
        :ie="ie"
        :tablet="tablet"
        :desktop="desktop">
-          <!-- 404 -->
     <div
          class="container main"
          v-if="error">
@@ -18,7 +17,6 @@
         </div>
       </div>
     </div>
-    <!-- Main -->
     <div class="main" v-if="item.content">
       <transition
       v-on:before-enter="beforeEnter"

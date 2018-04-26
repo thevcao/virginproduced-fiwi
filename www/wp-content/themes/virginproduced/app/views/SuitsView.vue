@@ -24,6 +24,7 @@
       <img
            :src="item.better_featured_image.media_details.sizes.medium ? item.better_featured_image.media_details.sizes.medium.source_url : item.better_featured_image.source_url"
            v-if="item.better_featured_image"
+           :alt="item.title.rendered"
            crossorigin="anonymous"
            >
 
@@ -141,6 +142,10 @@ export default {
       }
       body.classList.add('no-header-bg')
 
+    } else {
+
+
+    body.style.position=''
     }
 
 

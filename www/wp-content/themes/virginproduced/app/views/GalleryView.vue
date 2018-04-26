@@ -211,7 +211,8 @@
                              >
                              <img
                               v-on:click="createPlayer(i)"
-                              :src="work.acf.poster">
+                              :src="work.acf.poster"
+                              :alt="work.post_title">
                             <div class="over">
                               <p>{{ work.post_title }}</p>
                             </div>
@@ -663,7 +664,7 @@ export default {
             if(document.body.clientWidth < 993){
             console.log('this is lower than 993')
 
-            vm.height = window.innerHeight + 'px';
+          vm.height = window.innerHeight - 65 + 'px';
 
             } else {
             console.log('this isnt lower than 993')
@@ -677,7 +678,7 @@ export default {
         if(document.body.clientWidth < 993){
         console.log('this is lower than 993')
 
-          vm.height = window.innerHeight + 'px';
+          vm.height = window.innerHeight - 65 + 'px';
 
           } else {
         console.log('this isnt lower than 993')

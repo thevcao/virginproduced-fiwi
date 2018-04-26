@@ -162,8 +162,8 @@ body[style="position: fixed;"] {
   }
 }
 #app .play-toggle.mobile {
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   svg {
     transition: .3s ease;
   }
@@ -235,7 +235,15 @@ body[style="position: fixed;"] {
 }
 .mobile {
   a {
+//    color: inherit;
+//    text-decoration: none;
+    outline: none;
     &:hover {
+      outline: none;
+//      color: inherit;
+//      text-decoration: inherit;
+//      background-color: inherit;
+//      -webkit-text-decoration-skip: inherit;
       &:before,
       &:after {
         content: none !important;

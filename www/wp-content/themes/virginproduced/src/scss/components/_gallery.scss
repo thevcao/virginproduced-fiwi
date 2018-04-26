@@ -443,7 +443,6 @@ $half: $cropwidth / 2;
       object-fit: cover;
       //      transition: opacity .5s ease;
       cursor: pointer;
-
       &:hover {
         opacity: .5;
       }
@@ -774,7 +773,7 @@ $half: $cropwidth / 2;
   .main {
     // (768px)
     @include media-breakpoint-down(md) {
-      padding: 0;
+      padding: 0 !important;
     }
     h1 {
       font-size: 5rem;
@@ -790,21 +789,24 @@ $half: $cropwidth / 2;
     }
   }
   .play-toggle.mobile {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     display: block;
     outline: none;
     position: relative;
+    width: 6rem !important;
+    height: 6rem !important;
     @include landscape() {
       text-align: right;
       margin-left: auto;
     }
     div {
-      width: 8rem !important;
-      height: 8rem !important;
+      width: 6rem !important;
+      height: 6rem !important;
       svg {
-        width: 8rem !important;
-        height: 8rem !important;
+        width: 6rem !important;
+        height: 6rem !important;
       }
     }
   }
+
 }

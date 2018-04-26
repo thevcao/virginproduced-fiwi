@@ -38,13 +38,17 @@ $half: $cropwidth / 2;
   width: 25px;
   display: block;
   margin-right: auto;
-    margin-left: 0;
+  margin-left: 0;
   border-radius: 22px;
   content: '';
   border: 2px solid #E01931;
   opacity: 1;
   transition: opacity .5s ease;
   margin-top: 5rem;
+  // (768px)
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
   span {
     color: $red;
     position: absolute;
@@ -144,6 +148,11 @@ $half: $cropwidth / 2;
     opacity: 0;
     transition: 1s ease;
   }
+  @include media-breakpoint-down(sm) {
+    .transition-4 {
+      opacity: 0;
+    }
+  }
   &.loaded {
     .transition-1,
     .transition-2,
@@ -182,6 +191,11 @@ $half: $cropwidth / 2;
   }
 }
 #app .child-vue {
+  @include media-breakpoint-down(sm) {
+    .transition-4 {
+      transition: 1s ease;
+    }
+  }
   overflow-x: hidden;
   //  &.loaded {
   //    .transition-1,
@@ -397,7 +411,6 @@ $half: $cropwidth / 2;
       font-family: 'object-fit: cover;';
       //      transition: opacity .5s ease;
       cursor: pointer;
-
       &:hover {
         opacity: .5;
       }
@@ -585,7 +598,7 @@ $half: $cropwidth / 2;
     }
   }
   .play-toggle.mobile {
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     display: block;
     outline: none;
     width: 6rem !important;

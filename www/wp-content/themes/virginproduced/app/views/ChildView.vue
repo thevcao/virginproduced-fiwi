@@ -95,6 +95,7 @@
                  autoplay
                  loop
                  muted
+                 playsinline
                  id="main-roll"
                  class="transition-2"
                  crossorigin="anonymous"
@@ -108,6 +109,7 @@
                  autoplay
                  loop
                  muted
+                 playsinline
                  id="main-roll"
                  class="transition-2"
                  crossorigin="anonymous"
@@ -119,7 +121,7 @@
           </video>
 
         <glitch img
-          v-if="item.acf.bg_image && desktop === true"
+          v-if="item.acf.bg_image && desktop === true && !ie && !item.acf.bg_video"
           :disabled="glitch.disabled"
           :amount="glitch.amount"
           :scale="glitch.scale"
@@ -139,7 +141,7 @@
                  class="crop-image transition-2"
                  :src="item.acf.bg_image.url"
                  v-bind:style="{height: height}"
-                 v-else-if="!item.acf.bg_video_mobile"
+                 v-if="!item.acf.bg_video_mobile && desktop === false"
                  crossorigin="anonymous"
                  >
 
@@ -456,7 +458,12 @@ export default {
 
             }
             } else {
+            vm.$el.classList.add('loading')
+
+            setTimeout(function(){
             vm.$el.classList.remove('loading');
+            }, 3000);
+
             }
           },
           fetchItem(slug) {

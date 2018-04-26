@@ -28,8 +28,8 @@
       "command": "gulp",
       "env": {
         "NODE_ENV": "production",
-        "WP_HOME": "http://virginproduced.com",
-        "WP_SITEURL": "http://virginproduced.com/wp"
+        "WP_HOME": "http://167.99.98.87",
+        "WP_SITEURL": "http://167.99.98.87/wp"
       }
     },
     "staging": {

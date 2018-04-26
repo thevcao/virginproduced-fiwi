@@ -1,8 +1,6 @@
 <template>
   <div :is993="is993" :mobile="mobile" :ie="ie" :tablet="tablet">
-    <!-- 404 -->
     <Error404 v-if="item === undefined"></Error404>
-    <!-- Main -->
       <transition
       v-on:before-enter="beforeEnter"
       v-on:enter="enter"

@@ -37,13 +37,13 @@
                @click="toggleContextmenu"
                @click.prevent
                v-if="main === 'our-suits' || main === 'suits'"
-               class="context-toggle primary">Our Suits
+               class="context-toggle primary">Our Suits <i class="fa fa-caret-up"></i>
             </a>
             <a href="#"
                @click="toggleContextmenu"
                @click.prevent
                v-else-if="this.$parent.contextual_menu"
-               class="context-toggle primary" v-html="this.$parent.contextual_menu">
+               class="context-toggle primary">{{ this.$parent.contextual_menu }} <i class="fa fa-caret-up"></i>
             </a>
             <a href="#"
                @click.prevent
@@ -71,11 +71,8 @@
          class="contextual-menu has-overflow">
       <ul>
         <li></li>
-        <li v-for="item in posts" v-bind:key="item.slug" v-if="item.content.rendered">
+        <li v-for="item in posts" v-bind:key="item.slug" v-if="item.better_featured_image">
           <router-link :to="{name: 'suits', params: { slug: item.slug } }" @click.native="toggleContextmenu">{{ item.title.rendered }}</router-link>
-        </li>
-        <li v-else>
-          <a @click.prevent>{{ item.title.rendered }}</a>
         </li>
       </ul>
     </div>
@@ -143,10 +140,10 @@ export default {
       }
   },
   updated: function () {
-     if(this.mobile === true){
-      var bar = document.querySelector('.mobile-bar');
-      bar.classList.remove('down')
-     }
+//     if(this.mobile === true){
+//      var bar = document.querySelector('.mobile-bar');
+//      bar.classList.remove('down')
+//     }
   },
   mounted: function () {
 //
@@ -389,31 +386,41 @@ export default {
         display: 'none'
       }, { complete: done })
     },
+
+    hasClass(element, className) {
+        return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
+    },
     toggleContextmenu() {
-      function hasClass(element, className) {
-          return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
-      }
+
+//      console.log('toggle clicked')
       var menu = document.querySelector('.contextual-menu');
       var button = document.querySelector('.context-toggle');
       var text = this.contextual_menu;
       var primary = document.querySelector('.primary');
       var back = document.querySelector('.back');
-      if(hasClass(button, 'toggled')){
-      menu.classList.remove('open');
-      if(this.contextual_menu == ''){
-      button.innerHTML='Our Suits';
-      } else {
-      button.innerHTML=text;
-      }
-      button.classList.remove("toggled");
-      primary.classList.remove('primary-open');
-      back.classList.remove('back-open');
-      } else {
-      menu.classList.add('open');
-      button.classList.add("toggled");
-      primary.classList.add('primary-open');
-      back.classList.add('back-open');
-      }
+
+
+//      if(this.hasClass(button, 'toggled')){
+//
+//      console.log('toggle clicked - i did something')
+//      menu.classList.remove('open');
+//      if(this.contextual_menu == ''){
+//      button.innerHTML='Our Suits';
+//      } else {
+//      button.innerHTML=text;
+//      }
+//      button.classList.remove("toggled");
+//      primary.classList.remove('primary-open');
+//      back.classList.remove('back-open');
+//      } else {
+//      console.log('toggle clicked - i did something else')
+//
+//
+      menu.classList.toggle('open');
+      button.classList.toggle("toggled");
+      primary.classList.toggle('primary-open');
+      back.classList.toggle('back-open');
+//      }
     },
     fetchPosts() {
       return SuitsArchiveService.getAll()
