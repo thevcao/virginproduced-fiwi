@@ -98,7 +98,7 @@
                  muted
                  playsinline
                  id="main-roll"
-                 :src="item.acf.bg_video"
+                 :src="item.acf.bg_video ? item.acf.bg_video : item.acf.main_roll"
                  preload="auto"
                  v-bind:style="{height: height}"
                  crossorigin="anonymous"
@@ -111,7 +111,7 @@
                  muted
                  playsinline
                  id="main-roll"
-                 :src="item.acf.bg_video"
+                 :src="item.acf.bg_video ? item.acf.bg_video : item.acf.main_roll"
                  preload="auto"
                  v-else-if="ie === true"
                  v-bind:style="{height: height}"
@@ -124,7 +124,7 @@
                  muted
                  playsinline
                  id="main-roll"
-                 :src="item.acf.bg_video_mobile"
+                 :src="item.acf.bg_video_mobile ? item.acf.bg_video_mobile : item.acf.bg_video ? item.acf.bg_video : item.acf.mail_roll"
                  preload="auto"
                   v-else
                  crossorigin="anonymous"

@@ -141,7 +141,7 @@
                  class="crop-image transition-2"
                  :src="item.acf.bg_image.url"
                  v-bind:style="{height: height}"
-                 v-if="!item.acf.bg_video_mobile && desktop === false"
+                 v-if="!item.acf.bg_video_mobile && item.acf.bg_image && desktop === false"
                  crossorigin="anonymous"
                  >
 

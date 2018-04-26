@@ -75,6 +75,16 @@ html {
 .acf-field .acf-label label {
   line-height: 2 !important;
 }
+.acf-fields > .acf-tab-wrap .acf-tab-group {
+  background: white !important;
+}
+.acf-field p.description {
+  padding: 1rem 0 .8rem;
+  color: #e01a31;
+  margin-bottom: 1rem;
+  font-size: 13px;
+  font-style: normal;
+}
 html.wp-toolbar {
   background: #fff;
   background: none;
@@ -1427,7 +1437,7 @@ div.mce-toolbar-grp {
   }
   .postbox .inside {
     padding: 0 0 12px 0;
-//    display: flex;
+    //    display: flex;
   }
 }
 .stuffbox .inside {

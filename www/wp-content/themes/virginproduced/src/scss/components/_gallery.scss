@@ -690,6 +690,9 @@ $half: $cropwidth / 2;
           transition: box-shadow .3s ease;
           // @media (max-width: 1439px)
           @include media-breakpoint-down(sm) {
+
+            height: 240px;
+
             @include landscape() {
               height: 100vh;
             }
@@ -773,7 +776,7 @@ $half: $cropwidth / 2;
   .main {
     // (768px)
     @include media-breakpoint-down(md) {
-      padding: 0 !important;
+      padding: 0 15px !important;
     }
     h1 {
       font-size: 5rem;

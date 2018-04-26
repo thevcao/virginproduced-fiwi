@@ -73,7 +73,7 @@
                  muted
                  id="main-roll"
                  class=""
-                 :src="item.acf.bg_video"
+                 :src="item.acf.bg_video ? item.acf.bg_video : item.acf.main_roll"
                  preload="auto"
                  v-bind:style="{height: height}"
                  crossorigin="anonymous"
@@ -86,7 +86,7 @@
                  muted
                  id="main-roll"
                  class=""
-                 :src="item.acf.bg_video"
+                 :src="item.acf.bg_video ? item.acf.bg_video : item.acf.main_roll"
                  preload="auto"
                  v-else-if="ie === true"
                  v-bind:style="{height: height}"
@@ -101,7 +101,7 @@
                 v-else
                  id="main-roll"
                  class="transition-2"
-                 :src="item.acf.bg_video_mobile"
+                 :src="item.acf.bg_video_mobile ? item.acf.bg_video_mobile : item.acf.bg_video ? item.acf.bg_video : item.acf.mail_roll"
                  data-anchor-target=".anchor"
                  data-bottom="left:40%"
                  data-center="left:0%"
