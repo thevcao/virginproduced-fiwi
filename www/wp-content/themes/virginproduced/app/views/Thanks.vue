@@ -28,7 +28,7 @@
                 <aside class="SidebarItem">
 
 
-                  <h2>Something pithy here.</h2>
+                  <h2>One of our suits will contact you regarding your inquiry.</h2>
 
               </aside>
 

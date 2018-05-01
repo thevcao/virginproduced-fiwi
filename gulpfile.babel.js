@@ -40,6 +40,7 @@
   const sassGlob = require('gulp-sass-glob');
   const sourcemaps = require('gulp-sourcemaps');
   const favicons = require("gulp-favicons");
+  const stripDebug = require('gulp-strip-debug');
   /*
   |-----------------------------------------------------------------------------
   | Global Config
@@ -106,6 +107,7 @@
       .src([`${otherPaths.distPath}/js`], {
         read: false,
       })
+
       .pipe(clean());
   });
 
@@ -115,9 +117,9 @@
   |-----------------------------------------------------------------------------
   */
   gulp.task('webpack:build', () => {
-    webpack(require(otherPaths.webpackProdConfig)).pipe(
-      gulp.dest(`${otherPaths.distPath}/js`),
-    );
+    webpack(require(otherPaths.webpackProdConfig))
+      .pipe(stripDebug())
+      .pipe(gulp.dest(`${otherPaths.distPath}/js`));
   });
 
   gulp.task('webpack', () => {

@@ -14,7 +14,7 @@
         ),
         'public' => false,
         'show_ui' => true,
-        'taxonomies'          => array( 'category' ),
+        'taxonomies'          => array( ),
         'has_archive' => true,
         'show_in_rest'       => true,
         'rest_base'          => 'goods',
@@ -23,4 +23,4 @@
      )
  );
 
- $properties->menu_icon("dashicons-admin-users");
+ $properties->menu_icon("dashicons-video-alt2");

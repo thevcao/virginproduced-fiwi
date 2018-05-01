@@ -11,20 +11,21 @@ $half: $cropwidth / 2;
 #app {
   .about-vue {
     .roll-down {
-      position: absolute;
+      //      position: absolute;
+      position: relative;
       height: 45px;
       //  margin-top: 20px;
       width: 25px;
       display: block;
-      margin-left: auto;
+      margin-left: 0;
       border-radius: 22px;
       content: '';
       //  background: $red;
-      border: 2px solid $white;
+      border: 2px solid $red;
       transition: opacity .5s ease;
-      margin-top: 5rem;
-      left: 2rem;
-      bottom: 4rem;
+      top: 3rem;
+      //      left: 2rem;
+      //      bottom: 4rem;
       z-index: 10;
       display: none;
       // @media (max-width: 1439px)
@@ -32,7 +33,7 @@ $half: $cropwidth / 2;
         display: block;
       }
       span {
-        color: $white;
+        color: $red;
         position: absolute;
         top: -85%;
         //    left: 0;
@@ -64,7 +65,7 @@ $half: $cropwidth / 2;
         display: block;
         border-radius: 50%;
         content: ' ';
-        background: white;
+        background: $red;
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both;
         -webkit-animation-duration: 2s;
@@ -174,13 +175,10 @@ $half: $cropwidth / 2;
             height: calc(100vh - 6rem);
             object-fit: cover;
             font-family: 'object-fit: cover;';
-
             // (768px)
             @include media-breakpoint-down(md) {
-
-                  object-position: 10%;
+              object-position: 10%;
             }
-
           }
           // (768px)
           @include media-breakpoint-up(lg) {

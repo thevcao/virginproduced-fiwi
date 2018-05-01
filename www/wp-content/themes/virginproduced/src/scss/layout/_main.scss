@@ -64,15 +64,14 @@ body[style="position: fixed;"] {
     right: 0;
     opacity: 0;
   }
-  .glitch-1 {}
-  .glitch-2 {}
+
   &:hover {
     .glitch-1,
     .glitch-2 {
       opacity: 1;
     }
     .glitch-1 {
-      animation: textGlitch-anim-2-data-v-26ccff6c 3s infinite linear alternate-reverse;
+      animation: offerings-anim-2 2s infinite linear alternate-reverse;
       opacity: 1;
       z-index: 1;
       // (768px)
@@ -81,7 +80,7 @@ body[style="position: fixed;"] {
       }
     }
     .glitch-2 {
-      animation: offerings-anim-2 3s infinite linear alternate-reverse;
+      animation: offerings-anim-2 4s infinite linear alternate-reverse;
       opacity: 1;
       z-index: 0;
       @include media-breakpoint-down(sm) {

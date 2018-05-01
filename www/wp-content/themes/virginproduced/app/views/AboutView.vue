@@ -43,10 +43,11 @@
               <li><router-link to="/our-suits/richard-branson" title="Our Suits">Our Suits</router-link></li>
               <li><a href="#" title="Virgin News" @click.prevent="scroll()">Virgin News</a></li>
             </ul>
+            <div class="roll-down"><span>More</span></div>
           </div>
 
         </header>
-        <div class="roll-down"><span>More</span></div>
+
       </figure>
   </transition>
       <vue-headful
