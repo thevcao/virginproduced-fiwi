@@ -45,6 +45,7 @@ $half: $cropwidth / 2;
   opacity: 1;
   transition: opacity .5s ease;
   margin-top: 5rem;
+  background: white;
   // (768px)
   @include media-breakpoint-down(md) {
     display: none;
@@ -442,6 +443,7 @@ $half: $cropwidth / 2;
       //      transition: ;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
       z-index: 10;
+      position: fixed;
     }
   }
   .main.above-fold {
@@ -596,6 +598,12 @@ $half: $cropwidth / 2;
       height: auto;
       margin-bottom: 2rem;
     }
+    .transition-4,
+    .content-area {
+      p {
+        font-size: 1.15rem;
+      }
+    }
   }
   .play-toggle.mobile {
     margin-bottom: 1rem;
@@ -610,6 +618,26 @@ $half: $cropwidth / 2;
       svg {
         width: 6rem !important;
         height: 6rem !important;
+      }
+    }
+  }
+}
+@media(max-height: 738px) {
+  html:not(.mobile) {
+    #app {
+      .child-vue {
+        .video-hover {
+          transform: scale(.75);
+          transform-origin: 25% 20% 0;
+          &.clipping {
+            transform: scale(1);
+            transform-origin: 50% 50% 0;
+          }
+        }
+        .main.above-fold .anchor {
+          height: 30vh;
+          width: 30vh;
+        }
       }
     }
   }

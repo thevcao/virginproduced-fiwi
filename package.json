@@ -28,8 +28,8 @@
       "command": "gulp",
       "env": {
         "NODE_ENV": "production",
-        "WP_HOME": "http://167.99.98.87",
-        "WP_SITEURL": "http://167.99.98.87/wp"
+        "WP_HOME": "https://virginproduced.com",
+        "WP_SITEURL": "https://virginproduced.com/wp"
       }
     },
     "staging": {
@@ -118,6 +118,7 @@
     "url-loader": "^0.5.9",
     "video.js": "^6.7.3",
     "vue": "^2.4.4",
+    "vue-analytics": "^5.10.4",
     "vue-cookie": "^1.1.4",
     "vue-headful": "^1.0.0",
     "vue-hot-reload-api": "^2.1.0",

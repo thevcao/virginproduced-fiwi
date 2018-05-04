@@ -14,7 +14,12 @@ import inViewportDirective from 'vue-in-viewport-directive'
 import VueProgressBar from 'vue-progressbar'
 import vueHeadful from 'vue-headful';
 import objectfitvideos from 'object-fit-videos';
+import VueAnalytics from 'vue-analytics';
 
+Vue.use(VueAnalytics, {
+  id: 'UA-118572548-1',
+  router
+})
 Vue.component('vue-headful', vueHeadful);
 Vue.directive('in-viewport', inViewportDirective)
 

@@ -89,7 +89,7 @@
               <h2>Meet<br>Our Suits</h2>
               <div class="over">
                 <div class="tag">
-                  <h3>We are against typecasting<br>Our suits are creative</h3>
+                  <h3>We are against typecasting.<br>Our suits are creative.</h3>
                 </div>
                 <h2>Meet</h2>
                 <h2 class="glitching" title="Our Suits">Our Suits</h2>
@@ -103,7 +103,7 @@
                 <h2>Meet</h2>
                 <h2 class="glitching" title="Our Suits">Our Suits</h2>
                 <div class="tag">
-                  <h3>We are against typecasting<br>Our suits are creative</h3>
+                  <h3>We are against typecasting.<br>Our suits are creative.</h3>
                 </div>
             </div>
           </div>

@@ -142,7 +142,6 @@
               v-else>
             <router-link
                          :to="page.url"
-                         @click.native="toggleNavigation"
                          :title="page.title"
                          class="white ttu">{{ page.title }}</router-link>
           </li>

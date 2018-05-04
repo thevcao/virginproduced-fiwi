@@ -126,6 +126,7 @@ $half: $cropwidth / 2;
     margin-top: 3px;
     margin-left: 7px;
     z-index: 0;
+    background: white;
     // (768px)
     @include media-breakpoint-down(md) {
       display: none;
@@ -626,5 +627,26 @@ $half: $cropwidth / 2;
       }
     }
   }
+
+  .content-area {
+
+    p {
+
+      font-size: 1.15rem;
+    }
+  }
   //  }
+}
+@media(max-height: 738px) {
+  html:not(.mobile) {
+    #app {
+      .parent-vue {
+        .video-hover {
+
+          top: 55vh;
+
+        }
+      }
+    }
+  }
 }

@@ -9,15 +9,19 @@
 <!doctype html>
 <html <?php language_attributes(); ?> prefix="og: http://ogp.me/ns#">
 <head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118572548-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-118572548-1');
+</script>
+
 <title></title>
 <meta charset="utf-8" >
-<meta itemprop="name">
-<meta property="og:title">
-<meta name="twitter:title">
-<meta name="description"/>
-<meta itemprop="description">
-<meta property="og:description">
-<meta name="twitter:description">
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />

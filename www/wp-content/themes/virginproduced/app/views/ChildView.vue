@@ -246,6 +246,7 @@
                          v-html="item.acf.gallery_content"
                           data-bottom-top="transform: translateY(25%);"
                           data-center="transform: translateY(-5%);"
+                          class="content-area"
                          ></div>
                   </div>
                 </div>

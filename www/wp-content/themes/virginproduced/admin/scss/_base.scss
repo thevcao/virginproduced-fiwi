@@ -43,3 +43,6 @@ h5 {
 h6 {
   font-size: ($multiplier * 1) + rem !important;
 }
+li.hide-if-no-customize {
+    display: none;
+}

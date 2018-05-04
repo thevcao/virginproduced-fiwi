@@ -175,6 +175,7 @@
                        data-anchor-target=".below-fold"
                         data-bottom-top="transform: translate3d(0, 25%, 0);"
                         data-center="transform: translate3d(0, -5%, 0);"
+                       class="content-area"
                        ></div>
                 </div>
                 <div class="col-lg-5 mr-auto" v-if="is993 === false">

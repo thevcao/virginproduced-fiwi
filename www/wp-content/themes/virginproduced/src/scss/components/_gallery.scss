@@ -45,6 +45,7 @@ $half: $cropwidth / 2;
   opacity: 0;
   transition: opacity .5s ease;
   margin-top: 5rem;
+  background: white;
   span {
     color: $red;
     position: absolute;
@@ -787,7 +788,7 @@ $half: $cropwidth / 2;
     }
     .transition-4 {
       p {
-        font-size: 1.25rem;
+      font-size: 1.15rem;
       }
     }
   }
@@ -812,4 +813,29 @@ $half: $cropwidth / 2;
     }
   }
 
+}
+@media(max-height: 738px) {
+  html:not(.mobile) {
+    #app {
+      .gallery-vue {
+        .video-hover {
+          transform: scale(.75);
+          transform-origin: 25% 20% 0;
+          &.clipping {
+            transform: scale(1);
+            transform-origin: 50% 50% 0;
+          }
+        }
+        .main.above-fold .anchor {
+          height: 50vh;
+          width: 50vh;
+        }
+
+        figure.gallery-title .float-title {
+
+          left: 25vw;
+        }
+      }
+    }
+  }
 }

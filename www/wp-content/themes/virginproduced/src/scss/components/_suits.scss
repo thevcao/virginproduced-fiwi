@@ -409,11 +409,11 @@ $half: $cropwidth / 2.35;
       transition: .5s ease;
     }
   }
-  &:hover {
-    .suits-notice {
-      opacity: 1;
-    }
-  }
+  //  &:hover {
+  //    .suits-notice {
+  //      opacity: 1;
+  //    }
+  //  }
 }
 // (768px)
 @include media-breakpoint-down(sm) {
@@ -423,6 +423,28 @@ $half: $cropwidth / 2.35;
     }
     .BlogPostSingle__content {
       pointer-events: all;
+    }
+  }
+}
+@media(max-height: 738px) {
+  html:not(.mobile) {
+    #app {
+      .suits-vue {
+        figure.team-headshot {
+          left: 54rem;
+          .float-title {
+            bottom: 0;
+            left: 8rem;
+            transform: scale(.8) rotate(-45deg);
+          }
+        }
+        .crop-bg > div {
+          width: 54rem;
+          &:after {
+            left: 54rem;
+          }
+        }
+      }
     }
   }
 }

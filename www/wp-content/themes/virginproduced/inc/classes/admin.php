@@ -24,7 +24,7 @@ add_action( 'login_enqueue_scripts', 'old_fashioned_admin_styles' );
 /** old_fashioned Admin Theme Function **/
 if(!function_exists('add_favicon')) {
 function add_favicon() {
-      $favicon_url = get_template_directory_uri() . '/admin/img/favicon.ico';
+      $favicon_url = get_template_directory_uri() . '/dist/img/favicons/favicon.ico';
     echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
 }
 

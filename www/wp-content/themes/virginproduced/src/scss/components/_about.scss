@@ -105,6 +105,11 @@ $half: $cropwidth / 2;
         h2 {
           font-size: 6rem;
         }
+
+        p {
+
+      font-size: 1.15rem;
+        }
         // (768px)
         @include media-breakpoint-down(md) {
           padding: 2rem 1rem;
@@ -235,7 +240,8 @@ $half: $cropwidth / 2;
             background: url(#{$theme}/img/white-triangle.svg);
             background-size: 105% auto;
             padding: 3rem 25rem 25rem 2rem;
-            background-position: calc(100%) calc(100% + 1px);
+            background-position: calc(100% + 1px) calc(0%);
+            background-repeat: no-repeat;
             z-index: 1;
             position: relative;
             // (768px)

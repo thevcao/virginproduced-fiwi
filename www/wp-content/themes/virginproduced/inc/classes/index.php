@@ -15,7 +15,7 @@ add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 
 if( function_exists('acf_add_options_page') ) {
 
-    acf_add_options_page(array('page_title' => 'Site Options', 'icon_url' =>'dashicons-admin-generic','position' => '2'));
+//    acf_add_options_page(array('page_title' => 'Site Options', 'icon_url' =>'dashicons-admin-generic','position' => '2'));
 }
 
 
