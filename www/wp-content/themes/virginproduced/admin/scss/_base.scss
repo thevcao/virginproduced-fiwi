@@ -1,6 +1,6 @@
 // Write Theme Specific Admin Styles Here
 #acf-group_5aa173154930e {
-   .inside {
+  .inside {
     display: flex;
   }
 }
@@ -17,13 +17,8 @@ h6 {
   padding-top: .5em!important;
   margin-bottom: .25em !important;
 }
-
-
 body:not(.mce-content-body) #titlediv #title {
-
   font-family: $headline !important;
-
-
 }
 h1 {
   font-size: ($multiplier * 2.5) + rem !important;
@@ -44,5 +39,51 @@ h6 {
   font-size: ($multiplier * 1) + rem !important;
 }
 li.hide-if-no-customize {
-    display: none;
+  display: none;
+}
+.mce-container.mce-panel.mce-floatpanel.mce-menu.mce-menu-align {
+  .mce-container-body.mce-stack-layout {
+    div {
+      span:after {
+        display: block;
+        font-size: 10px;
+        padding: 0 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: 'Gotham';
+        text-transform: none;
+      }
+      &:nth-child(1) span[style='font-family:"Heroic Condensed";font-size:52.5px;font-weight:400;font-style:normal;text-decoration:none solid rgb(51, 51, 51);text-transform:uppercase;']:after {
+        content: 'Make a headline extra large. i.e: Experiences headline';
+      }
+      &:nth-child(2) span[style='font-family:"Heroic Condensed";font-size:52.5px;font-weight:400;font-style:normal;text-decoration:none solid rgb(80, 227, 194);text-transform:uppercase;']:after {
+        content: 'Make a large glitched headline';
+      }
+      &:nth-child(3) span[style='font-family:"Heroic Condensed";font-size:52.5px;font-weight:400;font-style:normal;text-decoration:none solid rgb(80, 227, 194);text-transform:uppercase;']:after {
+        content: 'Add a glitch effect to a phrase within a headline i.e: Experiences headline';
+      }
+      &:nth-child(4) span[style='font-family:"Heroic Condensed";font-size:52.5px;font-weight:400;font-style:normal;text-decoration:none solid rgb(51, 51, 51);text-transform:uppercase;']:after {
+        content: 'Format your headline with wider line height (for longer headlines).';
+      }
+      &:nth-child(5) span[style='font-family:"Heroic Condensed";font-size:52.5px;font-weight:400;font-style:normal;text-decoration:none solid rgb(51, 51, 51);text-transform:uppercase;']:after {
+        content: 'Format your a phrase inside of a headline red.';
+      }
+      &:nth-child(6) span[style='font-family:"Heroic Condensed";font-size:28px;font-weight:400;font-style:normal;text-decoration:none solid rgb(51, 51, 51);text-transform:uppercase;']:after {
+        content: 'Format a link in button style.';
+      }
+    }
+  }
+}
+@media(max-width: 1440px) {
+  #poststuff #post-body.columns-2 {
+    margin: 0 !important;
+  }
+  #poststuff .postbox-container {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  #poststuff #post-body.columns-2 #side-sortables {
+    width: 100% !important;
+  }
 }

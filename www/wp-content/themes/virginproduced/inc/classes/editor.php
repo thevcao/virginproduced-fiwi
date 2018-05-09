@@ -72,11 +72,11 @@ function my_mce_before_init_insert_formats( $init_array ) {
             'selector' => 'a',
             'classes' => 'btn btn-arrow-right'
         ),
-        array(
-            'title' => 'Image Block Right',
-            'selector' => 'img',
-            'classes' => 'block right'
-        ),
+//        array(
+//            'title' => 'Image Block Right',
+//            'selector' => 'img',
+//            'classes' => 'block right'
+//        ),
     );
     // Insert the array, JSON ENCODED, into 'style_formats'
     $init_array['style_formats'] = json_encode( $style_formats );
