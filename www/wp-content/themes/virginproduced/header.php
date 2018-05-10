@@ -45,7 +45,6 @@
 <meta name="msapplication-square150x150logo" content="<?php echo get_template_directory_uri(); ?>/dist/img/favicons/mstile-150x150.png" />
 <meta name="msapplication-wide310x150logo" content="<?php echo get_template_directory_uri(); ?>/dist/img/favicons/mstile-310x150.png" />
 <meta name="msapplication-square310x310logo" content="<?php echo get_template_directory_uri(); ?>/dist/img/favicons/mstile-310x310.png" />
-<script src='https://www.google.com/recaptcha/api.js'></script>
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +53,9 @@
 
 
   <link rel="prefetch" href="<?php echo get_template_directory_uri(); ?>/dist/img/white-triangle.svg" as="image">
+
+<script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer>
+</script>
 </head>
 
 <body <?php //body_class(); ?>>

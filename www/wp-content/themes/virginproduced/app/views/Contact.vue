@@ -48,8 +48,14 @@
                     <input type="text" id="company" name="company" placeholder="Company" required>
                     <input type="email" id="email" name="email" placeholder="Email" required>
                     <textarea type="textarea" id="message" name="message" placeholder="Message"></textarea>
-                    <div class="g-recaptcha" data-sitekey="6LdlNVUUAAAAAPUE-rc4nOO9TYqJWjReOD_qQIjJ"></div>
-                    <button class="btn" type="submit">Submit</button>
+
+                    <vue-recaptcha
+                                   ref="recaptcha"
+                                   :sitekey="sitekey"
+                                   @verify="recaptchaCheck">
+                    </vue-recaptcha>
+                    <button class="btn" type="submit" disabled>Submit</button>
+
                   </form>
               </aside>
               </div>
@@ -74,12 +80,14 @@
 import PageService from '../services/PageService'
 //import Glitch from '../../src/js/_Glitch.js'
 import SocialLinks from '../components/SocialLinks.vue'
+import VueRecaptcha from 'vue-recaptcha'
 const Glitch = () => import(/* webpackChunkName: "glitch" */ '../components/Glitch.vue');
 
 export default {
   components: {
     SocialLinks,
-    Glitch
+    Glitch,
+    VueRecaptcha
   },
   data() {
     return {
@@ -93,6 +101,7 @@ export default {
         tuning: 1.66,
         batshit: true,
       },
+      sitekey: '6LdlNVUUAAAAAPUE-rc4nOO9TYqJWjReOD_qQIjJ'
     }
   },
   props: {
@@ -130,6 +139,24 @@ export default {
     }
   },
   methods: {
+    recaptchaCheck(){
+
+      var button = document.querySelector('button.btn');
+      button.removeAttribute('disabled')
+
+
+
+    },
+    onVerify: function (response) {
+
+      var button = document.querySelector('button.btn');
+      button.removeAttribute('disabled')
+
+
+    },
+    onSubmit: function () {
+      this.$refs.invisibleRecaptcha.execute()
+    },
     fetchItem(slug) {
       const paramSlug = this.$route.params.slug
       const pageSlug = slug || paramSlug
@@ -180,4 +207,12 @@ export default {
 <style lang="scss">
 @import '../../src/scss/main.scss';
 @import '../../src/scss/components/_contact.scss';
+
+.btn:disabled {
+
+  opacity: .25;
+  color: grey;
+
+
+}
 </style>
