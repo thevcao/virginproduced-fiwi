@@ -58,6 +58,7 @@
                class="context-toggle back"><i class="fa fa-caret-left"></i> Back
             </a>
             <a @click="toggleNavigation" @click.prevent class="toggle">
+              <span class="label">Menu</span>
                 <span v-if="!navigation">
                   <MenuIcon></MenuIcon>
                   </span>

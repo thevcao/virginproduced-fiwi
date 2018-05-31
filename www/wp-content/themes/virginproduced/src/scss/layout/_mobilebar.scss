@@ -376,10 +376,12 @@
     height: 40px;
     width: 40px;
     bottom: 13px;
-    &:before {
-    content: 'Menu';
+
+    .label {
+
     position: absolute;
     margin-left: 46px;
+    -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     font-size: 26px;
     color: #E01931;
@@ -390,10 +392,6 @@
     letter-spacing: 0;
     padding: 4px;
 
-
-    }
-    &:after {
-      content: none;
     }
     // (768px)
     @include media-breakpoint-down(sm) {}

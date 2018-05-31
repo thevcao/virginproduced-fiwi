@@ -75,6 +75,11 @@ li.hide-if-no-customize {
     }
   }
 }
+
+.wp-list-table.posts a[rel="bookmark"] {
+    display: none;
+}
+
 @media(max-width: 1440px) {
   #poststuff #post-body.columns-2 {
     margin: 0 !important;

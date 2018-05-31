@@ -355,27 +355,27 @@ add_action( 'save_post', function( $post_id ) {
 } );
 
 
-function vipr_async_scripts($url)
-{
-    if ( strpos( $url, '#asyncload') === false )
-        return $url;
-    else if ( is_admin() )
-        return str_replace( '#asyncload', '', $url );
-    else
-  return str_replace( '#asyncload', '', $url )."' async='async";
-    }
-add_filter( 'clean_url', 'vipr_async_scripts', 11, 1 );
+//function vipr_async_scripts($url)
+//{
+//    if ( strpos( $url, '#asyncload') === false )
+//        return $url;
+//    else if ( is_admin() )
+//        return str_replace( '#asyncload', '', $url );
+//    else
+//  return str_replace( '#asyncload', '', $url )."' async='async";
+//    }
+//add_filter( 'clean_url', 'vipr_async_scripts', 11, 1 );
 
 /**
  * Enqueue scripts and styles.
  */
 function vuewp_scripts() {
-    wp_enqueue_script( 'ext-libraries', get_template_directory_uri() . '/dist/js/scripts.min.js#asyncload', array(), '', false );
+    wp_enqueue_script( 'ext-libraries', get_template_directory_uri() . '/dist/js/scripts.min.js', array(), '', false );
 
-    wp_enqueue_script( 'vuewp-common', get_template_directory_uri() . '/dist/js/common.min.js#asyncload', array(), '', true );
-    wp_enqueue_script( 'vuewp-main', get_template_directory_uri() . '/dist/js/main.min.js#asyncload', array(), '', true );
+    wp_enqueue_script( 'vuewp-common', get_template_directory_uri() . '/dist/js/common.min.js', array(), '', true );
+    wp_enqueue_script( 'vuewp-main', get_template_directory_uri() . '/dist/js/main.min.js', array(), '', true );
 
-    wp_enqueue_script( 'vuewp-vendor', get_template_directory_uri() . '/dist/js/vendor.min.js#asyncload', array(), '', true );
+    wp_enqueue_script( 'vuewp-vendor', get_template_directory_uri() . '/dist/js/vendor.min.js', array(), '', true );
 //    wp_enqueue_script( 'threejs', 'https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.min.js', array(), '20151217', true );
 //    wp_enqueue_script( 'rellax', 'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.6.0/rellax.min.js', array(), '20151217', true );
 
